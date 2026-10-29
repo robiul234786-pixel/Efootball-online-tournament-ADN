@@ -40,16 +40,16 @@ tr.first td{font-weight:700;color:var(--ac)}
 .bye{grid-column:1/-1;text-align:center;color:var(--mu);font-size:14px}
 .champ{background:var(--ac);color:var(--act);text-align:center;font-size:18px;font-weight:700;border-radius:14px;padding:14px;margin-bottom:12px}
 .rest{font-size:13px;color:var(--mu);margin-top:6px}
-.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}.lb{font-size:12px;color:var(--mu);margin-top:8px}.agg{text-align:center;font-size:13px;color:var(--mu);padding:4px 0}select{font:inherit;padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);width:100%;margin:8px 0}.mm{border-bottom:1px solid var(--bd);padding-bottom:8px;margin-bottom:6px}.mm:last-child{border:0}.zg td:first-child{box-shadow:inset 4px 0 0 var(--ac)}.zr td:first-child{box-shadow:inset 4px 0 0 #ef4444}.dv{display:flex;gap:8px;overflow-x:auto;margin-bottom:12px;padding-bottom:2px}.dv button{white-space:nowrap}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}.lgd{font-size:13px;color:var(--mu);margin:8px 0 0}.zr2{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:14px}.zr2 input{width:70px;padding:8px;text-align:center;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit}</style></head><body><div id="app"></div>
+.tabs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}.lb{font-size:12px;color:var(--mu);margin-top:8px}.agg{text-align:center;font-size:13px;color:var(--mu);padding:4px 0}select{font:inherit;padding:10px;border-radius:10px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);width:100%;margin:8px 0}.mm{border-bottom:1px solid var(--bd);padding-bottom:8px;margin-bottom:6px}.mm:last-child{border:0}.zg td:first-child{box-shadow:inset 4px 0 0 var(--ac)}.zr td:first-child{box-shadow:inset 4px 0 0 #ef4444}.dv{display:flex;gap:8px;overflow-x:auto;margin-bottom:12px;padding-bottom:2px}.dv button{white-space:nowrap}.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}.lgd{font-size:13px;color:var(--mu);margin:8px 0 0}.zr2{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-size:14px}.zr2 input{width:70px;padding:8px;text-align:center;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx);font:inherit}.ov{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.75);display:flex;align-items:center;justify-content:center;padding:20px;overflow:hidden}.ov i{position:absolute;top:-30px;border-radius:2px;opacity:.9;animation:fall linear infinite}@keyframes fall{to{transform:translateY(115vh) rotate(720deg)}}.cb{position:relative;background:var(--card);color:var(--tx);border-radius:20px;padding:26px 20px 20px;text-align:center;max-width:340px;width:100%;animation:pop .6s cubic-bezier(.2,1.4,.4,1)}@keyframes pop{from{transform:scale(.3);opacity:0}}.tr{font-size:84px;line-height:1;animation:bob 1.2s ease-in-out infinite}@keyframes bob{50%{transform:translateY(-10px) rotate(-6deg)}}.cb h2{font-size:22px;margin:10px 0 4px}.cn{font-size:28px;font-weight:800;color:var(--ac);word-break:break-word}.pz{margin:12px 0;padding:10px;border-radius:12px;background:var(--soft);font-weight:600}.cb .big{margin-top:12px}.champ button{margin-top:8px;background:transparent;color:var(--act);border-color:var(--act);padding:6px 12px}@media (prefers-reduced-motion:reduce){.ov i,.tr,.cb{animation:none}}</style></head><body><div id="app"></div>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const nd=(i,m)=>({name:'ডিভিশন '+(i+1),players:[],fmt:m==='div'?'league':'lk',league:[],ko:[],tab:'ko',q:0,zu:m==='div'?2:0,zd:m==='div'?2:0,st:false,season:1,ended:false,res:null,inc:[],hist:[]});
+const nd=(i,m)=>({name:'ডিভিশন '+(i+1),players:[],fmt:m==='div'?'league':'lk',league:[],ko:[],tab:'ko',q:0,zu:m==='div'?2:0,zd:m==='div'?2:0,st:false,season:1,ended:false,res:null,inc:[],hist:[],prize:'',cel:''});
 let S={mode:'',divs:[nd(0,'tour')],cur:0};
-try{const x=localStorage.getItem('tm4');if(x)S=JSON.parse(x)}catch(e){}
+try{const x=localStorage.getItem('tm5');if(x)S=JSON.parse(x)}catch(e){}
 const D=()=>S.divs[S.cur];
 function withDiv(i,f){const c=S.cur;S.cur=i;try{return f()}finally{S.cur=c}}
-function save(){try{localStorage.setItem('tm4',JSON.stringify(S))}catch(e){}}
+function save(){try{localStorage.setItem('tm5',JSON.stringify(S))}catch(e){}}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
 function add(){const el=$('#nm'),v=el.value.trim(),P=D().players;if(!v||S.divs.some(d=>d.players.concat(d.inc).some(p=>p.toLowerCase()===v.toLowerCase()))){el.focus();return}P.push(v);R();$('#nm').focus()}
 function del(i){D().players.splice(i,1);R()}
@@ -89,6 +89,16 @@ if(a==='BYE'&&b==='BYE')return'BYE';if(a==='BYE')return b;if(b==='BYE')return a;
 if(!a||!b||!done(m,L))return null;const[x,y]=agg(m,L);
 if(x>y)return a;if(y>x)return b;return m.pw==='a'?a:m.pw==='b'?b:null}
 function rname(r){const t=D().ko[r].length*2;return t===2?'ফাইনাল (১ লেগ)':t===4?'সেমিফাইনাল (২ লেগ)':t===8?'কোয়ার্টার ফাইনাল (২ লেগ)':`রাউন্ড অব ${t} (২ লেগ)`}
+function champ(){const d=D();if(d.fmt==='league')return d.league.length&&leagueDone()?table()[0].p:null;
+if(!d.ko.length)return null;const w=win(d.ko.length-1,0);return w&&w!=='BYE'?w:null}
+const banner=n=>`<div class="champ">🏆 চ্যাম্পিয়ন: ${esc(n)}${D().prize?`<div style="font-size:15px;font-weight:600;margin-top:4px">🎁 প্রাইজ: ${esc(D().prize)}</div>`:''}<button onclick="replay()">🎉 আবার দেখুন</button></div>`;
+function celKey(){const n=champ();return n?S.cur+'|'+D().season+'|'+n:''}
+function overlay(){const d=D(),n=champ();if(!n||d.cel===celKey())return'';const c=['#f43f5e','#f59e0b','#22c55e','#3b82f6','#a855f7','#eab308'];let f='';
+for(let i=0;i<60;i++){const z=6+Math.random()*8;f+=`<i style="left:${Math.random()*100}%;background:${c[i%6]};width:${z}px;height:${z*1.6}px;animation-duration:${3+Math.random()*3}s;animation-delay:${Math.random()*2.5}s"></i>`}
+return`<div class="ov">${f}<div class="cb"><div class="tr">🏆</div><h2>🎉 অভিনন্দন! 🎉</h2><div class="cn">${esc(n)}</div><p class="mu">${S.mode==='div'?esc(d.name)+' · সিজন '+d.season+' চ্যাম্পিয়ন':'টুর্নামেন্ট চ্যাম্পিয়ন'}</p>${d.prize?`<div class="pz">🎁 প্রাইজ: ${esc(d.prize)}</div>`:''}<button class="pri big" onclick="closeCel()">ঠিক আছে</button></div></div>`}
+function closeCel(){D().cel=celKey();R()}
+function replay(){D().cel='';R()}
+function setPrize(v){D().prize=v.trim();R()}
 const leagueDone=()=>D().league.every(m=>m.sa!==''&&m.sb!=='');
 function chooseMode(m){S.mode=m;S.cur=0;S.divs=[nd(0,m)];R()}
 function home(){S.mode='';R()}
@@ -113,11 +123,12 @@ return`<div class="top"><h1>${dv?'🏅 ডিভিশন সিস্টেম'
 ${dv?`<div class="card"><h2>ডিভিশনের নাম</h2><div class="row"><input id="dn" type="text" maxlength="24" value="${esc(d.name)}" onchange="setName(this.value)">${S.divs.length>1?'<button onclick="delDiv()">🗑</button>':''}</div></div>`:''}
 <div class="card"><h2>প্লেয়ার যোগ করুন</h2><div class="row"><input id="nm" type="text" maxlength="20" placeholder="প্লেয়ারের নাম" onkeydown="if(event.key==='Enter')add()"><button class="pri" onclick="add()">যোগ</button></div>
 <div class="chips">${d.players.map((p,i)=>`<span class="chip">${esc(p)}<b onclick="del(${i})">×</b></span>`).join('')}</div><p class="mu">মোট ${n} জন প্লেয়ার</p></div>
+<div class="card"><h2>🎁 চ্যাম্পিয়নের প্রাইজ (ঐচ্ছিক)</h2><div class="row"><input id="pz" type="text" maxlength="40" placeholder="যেমন: ৫০০ টাকা / ট্রফি" value="${esc(d.prize||'')}" onchange="setPrize(this.value)"></div></div>
 ${fm}<button class="pri big" onclick="start()" ${n<2?'disabled':''}>${dv?'এই ডিভিশনের সিজন শুরু করুন':'টুর্নামেন্ট শুরু করুন'}</button>`}
 function si(v,fn){return`<input type="number" min="0" inputmode="numeric" value="${v}" onchange="${fn}">`}
 function playL(){const d=D(),t=table(),all=leagueDone(),n=d.players.length,last=S.cur===S.divs.length-1,zu=d.zu,zd=last?0:d.zd;
 const rs=[...new Set(d.league.map(m=>m.r))];
-let h=all&&d.fmt==='league'?`<div class="champ">🏆 চ্যাম্পিয়ন: ${esc(t[0].p)}</div>`:'';
+let h=all&&d.fmt==='league'?banner(t[0].p):'';
 if(all&&d.fmt==='lk'&&!d.ko.length){const q=d.q||n,opts=[n];for(let k=size(n)/2;k>=2;k/=2)if(k<n)opts.push(k);
 h+=`<div class="card"><h2>লিগ শেষ ✅</h2><p class="mu" style="margin-top:0">কতজন নকআউটে উঠবে?</p><select onchange="setQ(this.value)">${opts.map(o=>`<option value="${o}" ${o===q?'selected':''}>${o===n?'সবাই ('+n+' জন)':'টপ '+o}</option>`).join('')}</select><button class="pri big" onclick="startKO()">নকআউট শুরু করুন</button></div>`}
 h+=`<div class="card"><h2>পয়েন্ট টেবিল</h2><div class="tw"><table><tr><th class="n">প্লেয়ার</th><th>খে</th><th>জ</th><th>ড্র</th><th>হা</th><th>গোল</th><th>GD</th><th>পয়েন্ট</th></tr>
@@ -129,7 +140,7 @@ h+=`<div class="rd">রাউন্ড ${r}</div>`+ms.map(([m,i])=>`<div class="
 return h+'</div>'}
 function row(h,a,x,y,fx,fy,ok){return`<div class="m"><div class="a">${h}</div><div class="sc">${ok?si(x,fx)+'–'+si(y,fy):'vs'}</div><div class="b">${a}</div></div>`}
 function playK(){const K=D().ko,RN=K.length,fw=win(RN-1,0);
-let h=fw&&fw!=='BYE'?`<div class="champ">🏆 চ্যাম্পিয়ন: ${esc(fw)}</div>`:'';
+let h=fw&&fw!=='BYE'?banner(fw):'';
 K.forEach((round,r)=>{const L=legs(r);h+=`<div class="card"><h2>${rname(r)}</h2>`+round.map((m,i)=>{const[a,b]=teams(r,i),w=win(r,i);
 const nm=x=>x==null?'<span class="mu">—</span>':esc(x);
 if(a==='BYE'||b==='BYE')return`<div class="mm"><div class="bye">${nm(a==='BYE'?b:a)} — বাই (সরাসরি পরের রাউন্ডে)</div></div>`;
@@ -148,7 +159,7 @@ else if(leagueDone())h+=`<div class="card"><h2>লিগ শেষ ✅</h2><p cl
 if(both)h+=`<div class="tabs"><button class="${k?'on':''}" onclick="setTab('ko')">নকআউট</button><button class="${k?'':'on'}" onclick="setTab('lg')">লিগ টেবিল</button></div>`;
 h+=k?playK():playL();
 if(d.hist.length)h+=`<div class="card"><h2>আগের সিজন</h2>${d.hist.slice().reverse().map(x=>`<div class="rest">সিজন ${x.s}: 🏆 ${esc(x.c)}${x.up.length?' · ⬆️ '+x.up.map(esc).join(', '):''}${x.dn.length?' · ⬇️ '+x.dn.map(esc).join(', '):''}</div>`).join('')}</div>`;
-return h}
+return h+overlay()}
 function R(){save();$('#app').innerHTML=!S.mode?homeV():D().st?play():setup()}
 R();
 </script></body></html>
