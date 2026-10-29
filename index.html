@@ -44,21 +44,21 @@ tr.first td{font-weight:700;color:var(--ac)}
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const nd=i=>({name:'ডিভিশন '+(i+1),players:[],fmt:'lk',league:[],ko:[],tab:'ko',q:0,zu:2,zd:2});
-let S={divs:[nd(0)],cur:0,started:false,season:1,hist:[]};
-try{const x=localStorage.getItem('tm3');if(x)S=JSON.parse(x)}catch(e){}
+const nd=(i,m)=>({name:'ডিভিশন '+(i+1),players:[],fmt:m==='div'?'league':'lk',league:[],ko:[],tab:'ko',q:0,zu:m==='div'?2:0,zd:m==='div'?2:0,st:false,season:1,ended:false,res:null,inc:[],hist:[]});
+let S={mode:'',divs:[nd(0,'tour')],cur:0};
+try{const x=localStorage.getItem('tm4');if(x)S=JSON.parse(x)}catch(e){}
 const D=()=>S.divs[S.cur];
 function withDiv(i,f){const c=S.cur;S.cur=i;try{return f()}finally{S.cur=c}}
-function save(){try{localStorage.setItem('tm3',JSON.stringify(S))}catch(e){}}
+function save(){try{localStorage.setItem('tm4',JSON.stringify(S))}catch(e){}}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
-function add(){const el=$('#nm'),v=el.value.trim(),P=D().players;if(!v||P.some(p=>p.toLowerCase()===v.toLowerCase())){el.focus();return}P.push(v);R();$('#nm').focus()}
+function add(){const el=$('#nm'),v=el.value.trim(),P=D().players;if(!v||S.divs.some(d=>d.players.concat(d.inc).some(p=>p.toLowerCase()===v.toLowerCase()))){el.focus();return}P.push(v);R();$('#nm').focus()}
 function del(i){D().players.splice(i,1);R()}
 function setFmt(f){D().fmt=f;R()}
 function setName(v){D().name=v.trim()||D().name;R()}
 function setZ(f,v){D()[f]=Math.max(0,parseInt(v)||0);R()}
 function selDiv(i){S.cur=i;R()}
-function addDiv(){S.divs.push(nd(S.divs.length));S.cur=S.divs.length-1;R()}
-function delDiv(){if(S.divs.length<2)return;S.divs.splice(S.cur,1);S.cur=0;R()}
+function addDiv(){S.divs.push(nd(S.divs.length,S.mode));S.cur=S.divs.length-1;R()}
+function delDiv(){if(S.divs.length<2||D().st)return;S.divs.splice(S.cur,1);S.cur=0;R()}
 function size(n){let s=2;while(s<n)s*=2;return s}
 function genLeague(p){let t=p.slice();if(t.length%2)t.push(null);const n=t.length,m=[];
 for(let r=0;r<n-1;r++){for(let i=0;i<n/2;i++){const a=t[i],b=t[n-1-i];if(a&&b)m.push({r:r+1,a,b,sa:'',sb:''})}t.splice(1,0,t.pop())}return m}
@@ -68,9 +68,9 @@ const mk=()=>({l1a:'',l1b:'',l2a:'',l2b:'',pw:''});
 const r0=[];for(let i=0;i<sz/2;i++){r0.push({a:o[2*i],b:o[2*i+1],...mk()})}rounds.push(r0);
 for(let c=sz/4;c>=1;c/=2)rounds.push(Array.from({length:c},mk));return rounds}
 function initDiv(d,p){d.players=p;d.league=[];d.ko=[];d.tab='ko';d.q=p.length;if(d.fmt==='ko')d.ko=genKO(shuffle(p));else d.league=genLeague(shuffle(p))}
-function start(){S.divs.forEach(d=>initDiv(d,d.players));S.started=true;S.season=1;S.hist=[];R()}
+function start(){const d=D();initDiv(d,d.players);d.st=true;d.season=1;d.hist=[];R()}
 function startKO(){const d=D();d.ko=genKO(table().slice(0,d.q||d.players.length).map(x=>x.p));d.tab='ko';R()}
-function reset(){S.started=false;S.divs.forEach(d=>{d.league=[];d.ko=[]});R()}
+function reset(){const d=D();d.st=false;d.league=[];d.ko=[];d.ended=false;d.res=null;R()}
 function num(v){return v===''?'':Math.max(0,parseInt(v)||0)}
 function setL(i,f,v){D().league[i][f]=num(v);R()}
 function setK(r,i,f,v){D().ko[r][i][f]=f==='pw'?v:num(v);if(f!=='pw')D().ko[r][i].pw='';R()}
@@ -90,32 +90,30 @@ if(!a||!b||!done(m,L))return null;const[x,y]=agg(m,L);
 if(x>y)return a;if(y>x)return b;return m.pw==='a'?a:m.pw==='b'?b:null}
 function rname(r){const t=D().ko[r].length*2;return t===2?'ফাইনাল (১ লেগ)':t===4?'সেমিফাইনাল (২ লেগ)':t===8?'কোয়ার্টার ফাইনাল (২ লেগ)':`রাউন্ড অব ${t} (২ লেগ)`}
 const leagueDone=()=>D().league.every(m=>m.sa!==''&&m.sb!=='');
-const canRoll=()=>S.divs.some(d=>d.league.length)&&S.divs.every((d,i)=>!d.league.length||withDiv(i,leagueDone));
-function roll(){const n=S.divs.length;
-const tabs=S.divs.map((d,i)=>d.league.length?withDiv(i,()=>table().map(x=>x.p)):null);
-S.hist.push({s:S.season,c:S.divs.map((d,i)=>{let w=null;if(d.ko.length)w=withDiv(i,()=>win(D().ko.length-1,0));return[d.name,(w&&w!=='BYE')?w:(tabs[i]?tabs[i][0]:null)]})});
-const rem=S.divs.map(()=>new Set()),ad=S.divs.map(()=>[]);
-for(let i=0;i<n-1;i++){if(!tabs[i]||!tabs[i+1])continue;
-const k=Math.min(S.divs[i].zd,S.divs[i+1].zu,tabs[i].length>>1,tabs[i+1].length>>1);if(!k)continue;
-const dn=tabs[i].slice(-k),up=tabs[i+1].slice(0,k);
-dn.forEach(p=>{rem[i].add(p);ad[i+1].push(p)});up.forEach(p=>{rem[i+1].add(p);ad[i].push(p)})}
-S.divs.forEach((d,i)=>{initDiv(d,(tabs[i]||d.players).filter(p=>!rem[i].has(p)).concat(ad[i]))});
-S.season++;R()}
+function chooseMode(m){S.mode=m;S.cur=0;S.divs=[nd(0,m)];R()}
+function home(){S.mode='';R()}
+function endSeason(){const i=S.cur,d=D(),t=table().map(x=>x.p),n=S.divs.length;
+const up=i>0?t.slice(0,Math.min(d.zu,t.length)):[],dn=i<n-1?t.slice(t.length-Math.min(d.zd,t.length-up.length)):[];
+d.hist.push({s:d.season,c:t[0],up,dn});d.res={up,dn,keep:t.filter(p=>!up.includes(p)&&!dn.includes(p))};d.ended=true;
+if(up.length)S.divs[i-1].inc.push(...up);if(dn.length)S.divs[i+1].inc.push(...dn);R()}
+function newSeason(){const d=D(),p=d.res.keep.concat(d.inc);if(p.length<2)return;d.inc=[];d.season++;d.ended=false;d.res=null;initDiv(d,p);R()}
 function divTabs(x){return`<div class="dv">${S.divs.map((d,i)=>`<button class="${i===S.cur?'on':''}" onclick="selDiv(${i})">${esc(d.name)}</button>`).join('')}${x||''}</div>`}
 const zi=(f,v)=>`<input type="number" min="0" inputmode="numeric" value="${v}" onchange="setZ('${f}',this.value)">`;
-function setup(){const d=D(),n=d.players.length,last=S.cur===S.divs.length-1;let h='';
+function homeV(){return`<h1>⚽ টুর্নামেন্ট ম্যানেজার</h1><div class="card"><h2>🏆 লিগ / নকআউট টুর্নামেন্ট</h2><p class="mu" style="margin-top:0">আগে লিগ টেবিল, তারপর ২ লেগের নকআউট ও ১ লেগের ফাইনাল।</p><button class="pri big" onclick="chooseMode('tour')">এটা বেছে নিন</button></div>
+<div class="card"><h2>🏅 ডিভিশন সিস্টেম</h2><p class="mu" style="margin-top:0">ডিভিশন ১, ২, ৩… প্রতিটির আলাদা লিগ। সিজন শেষে কোয়ালিফাই/প্রমোশনের টিম উপরের ডিভিশনে, রেলিগেশনের টিম নিচের ডিভিশনে যায়।</p><button class="pri big" onclick="chooseMode('div')">এটা বেছে নিন</button></div>`}
+function setup(){const d=D(),n=d.players.length,last=S.cur===S.divs.length-1,dv=S.mode==='div';let h='';
 if(n<2)h='কমপক্ষে ২ জন প্লেয়ার লাগবে।';
 else if(d.fmt==='league')h=`${n*(n-1)/2}টি ম্যাচ। জয় ৩, ড্র ১ পয়েন্ট।`;
 else if(d.fmt==='ko')h=`${size(n)}-এর ব্র্যাকেট, ফাইনাল বাদে সব রাউন্ডে ২ লেগ।`;
 else h=`আগে লিগ (${n*(n-1)/2}টি ম্যাচ), শেষে সেরাদের নিয়ে নকআউট: ফাইনাল বাদে ২ লেগ, ফাইনাল ১ লেগ।`;
 const f=(k,t)=>`<button class="${d.fmt===k?'on':''}" onclick="setFmt('${k}')">${t}</button>`;
-const z=d.fmt==='ko'?'':`<div class="zr2"><span>${S.cur===0?'কোয়ালিফাই':'প্রমোশন'} (টপ কতজন)</span>${zi('zu',d.zu)}</div>${last?'':`<div class="zr2"><span>রেলিগেশন (বটম কতজন)</span>${zi('zd',d.zd)}</div>`}`+(S.divs.length>1?'<p class="mu">সিজন শেষে উপরের ডিভিশনের রেলিগেশন আর নিচের ডিভিশনের প্রমোশনের কম সংখ্যাটাই অদলবদল হবে।</p>':'');
-return`<h1>🏆 টুর্নামেন্ট ম্যানেজার</h1>${divTabs('<button onclick="addDiv()">+ ডিভিশন</button>')}
-<div class="card"><h2>ডিভিশনের নাম</h2><div class="row"><input id="dn" type="text" maxlength="24" value="${esc(d.name)}" onchange="setName(this.value)">${S.divs.length>1?'<button onclick="delDiv()">🗑</button>':''}</div></div>
+const fm=dv?`<div class="card"><h2>কোয়ালিফাই ও রেলিগেশন</h2><p class="mu" style="margin:0">${h}</p><div class="zr2"><span>${S.cur===0?'কোয়ালিফাই':'প্রমোশন (উপরের ডিভিশনে)'} · টপ কতজন</span>${zi('zu',d.zu)}</div>${last?'':`<div class="zr2"><span>রেলিগেশন (নিচের ডিভিশনে) · বটম কতজন</span>${zi('zd',d.zd)}</div>`}</div>`
+:`<div class="card"><h2>ফরম্যাট</h2><div style="display:grid;gap:8px">${f('lk','লিগ + নকআউট')}${f('league','শুধু লিগ')}${f('ko','শুধু নকআউট')}</div><p class="mu">${h}</p></div>`;
+return`<div class="top"><h1>${dv?'🏅 ডিভিশন সিস্টেম':'🏆 টুর্নামেন্ট'}</h1>${S.divs.some(x=>x.st)?'':'<button onclick="home()">← মোড</button>'}</div>${dv?divTabs('<button onclick="addDiv()">+ ডিভিশন</button>'):''}
+${dv?`<div class="card"><h2>ডিভিশনের নাম</h2><div class="row"><input id="dn" type="text" maxlength="24" value="${esc(d.name)}" onchange="setName(this.value)">${S.divs.length>1?'<button onclick="delDiv()">🗑</button>':''}</div></div>`:''}
 <div class="card"><h2>প্লেয়ার যোগ করুন</h2><div class="row"><input id="nm" type="text" maxlength="20" placeholder="প্লেয়ারের নাম" onkeydown="if(event.key==='Enter')add()"><button class="pri" onclick="add()">যোগ</button></div>
 <div class="chips">${d.players.map((p,i)=>`<span class="chip">${esc(p)}<b onclick="del(${i})">×</b></span>`).join('')}</div><p class="mu">মোট ${n} জন প্লেয়ার</p></div>
-<div class="card"><h2>ফরম্যাট</h2><div style="display:grid;gap:8px">${f('lk','লিগ + নকআউট')}${f('league','শুধু লিগ')}${f('ko','শুধু নকআউট')}</div><p class="mu">${h}</p>${z}</div>
-<button class="pri big" onclick="start()" ${S.divs.some(x=>x.players.length<2)?'disabled':''}>টুর্নামেন্ট শুরু করুন</button>${S.divs.some(x=>x.players.length<2)?'<p class="mu">প্রতিটি ডিভিশনে কমপক্ষে ২ জন প্লেয়ার লাগবে।</p>':''}`}
+${fm}<button class="pri big" onclick="start()" ${n<2?'disabled':''}>${dv?'এই ডিভিশনের সিজন শুরু করুন':'টুর্নামেন্ট শুরু করুন'}</button>`}
 function si(v,fn){return`<input type="number" min="0" inputmode="numeric" value="${v}" onchange="${fn}">`}
 function playL(){const d=D(),t=table(),all=leagueDone(),n=d.players.length,last=S.cur===S.divs.length-1,zu=d.zu,zd=last?0:d.zd;
 const rs=[...new Set(d.league.map(m=>m.r))];
@@ -142,14 +140,15 @@ if(ok&&done(m,L)){const[p,q]=agg(m,L);x+=`<div class="agg">${L===2?'মোট':'
 if(p===q)x+=`<div class="pen">ড্র! পেনাল্টি/এক্সট্রা টাইমে বিজয়ী: <button class="${m.pw==='a'?'on':''}" onclick="setK(${r},${i},'pw','a')">${esc(a)}</button><button class="${m.pw==='b'?'on':''}" onclick="setK(${r},${i},'pw','b')">${esc(b)}</button></div>`}
 return x+'</div>'}).join('')+'</div>'});
 return h}
-function play(){const d=D(),both=d.league.length&&d.ko.length,k=both?d.tab!=='lg':!!d.ko.length;
-let h=`<div class="top"><h1>সিজন ${S.season}</h1><button onclick="reset()">নতুন টুর্নামেন্ট</button></div>`+(S.divs.length>1?divTabs():'');
-if(canRoll())h+=`<div class="card"><h2>সব ডিভিশনের লিগ শেষ ✅</h2><p class="mu" style="margin-top:0">${S.divs.length>1?'প্রমোশন ও রেলিগেশন হয়ে নতুন সিজন শুরু হবে।':'নতুন সিজন শুরু করা যাবে।'}</p><button class="pri big" onclick="roll()">নতুন সিজন শুরু করুন</button></div>`;
-h+=`<h2 style="margin:4px 0 10px">${esc(d.name)}</h2>`;
+function play(){const d=D(),dv=S.mode==='div',both=d.league.length&&d.ko.length,k=both?d.tab!=='lg':!!d.ko.length,P=S.divs[S.cur-1],N=S.divs[S.cur+1];
+let h=`<div class="top"><h1>${dv?esc(d.name)+' · সিজন '+d.season:'🏆 টুর্নামেন্ট'}</h1><button onclick="reset()">${dv?'রিসেট':'নতুন টুর্নামেন্ট'}</button></div>`+(dv?divTabs('<button onclick="addDiv()">+ ডিভিশন</button>'):'');
+if(dv){if(d.inc.length)h+=`<div class="card"><h2>পরের সিজনে আসছে</h2><p class="mu" style="margin:0">${d.inc.map(esc).join(', ')}</p></div>`;
+if(d.ended){const r=d.res;h+=`<div class="card"><h2>সিজন ${d.season} শেষ ✅</h2><p class="mu" style="margin-top:0">${r.up.length?`⬆️ ${esc(P.name)}-এ উঠেছে: <b>${r.up.map(esc).join(', ')}</b><br>`:''}${r.dn.length?`⬇️ ${esc(N.name)}-এ নেমেছে: <b>${r.dn.map(esc).join(', ')}</b><br>`:''}থাকছে: ${r.keep.map(esc).join(', ')||'—'}</p>${r.keep.length+d.inc.length<2?'<p class="mu">নতুন সিজনের জন্য কমপক্ষে ২ জন লাগবে। অন্য ডিভিশনের সিজন শেষ হলে টিম আসবে।</p>':''}<button class="pri big" onclick="newSeason()" ${r.keep.length+d.inc.length<2?'disabled':''}>নতুন সিজন শুরু করুন</button></div>`}
+else if(leagueDone())h+=`<div class="card"><h2>লিগ শেষ ✅</h2><p class="mu" style="margin-top:0">${d.zu&&P?`টপ ${d.zu} জন ${esc(P.name)}-এ উঠবে। `:''}${d.zd&&N?`বটম ${d.zd} জন ${esc(N.name)}-এ নামবে।`:''}</p><button class="pri big" onclick="endSeason()">সিজন শেষ করুন</button></div>`}
 if(both)h+=`<div class="tabs"><button class="${k?'on':''}" onclick="setTab('ko')">নকআউট</button><button class="${k?'':'on'}" onclick="setTab('lg')">লিগ টেবিল</button></div>`;
 h+=k?playK():playL();
-if(S.hist.length)h+=`<div class="card"><h2>আগের সিজন</h2>${S.hist.slice().reverse().map(x=>`<div class="rest">সিজন ${x.s}: ${x.c.map(([a,b])=>esc(a)+' — '+esc(b||'—')).join(' · ')}</div>`).join('')}</div>`;
+if(d.hist.length)h+=`<div class="card"><h2>আগের সিজন</h2>${d.hist.slice().reverse().map(x=>`<div class="rest">সিজন ${x.s}: 🏆 ${esc(x.c)}${x.up.length?' · ⬆️ '+x.up.map(esc).join(', '):''}${x.dn.length?' · ⬇️ '+x.dn.map(esc).join(', '):''}</div>`).join('')}</div>`;
 return h}
-function R(){save();$('#app').innerHTML=S.started?play():setup()}
+function R(){save();$('#app').innerHTML=!S.mode?homeV():D().st?play():setup()}
 R();
 </script></body></html>
