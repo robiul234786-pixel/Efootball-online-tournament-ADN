@@ -387,7 +387,8 @@ function liveData(key){
  return d.liveMatches[key];
 }
 function openLive(key,a,b,kind,r,i,leg=1){
- const v=liveData(key);LM={key,a,b,kind,r,i,leg};
+ liveData(key);{const o=D().liveMatches[key];if(o.ta!==undefined&&(o.ta!==a||o.tb!==b))delete D().liveMatches[key]}
+ const v=liveData(key);v.ta=a;v.tb=b;LM={key,a,b,kind,r,i,leg};
  if(!v._started){
   v.startedAt=Date.now();v.elapsedMs=0;v.pausedAt=0;
   if(kind==='lg'){const m=D().league[i];v.a=Number(m.sa)||0;v.b=Number(m.sb)||0;}
