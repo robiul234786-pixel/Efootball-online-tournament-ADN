@@ -50,11 +50,16 @@ tr.first td{font-weight:700;color:var(--ac)}
 #wl .w3{font-size:36px;font-weight:900;letter-spacing:3px;margin-top:14px;background:linear-gradient(90deg,#fde047,#fff,#fde047);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:wup .8s 1.2s both,shine 2.2s 2s linear infinite}
 @keyframes wup{from{opacity:0;transform:translateY(24px)}}@keyframes shine{to{background-position:-200% 0}}#wl .w4{margin-top:10px;font-size:14px;opacity:.8;animation:wup .8s 1.6s both}
 #wl .wp{width:180px;height:4px;background:rgba(255,255,255,.2);border-radius:9px;margin:26px auto 0;overflow:hidden}#wl .wp i{display:block;height:100%;background:#fde047;animation:wfill 3.6s linear both}@keyframes wfill{from{width:0}to{width:100%}}#wl .w5{margin-top:10px;font-size:12px;opacity:.6}
-#wl .fb{position:absolute;bottom:-40px;font-size:24px;opacity:.45;animation:wfloat linear infinite}@keyframes wfloat{to{transform:translateY(-115vh) rotate(360deg)}}@media (prefers-reduced-motion:reduce){#wl *{animation:none!important}}</style></head><body><div id="app"></div><div id="nav"></div>
+#wl .fb{position:absolute;bottom:-40px;font-size:24px;opacity:.45;animation:wfloat linear infinite}@keyframes wfloat{to{transform:translateY(-115vh) rotate(360deg)}}@media (prefers-reduced-motion:reduce){#wl *{animation:none!important}}.cw{display:inline-block;vertical-align:middle;filter:drop-shadow(0 0 1px rgba(0,0,0,.55))}.cr{display:inline-flex;align-items:center;justify-content:center;width:22px;height:25px;font-size:12px;line-height:1;clip-path:polygon(0 0,100% 0,100% 60%,50% 100%,0 60%);text-shadow:0 0 2px rgba(0,0,0,.5)}img.cim{width:24px;height:24px;border-radius:50%;object-fit:cover;vertical-align:middle;background:#fff;display:block}.cw.big .cr{width:60px;height:68px;font-size:30px}.cw.big img{width:64px;height:64px}
+.lgg{display:grid;grid-template-columns:repeat(6,1fr);gap:6px}.lgb{padding:6px 0;display:flex;justify-content:center;border-radius:12px;margin:0!important}.crb{padding:6px 10px;border-radius:12px;display:flex;align-items:center}.lgu{display:block;text-align:center;padding:12px;border:1px dashed var(--ac);border-radius:12px;margin:10px 0;cursor:pointer}.chip{display:inline-flex;align-items:center;gap:6px}
+.chipsr{display:flex;gap:8px;overflow-x:auto;margin-bottom:12px}.chipsr button{white-space:nowrap;border-radius:99px}
+.bk{display:flex;overflow-x:auto;padding:4px 14px 12px 0}.bcol{display:flex;flex-direction:column;min-width:min(66vw,250px);margin-right:26px;flex-shrink:0}.cell{flex:1;display:flex;align-items:center;position:relative;min-height:96px;cursor:pointer}.bc{width:100%;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:4px 10px}
+.br{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:14px}.br .bn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.br.lose{opacity:.55}.br.lose .bn{text-decoration:line-through}.br b{min-width:16px;text-align:right}
+.cell.u::after,.cell.l::after{content:'';position:absolute;right:-14px;width:14px;border:2px solid var(--bd);border-left:0}.cell.u::after{top:50%;height:50%;border-bottom:0;border-radius:0 8px 0 0}.cell.l::after{top:0;height:50%;border-top:0;border-radius:0 0 8px 0}.cell.s::before{content:'';position:absolute;left:-12px;width:12px;top:50%;border-top:2px solid var(--bd)}</style></head><body><div id="app"></div><div id="nav"></div>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const nd=(i,m)=>({name:'ডিভিশন '+(i+1),players:[],fmt:m==='div'?'league':'lk',league:[],ko:[],tab:'ko',q:0,zu:m==='div'?2:0,zd:m==='div'?2:0,st:false,season:1,ended:false,res:null,inc:[],hist:[],prize:'',rules:'',cel:''});
+const nd=(i,m)=>({name:'ডিভিশন '+(i+1),players:[],fmt:m==='div'?'league':'lk',league:[],ko:[],tab:'ko',q:0,zu:m==='div'?2:0,zd:m==='div'?2:0,st:false,season:1,ended:false,res:null,inc:[],hist:[],prize:'',rules:'',lg:[],cel:''});
 const fresh=()=>({mode:'',divs:[nd(0,'tour')],cur:0});
 let LIB=null,S;
 try{LIB=JSON.parse(localStorage.getItem('tm6'))}catch(e){}
@@ -65,8 +70,8 @@ const D=()=>S.divs[S.cur];
 function withDiv(i,f){const c=S.cur;S.cur=i;try{return f()}finally{S.cur=c}}
 function save(){try{const it=LIB.items.find(x=>x.id===LIB.act);if(it)it.s=S;localStorage.setItem('tm6',JSON.stringify(LIB))}catch(e){}if(S.share&&S.share.role==='admin'&&!_np)sched()}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
-function add(){const el=$('#nm'),v=el.value.trim(),P=D().players;if(!v||S.divs.some(d=>d.players.concat(d.inc).some(p=>p.toLowerCase()===v.toLowerCase()))){el.focus();return}P.push(v);R();$('#nm').focus()}
-function del(i){D().players.splice(i,1);R()}
+function add(){const el=$('#nm'),v=el.value.trim(),P=D().players;if(!v||S.divs.some(d=>d.players.concat(d.inc).some(p=>p.toLowerCase()===v.toLowerCase()))){el.focus();return}P.push(v);addLg(D(),v,PLG);PLG=rl();R();$('#nm').focus()}
+function del(i){const d=D(),n=d.players[i];d.players.splice(i,1);d.lg=A(d.lg).filter(x=>x.n!==n);R()}
 function setFmt(f){D().fmt=f;R()}
 function setName(v){D().name=v.trim()||D().name;R()}
 function setZ(f,v){D()[f]=Math.max(0,parseInt(v)||0);R()}
@@ -110,7 +115,7 @@ const banner=n=>`<div class="champ">🏆 চ্যাম্পিয়ন: ${es
 function celKey(){const n=champ();return n?S.cur+'|'+D().season+'|'+n:''}
 function overlay(){const d=D(),n=champ();if(!n||d.cel===celKey())return'';const c=['#f43f5e','#f59e0b','#22c55e','#3b82f6','#a855f7','#eab308'];let f='';
 for(let i=0;i<60;i++){const z=6+Math.random()*8;f+=`<i style="left:${Math.random()*100}%;background:${c[i%6]};width:${z}px;height:${z*1.6}px;animation-duration:${3+Math.random()*3}s;animation-delay:${Math.random()*2.5}s"></i>`}
-return`<div class="ov">${f}<div class="cb"><div class="tr">🏆</div><h2>🎉 অভিনন্দন! 🎉</h2><div class="cn">${esc(n)}</div><p class="mu">${S.mode==='div'?esc(d.name)+' · সিজন '+d.season+' চ্যাম্পিয়ন':'টুর্নামেন্ট চ্যাম্পিয়ন'}</p>${d.prize?`<div class="pz">🎁 প্রাইজ: ${esc(d.prize)}</div>`:''}<button class="pri big" data-ok onclick="closeCel()">ঠিক আছে</button></div></div>`}
+return`<div class="ov">${f}<div class="cb"><div class="tr">🏆</div><h2>🎉 অভিনন্দন! 🎉</h2><div>${cr(n,1)}</div><div class="cn">${esc(n)}</div><p class="mu">${S.mode==='div'?esc(d.name)+' · সিজন '+d.season+' চ্যাম্পিয়ন':'টুর্নামেন্ট চ্যাম্পিয়ন'}</p>${d.prize?`<div class="pz">🎁 প্রাইজ: ${esc(d.prize)}</div>`:''}<button class="pri big" data-ok onclick="closeCel()">ঠিক আছে</button></div></div>`}
 function closeCel(){D().cel=celKey();R()}
 function replay(){D().cel='';R()}
 function setPrize(v){D().prize=v.trim();R()}
@@ -154,8 +159,8 @@ const fm=dv?`<div class="card"><h2>কোয়ালিফাই ও রেল�
 :`<div class="card"><h2>ফরম্যাট</h2><div style="display:grid;gap:8px">${f('lk','লিগ + নকআউট')}${f('league','শুধু লিগ')}${f('ko','শুধু নকআউট')}</div><p class="mu">${h}</p></div>`;
 return`<div class="top"><h1>${dv?'🏅 ডিভিশন সিস্টেম':'🏆 টুর্নামেন্ট'}</h1><span>${shareBtn()}</span></div>${dv?divTabs('<button onclick="addDiv()">+ ডিভিশন</button>'):''}
 ${dv?`<div class="card"><h2>ডিভিশনের নাম</h2><div class="row"><input id="dn" type="text" maxlength="24" value="${esc(d.name)}" onchange="setName(this.value)">${S.divs.length>1?'<button onclick="delDiv()">🗑</button>':''}</div></div>`:''}
-<div class="card"><h2>প্লেয়ার যোগ করুন</h2><div class="row"><input id="nm" type="text" maxlength="20" placeholder="প্লেয়ারের নাম" onkeydown="if(event.key==='Enter')add()"><button class="pri" onclick="add()">যোগ</button></div>
-<div class="chips">${d.players.map((p,i)=>`<span class="chip">${esc(p)}<b onclick="del(${i})">×</b></span>`).join('')}</div><p class="mu">মোট ${n} জন প্লেয়ার</p></div>
+<div class="card"><h2>প্লেয়ার যোগ করুন</h2><div class="row"><button class="crb" onclick="openLogo('new')">${crestL(PLG)}</button><input id="nm" type="text" maxlength="20" placeholder="প্লেয়ারের নাম" onkeydown="if(event.key==='Enter')add()"><button class="pri" onclick="add()">যোগ</button></div>
+<div class="chips">${d.players.map((p,i)=>`<span class="chip"><span onclick="openLogo(${i})" style="cursor:pointer">${cr(p)}</span>${esc(p)}<b onclick="del(${i})">×</b></span>`).join('')}</div><p class="mu">মোট ${n} জন প্লেয়ার</p></div>
 <div class="card"><h2>🎁 চ্যাম্পিয়নের প্রাইজ (ঐচ্ছিক)</h2><div class="row"><input id="pz" type="text" maxlength="40" placeholder="যেমন: ৫০০ টাকা / ট্রফি" value="${esc(d.prize||'')}" onchange="setPrize(this.value)"></div></div>
 ${fm}<button class="pri big" onclick="start()" ${n<2?'disabled':''}>${dv?'এই ডিভিশনের সিজন শুরু করুন':'টুর্নামেন্ট শুরু করুন'}</button>`}
 function si(v,fn){return`<input type="number" min="0" inputmode="numeric" value="${v}" oninput="${fn};adv(this)" onfocus="this.select()">`}
@@ -165,21 +170,23 @@ let h=all&&d.fmt==='league'?banner(t[0].p):'';
 if(all&&d.fmt==='lk'&&!d.ko.length){const q=d.q||n,opts=[n];for(let k=size(n)/2;k>=2;k/=2)if(k<n)opts.push(k);
 h+=`<div class="card"><h2>লিগ শেষ ✅</h2><p class="mu" style="margin-top:0">কতজন নকআউটে উঠবে?</p><select onchange="setQ(this.value)">${opts.map(o=>`<option value="${o}" ${o===q?'selected':''}>${o===n?'সবাই ('+n+' জন)':'টপ '+o}</option>`).join('')}</select><button class="pri big" onclick="startKO()">নকআউট শুরু করুন</button></div>`}
 h+=`<div class="card"><h2>পয়েন্ট টেবিল</h2><div class="tw"><table><tr><th class="n">প্লেয়ার</th><th>খে</th><th>জ</th><th>ড্র</th><th>হা</th><th>গোল</th><th>GD</th><th>পয়েন্ট</th></tr>
-${t.map((x,i)=>`<tr class="${i<zu?'zg':i>=n-zd?'zr':''}"><td class="n">${i+1}. ${esc(x.p)}</td><td>${x.P}</td><td>${x.W}</td><td>${x.D}</td><td>${x.L}</td><td>${x.GF}:${x.GA}</td><td>${x.GF-x.GA}</td><td><b>${x.Pts}</b></td></tr>`).join('')}</table></div>
+${t.map((x,i)=>`<tr class="${i<zu?'zg':i>=n-zd?'zr':''}"><td class="n">${i+1}. ${cr(x.p)} ${esc(x.p)}</td><td>${x.P}</td><td>${x.W}</td><td>${x.D}</td><td>${x.L}</td><td>${x.GF}:${x.GA}</td><td>${x.GF-x.GA}</td><td><b>${x.Pts}</b></td></tr>`).join('')}</table></div>
 ${zu?`<div class="lgd"><span class="dot" style="background:var(--ac)"></span>${S.cur===0?'কোয়ালিফাই':'প্রমোশন'} (টপ ${zu})</div>`:''}${zd?`<div class="lgd"><span class="dot" style="background:#ef4444"></span>রেলিগেশন (বটম ${zd})</div>`:''}</div>
 <div class="card"><h2>ম্যাচ ও রেজাল্ট</h2>`;
 rs.forEach(r=>{const ms=d.league.map((m,i)=>[m,i]).filter(x=>x[0].r===r);const pl=new Set();ms.forEach(([m])=>{pl.add(m.a);pl.add(m.b)});const rest=d.players.filter(p=>!pl.has(p));
-h+=`<div class="rd">রাউন্ড ${r}</div>`+ms.map(([m,i])=>`<div class="m"><div class="a">${esc(m.a)}</div><div class="sc">${si(m.sa,`setL(${i},'sa',this.value)`)}–${si(m.sb,`setL(${i},'sb',this.value)`)}</div><div class="b">${esc(m.b)}</div></div>`).join('')+(rest.length?`<div class="rest">বিশ্রামে: ${rest.map(esc).join(', ')}</div>`:'')});
+h+=`<div class="rd">রাউন্ড ${r}</div>`+ms.map(([m,i])=>`<div class="m"><div class="a">${esc(m.a)} ${cr(m.a)}</div><div class="sc">${si(m.sa,`setL(${i},'sa',this.value)`)}–${si(m.sb,`setL(${i},'sb',this.value)`)}</div><div class="b">${cr(m.b)} ${esc(m.b)}</div></div>`).join('')+(rest.length?`<div class="rest">বিশ্রামে: ${rest.map(esc).join(', ')}</div>`:'')});
 return h+'</div>'}
 function row(h,a,x,y,fx,fy,ok){return`<div class="m"><div class="a">${h}</div><div class="sc">${ok?si(x,fx)+'–'+si(y,fy):'vs'}</div><div class="b">${a}</div></div>`}
 function playK(){const K=D().ko,RN=K.length,fw=win(RN-1,0);
-let h=fw&&fw!=='BYE'?banner(fw):'';
-K.forEach((round,r)=>{const L=legs(r);h+=`<div class="card"><h2>${rname(r)}</h2>`+round.map((m,i)=>{const[a,b]=teams(r,i),w=win(r,i);
+let h=fw&&fw!=='BYE'?banner(fw):'';const v=uv();
+h+=`<div class="seg" style="margin-bottom:12px"><button data-ok class="${v.kv==='l'?'on':''}" onclick="setKV('l')">📋 লিস্ট</button><button data-ok class="${v.kv==='b'?'on':''}" onclick="setKV('b')">🌳 ব্র্যাকেট</button></div>`;
+if(v.kv==='b')return h+bracketV();
+K.forEach((round,r)=>{const L=legs(r);h+=`<div class="card" id="kr${r}"><h2>${rname(r)}</h2>`+round.map((m,i)=>{const[a,b]=teams(r,i),w=win(r,i);
 const nm=x=>x==null?'<span class="mu">—</span>':esc(x);
 if(a==='BYE'||b==='BYE')return`<div class="mm"><div class="bye">${nm(a==='BYE'?b:a)} — বাই (সরাসরি পরের রাউন্ডে)</div></div>`;
-const ok=a&&b,A=nm(a),B=nm(b),g=f=>`setK(${r},${i},'${f}',this.value)`;
-let x=`<div class="mm"><div class="lb">${L===2?'প্রথম লেগ':'ফাইনাল'}</div>`+row(A,B,m.l1a,m.l1b,g('l1a'),g('l1b'),ok);
-if(L===2)x+=`<div class="lb">দ্বিতীয় লেগ</div>`+row(B,A,m.l2b,m.l2a,g('l2b'),g('l2a'),ok);
+const ok=a&&b,nL=x=>x==null?nm(x):esc(x)+' '+cr(x),nR=x=>x==null?nm(x):cr(x)+' '+esc(x),g=f=>`setK(${r},${i},'${f}',this.value)`;
+let x=`<div class="mm"><div class="lb">${L===2?'প্রথম লেগ':'ফাইনাল'}</div>`+row(nL(a),nR(b),m.l1a,m.l1b,g('l1a'),g('l1b'),ok);
+if(L===2)x+=`<div class="lb">দ্বিতীয় লেগ</div>`+row(nL(b),nR(a),m.l2b,m.l2a,g('l2b'),g('l2a'),ok);
 if(ok&&done(m,L)){const[p,q]=agg(m,L);x+=`<div class="agg">${L===2?'মোট':'ফল'}: ${esc(a)} ${p} – ${q} ${esc(b)}${w?` · বিজয়ী: <b>${esc(w)}</b>`:''}</div>`;
 if(p===q)x+=`<div class="pen">ড্র! পেনাল্টি/এক্সট্রা টাইমে বিজয়ী: <button class="${m.pw==='a'?'on':''}" onclick="setK(${r},${i},'pw','a')">${esc(a)}</button><button class="${m.pw==='b'?'on':''}" onclick="setK(${r},${i},'pw','b')">${esc(b)}</button></div>`}
 return x+'</div>'}).join('')+'</div>'});
@@ -193,13 +200,14 @@ if(both)h+=`<div class="tabs"><button class="${k?'on':''}" data-ok onclick="setT
 h+=k?playK():playL();
 if(d.hist.length)h+=`<div class="card"><h2>আগের সিজন</h2>${d.hist.slice().reverse().map(x=>`<div class="rest">সিজন ${x.s}: 🏆 ${esc(x.c)}${x.up.length?' · ⬆️ '+x.up.map(esc).join(', '):''}${x.dn.length?' · ⬇️ '+x.dn.map(esc).join(', '):''}</div>`).join('')}</div>`;
 return h+overlay()}
-let HOME=true,JN=false,AB=false,dirty=false,RL=false,RE=false,TL=false,DC='',JM='',PN=false,PM='',pt=null,_last='',_np=false,busy=0;
+let LG=null,PLG='b7',HOME=true,JN=false,AB=false,dirty=false,RL=false,RE=false,TL=false,DC='',JM='',PN=false,PM='',pt=null,_last='',_np=false,busy=0;
 const RO=()=>!!S.share&&S.share.role==='view';
 const shareBtn=()=>RO()?'':'<button onclick="openShare()">🔗 শেয়ার</button>';
 const A=v=>Array.isArray(v)?v:v&&typeof v==='object'?Object.values(v):[];
 const st=o=>JSON.stringify(o,(k,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.keys(v).sort().map(x=>[x,v[x]])):v);
-function fixS(x){x.divs=A(x.divs).map(d=>{['players','league','inc','hist'].forEach(k=>d[k]=A(d[k]));d.ko=A(d.ko).map(A);if(d.res===undefined)d.res=null;if(d.res)['up','dn','keep'].forEach(k=>d.res[k]=A(d.res[k]));d.hist.forEach(h=>['up','dn'].forEach(k=>h[k]=A(h[k])));d.prize=d.prize||'';d.rules=d.rules||'';d.cel='';return d});x.mode=x.mode||'';return x}
-const snap=()=>st({mode:S.mode,divs:S.divs.map(d=>({...d,cel:''}))});
+function fixS(x){x.divs=A(x.divs).map(d=>{['players','league','inc','hist'].forEach(k=>d[k]=A(d[k]));d.ko=A(d.ko).map(A);if(d.res===undefined)d.res=null;if(d.res)['up','dn','keep'].forEach(k=>d.res[k]=A(d.res[k]));d.hist.forEach(h=>['up','dn'].forEach(k=>h[k]=A(h[k])));d.prize=d.prize||'';d.rules=d.rules||'';d.lg=A(d.lg);d.tab=d.tab||'ko';d.cel='';return d});x.mode=x.mode||'';return x}
+const sn=(m,dv)=>st({mode:m,divs:dv.map(d=>({...d,cel:'',tab:''}))});
+const snap=()=>sn(S.mode,S.divs);
 const getFb=()=>{try{return localStorage.getItem('tmfb')||''}catch(e){return''}};
 const rnd=n=>{const c='abcdefghjkmnpqrstuvwxyz23456789',a=new Uint8Array(n);crypto.getRandomValues(a);return Array.from(a,x=>c[x%c.length]).join('')};
 function ui(t){const e=$('#sy');if(e){let tm='';try{tm=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}catch(x){}e.textContent=t+' '+tm}}
@@ -207,9 +215,9 @@ function sched(){clearTimeout(pt);pt=setTimeout(doPush,700)}
 async function doPush(){pt=null;const sh=S.share;if(!sh||sh.role!=='admin')return;const sn=snap();if(sn===_last)return;
 try{const r=await fetch(sh.fb+'/rooms/'+sh.room+'.json',{method:'PUT',body:JSON.stringify({key:sh.key,pub:JSON.parse(sn)})});if(r.ok){_last=sn;ui('🟢 লাইভ')}else throw 0}catch(e){ui('🔴 পাঠানো যায়নি');pt=setTimeout(doPush,5000)}}
 const typing=()=>{const a=document.activeElement;return!!(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName)&&a.closest&&a.closest('#app')&&!a.disabled)};
-function adopt(x){x.divs.forEach((d,i)=>{d.cel=(S.divs[i]&&S.divs[i].cel)||''});const c=Math.max(0,Math.min(S.cur,x.divs.length-1));S={mode:x.mode,divs:x.divs,cur:c,share:S.share};_last=snap();_np=true;R();_np=false}
+function adopt(x){x.divs.forEach((d,i)=>{d.cel=(S.divs[i]&&S.divs[i].cel)||'';d.tab=(S.divs[i]&&S.divs[i].tab)||'ko'});const c=Math.max(0,Math.min(S.cur,x.divs.length-1));S={mode:x.mode,divs:x.divs,cur:c,share:S.share};_last=snap();_np=true;R();_np=false}
 async function pull(){const sh=S.share;if(!sh||pt||busy)return;busy=1;
-try{const r=await fetch(sh.fb+'/rooms/'+sh.room+'/pub.json');if(!r.ok)throw 0;const x=await r.json();ui('🟢 লাইভ');if(x){fixS(x);if(st({mode:x.mode,divs:x.divs})!==snap()&&!typing())adopt(x)}}catch(e){ui('🔴 সংযোগ নেই')}busy=0}
+try{const r=await fetch(sh.fb+'/rooms/'+sh.room+'/pub.json');if(!r.ok)throw 0;const x=await r.json();ui('🟢 লাইভ');if(x){fixS(x);if(sn(x.mode,x.divs)!==snap()&&!typing())adopt(x)}}catch(e){ui('🔴 সংযোগ নেই')}busy=0}
 function parseJ(t){t=(t||'').trim();let k='';const m=t.match(/#j=([^&\s]+)(?:&k=([^&\s]+))?/);if(m){t=m[1];k=m[2]||''}
 const i=t.indexOf('~');if(i<1)return null;let b=t.slice(i+1).replace(/-/g,'+').replace(/_/g,'/');while(b.length%4)b+='=';let h;try{h=atob(b)}catch(e){return null}return{room:t.slice(0,i),fb:'https://'+h,k}}
 async function joinRoom(t,k){const p=parseJ(t);if(!p){JM='কোড ঠিক নেই';return R()}k=(k||'').trim()||p.k;if(!k){const ex=LIB.items.find(i=>i.s.share&&i.s.share.room===p.room);if(ex)return switchT(ex.id)}
@@ -283,9 +291,37 @@ function saveRules(){D().rules=$('#rt').value;RE=false;R()}
 function resetRules(){D().rules='';RE=false;R()}
 function rulesV(){if(!RL)return'';const d=D(),t=d.rules||RULES_DEF;
 return`<div class="ov tl"><div class="cb sh"><h2>📜 নিয়মাবলী${S.divs.length>1?' · '+esc(d.name):''}</h2>${RE?`<textarea id="rt" class="ta" rows="14" style="font:14px/1.5 system-ui,sans-serif">${esc(t)}</textarea><button class="pri" onclick="saveRules()">সেভ</button><button onclick="resetRules()">ডিফল্ট নিয়ম</button>`:`<div style="white-space:pre-wrap;font-size:14px;line-height:1.6">${esc(t)}</div>${RO()||!S.mode?'':'<button onclick="editRules()">✏️ এডিট করুন</button>'}`}<button class="big" onclick="closeRules()">বন্ধ করুন</button></div></div>`}
+const CP=[['#dc2626','#fff'],['#1d4ed8','#fff'],['#16a34a','#fde047'],['#111827','#f59e0b'],['#7c3aed','#fff'],['#ea580c','#1e3a8a'],['#0891b2','#fff'],['#be123c','#fde047'],['#15803d','#fff'],['#facc15','#1d4ed8'],['#0f172a','#f43f5e'],['#fff','#2563eb']];
+const CS=['🦁','🐯','🦅','🐺','🔥','⭐','👑','⚡','🐉','🦈','🐻','🦂','🐎','🦊','🐗','🦉','⚽','🛡️','🗡️','🚀','☀️','🌙','❄️','🌊','🏔️','💎','🎯','🦬','🐍','🦍'];
+const rl=()=>'b'+(Math.random()*60|0);PLG=rl();
+const hs=n=>{let h=0;for(const c of String(n))h=(h*31+c.charCodeAt(0))>>>0;return h};
+const JPG=/^data:image\/jpeg;base64,[A-Za-z0-9+\/=]+$/;
+function logoOf(n){for(const d of S.divs){const e=A(d.lg).find(x=>x.n===n);if(e)return e.l}return'b'+hs(n)%60}
+function addLg(d,n,l){d.lg=A(d.lg).filter(x=>x.n!==n);d.lg.push({n,l})}
+function crestL(l,big){const b=big?' big':'';l=String(l);if(JPG.test(l))return`<span class="cw${b}"><img class="cim" src="${l}" alt=""></span>`;
+const i=(parseInt(l.slice(1))||0)%60,[c1,c2]=CP[i%12],p=Math.floor(i/12)%5,bg=[c1,`linear-gradient(90deg,${c1} 50%,${c2} 50%)`,`linear-gradient(180deg,${c1} 50%,${c2} 50%)`,`linear-gradient(135deg,${c1} 50%,${c2} 50%)`,`repeating-linear-gradient(90deg,${c1} 0 5px,${c2} 5px 10px)`][p];
+return`<span class="cw${b}"><span class="cr" style="background:${bg}">${CS[(i*7)%30]}</span></span>`}
+const cr=(n,big)=>crestL(logoOf(n),big);
+function openLogo(t){if(RO())return;LG=t;R()}
+function closeLogo(){LG=null;R()}
+function pickLogo(l){if(RO()){LG=null;return R()}if(LG==='new')PLG=l||rl();else{const d=D(),n=d.players[LG];if(n){if(l)addLg(d,n,l);else d.lg=A(d.lg).filter(x=>x.n!==n)}}LG=null;R()}
+function upLogo(inp){const f=inp.files&&inp.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=44;const x=c.getContext('2d'),m=Math.min(im.width,im.height);x.fillStyle='#fff';x.fillRect(0,0,44,44);x.drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,44,44);pickLogo(c.toDataURL('image/jpeg',0.75))};im.src=rd.result};rd.readAsDataURL(f)}
+function logoV(){if(LG===null)return'';return`<div class="ov tl"><div class="cb sh"><h2>🛡️ লোগো বেছে নিন</h2><div class="lgg">${Array.from({length:60},(_,i)=>`<button class="lgb" onclick="pickLogo('b${i}')">${crestL('b'+i)}</button>`).join('')}</div><label class="lgu">📷 নিজের লোগো/ছবি আপলোড<input type="file" accept="image/*" onchange="upLogo(this)" hidden></label><button onclick="pickLogo('')">🔄 অটো লোগো</button><button class="big" onclick="closeLogo()">বন্ধ করুন</button></div></div>`}
+const UI={};const uv=()=>UI[LIB.act+':'+S.cur]||(UI[LIB.act+':'+S.cur]={kv:'l',kr:0});
+function setKV(v){uv().kv=v;R()}
+function setKR(r){uv().kr=r;R()}
+function gotoList(r){uv().kv='l';R();setTimeout(()=>{const e=document.getElementById('kr'+r);if(e&&e.scrollIntoView)e.scrollIntoView()},60)}
+function bracketV(){const K=D().ko,RN=K.length,r0=Math.min(uv().kr,RN-1);
+const rs=r=>{const t=K[r].length*2;return t===2?'ফাইনাল':t===4?'সেমিফাইনাল':t===8?'কোয়ার্টার ফাইনাল':'রাউন্ড অব '+t};
+let h=`<div class="chipsr">${K.map((_,r)=>`<button data-ok class="${r===r0?'on':''}" onclick="setKR(${r})">${rs(r)}</button>`).join('')}</div><div class="bk">`;
+for(let r=r0;r<RN;r++){h+='<div class="bcol">'+K[r].map((mm,i)=>{const[a,b]=teams(r,i),w=win(r,i),L=legs(r),dn=a&&b&&a!=='BYE'&&b!=='BYE'&&done(mm,L),[p,q]=dn?agg(mm,L):['',''];
+const row=(t,sc,lose)=>t==null?'<div class="br"><span class="mu">—</span></div>':t==='BYE'?'<div class="br mu">বাই</div>':`<div class="br${lose?' lose':''}">${cr(t)}<span class="bn">${esc(t)}</span><b>${sc}</b></div>`;
+const cls=(r<RN-1?(i%2?'l':'u'):'')+(r>r0?' s':'');
+return`<div class="cell ${cls}" onclick="gotoList(${r})"><div class="bc">${row(a,p,w&&w!==a)}${row(b,q,w&&w!==b)}</div></div>`}).join('')+'</div>'}
+return h+'</div><p class="mu">কার্ডে চাপ দিলে স্কোর দেওয়ার লিস্টে যাবে।</p>'}
 function lock(){document.querySelectorAll('#app input,#app select,#app textarea,#app button').forEach(e=>{if(!e.hasAttribute('data-ok')&&!e.closest('.tl'))e.disabled=true})}
 function R(){dirty=false;save();const h=HOME||!S.mode;
-$('#app').innerHTML=(h?'':roBar())+(h?homeDash():D().st?play():setup())+panelV()+tlistV()+rulesV()+joinV()+aboutV();
+$('#app').innerHTML=(h?'':roBar())+(h?homeDash():D().st?play():setup())+panelV()+tlistV()+rulesV()+joinV()+aboutV()+logoV();
 const n=$('#nav');if(n)n.innerHTML=navV(h);if(RO()&&!h)lock()}
 R();hashJoin();setInterval(pull,4000);try{welcome()}catch(e){}
 document.addEventListener('focusout',e=>{const t=e.target;if(dirty&&t.closest&&t.closest('.sc')&&!(e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest('.sc')))setTimeout(()=>{if(dirty)R()},350)});
