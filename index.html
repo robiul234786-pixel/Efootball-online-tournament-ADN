@@ -55,25 +55,21 @@ tr.first td{font-weight:700;color:var(--ac)}
 .chipsr{display:flex;gap:8px;overflow-x:auto;margin-bottom:12px}.chipsr button{white-space:nowrap;border-radius:99px}
 .bk{display:flex;overflow-x:auto;padding:4px 14px 12px 0}.bcol{display:flex;flex-direction:column;min-width:min(66vw,250px);margin-right:26px;flex-shrink:0}.cell{flex:1;display:flex;align-items:center;position:relative;min-height:96px;cursor:pointer}.bc{width:100%;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:4px 10px}
 .br{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:14px}.br .bn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.br.lose{opacity:.55}.br.lose .bn{text-decoration:line-through}.br b{min-width:16px;text-align:right}
-.cell.u::after,.cell.l::after{content:'';position:absolute;right:-14px;width:14px;border:2px solid var(--bd);border-left:0}.cell.u::after{top:50%;height:50%;border-bottom:0;border-radius:0 8px 0 0}.cell.l::after{top:0;height:50%;border-top:0;border-radius:0 0 8px 0}.cell.s::before{content:'';position:absolute;left:-12px;width:12px;top:50%;border-top:2px solid var(--bd)}.cell.f::after{content:'';position:absolute;right:-14px;width:14px;top:50%;border-top:2px solid var(--bd)}.champ2{border-color:#f59e0b;background:linear-gradient(180deg,var(--soft),var(--card))}.bn2{font-size:18px;font-weight:800;color:var(--ac);margin-top:6px;word-break:break-word}.tiles .tile:last-child:nth-child(odd){grid-column:span 2}
-.live-open{display:block;width:100%;margin:7px 0 12px;padding:10px;border:1px solid var(--ac);border-radius:11px;background:var(--soft);color:var(--tx);font-weight:700}
-.live-modal{position:fixed;inset:0;z-index:9999;background:#000b;display:flex;align-items:center;justify-content:center;padding:12px}
-.live-box{width:min(100%,560px);max-height:94vh;overflow:auto;background:var(--card);color:var(--tx);border:1px solid var(--bd);border-radius:18px;padding:16px}
-.live-score{display:flex;align-items:center;justify-content:space-around;text-align:center;gap:8px;padding:18px 8px;background:var(--soft);border-radius:14px}
-.live-team{flex:1;min-width:0;font-weight:700;overflow-wrap:anywhere}
-.live-num{font-size:42px;font-weight:900;font-variant-numeric:tabular-nums}
-.live-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
-.live-actions button,.live-box button{padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx)}
-.live-box button.pri{background:var(--ac);color:var(--act);border-color:var(--ac);font-weight:600}.live-box button:disabled{opacity:.45}
-.live-edit{margin:12px 0;padding:12px;border:1px dashed var(--ac);border-radius:12px}.live-edit input{padding:9px;border:1px solid var(--bd);border-radius:9px;background:var(--bg);color:var(--tx);font:inherit}.live-event{padding:9px;border-bottom:1px solid var(--bd);font-size:14px}
-.live-goal{animation:goalflash .8s ease}
-@keyframes goalflash{0%{background:#16a34a;color:white;transform:scale(1)}35%{background:#16a34a;color:white;transform:scale(1.035)}100%{background:var(--soft);transform:scale(1)}}
-.live-input{width:100%;padding:10px;border:1px solid var(--bd);border-radius:9px;background:var(--bg);color:var(--tx);margin:5px 0}
-</style></head><body><div id="app"></div><div id="nav"></div>
+.cell.u::after,.cell.l::after{content:'';position:absolute;right:-14px;width:14px;border:2px solid var(--bd);border-left:0}.cell.u::after{top:50%;height:50%;border-bottom:0;border-radius:0 8px 0 0}.cell.l::after{top:0;height:50%;border-top:0;border-radius:0 0 8px 0}.cell.s::before{content:'';position:absolute;left:-12px;width:12px;top:50%;border-top:2px solid var(--bd)}.cell.f::after{content:'';position:absolute;right:-14px;width:14px;top:50%;border-top:2px solid var(--bd)}.champ2{border-color:#f59e0b;background:linear-gradient(180deg,var(--soft),var(--card))}.bn2{font-size:18px;font-weight:800;color:var(--ac);margin-top:6px;word-break:break-word}.tiles .tile:last-child:nth-child(odd){grid-column:span 2}.lvp{max-width:380px}.lvh{font-weight:800;color:#ef4444;margin-bottom:8px;display:flex;align-items:center;gap:8px}.lvh .lvt{color:var(--tx);font-variant-numeric:tabular-nums}.lvh button{padding:2px 10px;margin:0!important}
+.lvs{display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center;text-align:center}.lvs .lt{font-size:13px;font-weight:700;word-break:break-word}.lvs .ls{font-size:38px;font-weight:900}
+.lvg{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}.lvg>div{display:flex;flex-direction:column;gap:6px}.lvb{width:100%;margin:0!important;padding:10px 4px;font-size:22px;line-height:1.2}.lvb small{font-size:12px}
+.lve{max-height:140px;overflow:auto;font-size:13px;margin:8px 0}.lvr{padding:4px 0;border-bottom:1px solid var(--bd)}
+.lvw{text-align:center;margin:-2px 0 8px}.lvw button{padding:4px 12px;font-size:13px;color:#ef4444;border-color:#ef4444}
+.lvc{display:flex;width:100%;justify-content:space-between;align-items:center;gap:8px;padding:10px 12px;margin-bottom:12px;border-radius:14px;border-color:#ef4444}.lvdot{color:#ef4444;font-weight:800;font-size:13px}.lvc .lvt{font-variant-numeric:tabular-nums}
+#gl{position:fixed;inset:0;z-index:90;background:radial-gradient(circle at 50% 40%,#16a34a,#052e16);color:#fff;display:flex;align-items:center;justify-content:center;text-align:center;overflow:hidden;animation:glin .25s ease;transition:opacity .4s}#gl.out{opacity:0;pointer-events:none}@keyframes glin{from{opacity:0}}
+#gl .gb{font-size:96px;line-height:1.1;animation:gdrop .9s cubic-bezier(.3,1.6,.5,1) both}@keyframes gdrop{from{transform:translateY(-110vh) rotate(-540deg)}}
+#gl .gt{font-size:52px;font-weight:900;letter-spacing:3px;animation:gpop .6s .5s cubic-bezier(.2,1.8,.4,1) both;text-shadow:0 4px 20px rgba(0,0,0,.4)}@keyframes gpop{from{transform:scale(0);opacity:0}}
+#gl .gn{font-size:20px;font-weight:700;margin-top:8px;animation:gup .5s .9s both}#gl .gs{font-size:34px;font-weight:900;margin-top:6px;animation:gup .5s 1.1s both}@keyframes gup{from{opacity:0;transform:translateY(20px)}}
+#gl .cf{position:absolute;top:-20px;width:10px;height:16px;border-radius:2px;opacity:.95;animation:fall linear infinite}@media (prefers-reduced-motion:reduce){#gl *{animation:none!important}}</style></head><body><div id="app"></div><div id="nav"></div>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const nd=(i,m)=>({name:'ডিভিশন '+(i+1),players:[],fmt:m==='div'?'league':'lk',league:[],ko:[],tab:'ko',q:0,zu:m==='div'?2:0,zd:m==='div'?2:0,st:false,season:1,ended:false,res:null,inc:[],hist:[],prize:'',rules:'',lg:[],cel:'',liveMatches:{}});
+const nd=(i,m)=>({name:'ডিভিশন '+(i+1),players:[],fmt:m==='div'?'league':'lk',league:[],ko:[],tab:'ko',q:0,zu:m==='div'?2:0,zd:m==='div'?2:0,st:false,season:1,ended:false,res:null,inc:[],hist:[],prize:'',rules:'',lg:[],live:null,cel:''});
 const fresh=()=>({mode:'',divs:[nd(0,'tour')],cur:0});
 let LIB=null,S;
 try{LIB=JSON.parse(localStorage.getItem('tm6'))}catch(e){}
@@ -100,10 +96,10 @@ function genKO(list){const n=list.length,sz=size(n),o=seedOrder(sz).map(s=>s<=n?
 const mk=()=>({l1a:'',l1b:'',l2a:'',l2b:'',pw:''});
 const r0=[];for(let i=0;i<sz/2;i++){r0.push({a:o[2*i],b:o[2*i+1],...mk()})}rounds.push(r0);
 for(let c=sz/4;c>=1;c/=2)rounds.push(Array.from({length:c},mk));return rounds}
-function initDiv(d,p){d.players=p;d.league=[];d.ko=[];d.tab='ko';d.q=p.length;d.liveMatches={};if(d.fmt==='ko')d.ko=genKO(shuffle(p));else d.league=genLeague(shuffle(p))}
+function initDiv(d,p){d.players=p;d.league=[];d.ko=[];d.tab='ko';d.q=p.length;if(d.fmt==='ko')d.ko=genKO(shuffle(p));else d.league=genLeague(shuffle(p))}
 function start(){const d=D();initDiv(d,d.players);d.st=true;d.season=1;d.hist=[];R()}
-function startKO(){const d=D();Object.keys(d.liveMatches||{}).forEach(k=>{if(k.indexOf('ko-')===0)delete d.liveMatches[k]});d.ko=genKO(table().slice(0,d.q||d.players.length).map(x=>x.p));d.tab='ko';R()}
-function reset(){const d=D();d.st=false;d.league=[];d.ko=[];d.ended=false;d.res=null;d.liveMatches={};R()}
+function startKO(){const d=D();d.ko=genKO(table().slice(0,d.q||d.players.length).map(x=>x.p));d.tab='ko';R()}
+function reset(){const d=D();d.st=false;d.league=[];d.ko=[];d.ended=false;d.res=null;R()}
 function num(v){return v===''?'':Math.max(0,parseInt(v)||0)}
 function setL(i,f,v){D().league[i][f]=num(v);dirty=true;save()}
 function setK(r,i,f,v){D().ko[r][i][f]=f==='pw'?v:num(v);if(f!=='pw'){D().ko[r][i].pw='';dirty=true;save()}else R()}
@@ -173,7 +169,7 @@ rows.sort((a,b)=>a.pos-b.pos||b.pts-a.pts||b.gd-a.gd||b.gf-a.gf||a.p.localeCompa
 const clReady=()=>{const qs=S.divs.slice(0,-1).map((q,i)=>[q,i]).filter(([q])=>q.st||q.players.length);return qs.length>0&&qs.every(([q,i])=>q.st&&withDiv(i,leagueDone))};
 function startAllQ(){S.divs.slice(0,-1).forEach(d=>{if(d.players.length>1&&!d.st){initDiv(d,d.players);d.st=true;d.season=1;d.hist=[]}});R()}
 function startMain(){if(!clReady())return;const rows=qualList();if(rows.length<2)return;S.cur=S.divs.length-1;const d=D();
-d.players=rows.map(r=>r.p);d.liveMatches={};d.st=true;d.season=1;d.hist=[];d.q=d.players.length;d.ko=[];d.league=[];d.tab='ko';
+d.players=rows.map(r=>r.p);d.st=true;d.season=1;d.hist=[];d.q=d.players.length;d.ko=[];d.league=[];d.tab='ko';
 if(d.fmt==='ko')d.ko=genKO(d.players);else d.league=genLeague(shuffle(d.players));R()}
 function setupCL(){const d=D(),n=d.players.length,m=S.divs.length-1,isM=S.cur===m,tabs=divTabs(isM||m>=4?'':'<button onclick="addDiv()">+ লিগ</button>');
 const hd=`<div class="top"><h1>⭐ চ্যাম্পিয়নস লিগ</h1><span>${shareBtn()}</span></div>${tabs}`;
@@ -212,7 +208,7 @@ ${t.map((x,i)=>`<tr class="${i<zu?'zg':i>=n-zd?'zr':''}"><td class="n">${i+1}. $
 ${zu?`<div class="lgd"><span class="dot" style="background:var(--ac)"></span>${S.mode==='cl'?'চ্যাম্পিয়নস লিগে':S.cur===0?'কোয়ালিফাই':'প্রমোশন'} (টপ ${zu})</div>`:''}${zd?`<div class="lgd"><span class="dot" style="background:#ef4444"></span>রেলিগেশন (বটম ${zd})</div>`:''}</div>
 <div class="card"><h2>ম্যাচ ও রেজাল্ট</h2>`;
 rs.forEach(r=>{const ms=d.league.map((m,i)=>[m,i]).filter(x=>x[0].r===r);const pl=new Set();ms.forEach(([m])=>{pl.add(m.a);pl.add(m.b)});const rest=d.players.filter(p=>!pl.has(p));
-h+=`<div class="rd">রাউন্ড ${r}</div>`+ms.map(([m,i])=>`<div class="m"><div class="a">${esc(m.a)} ${cr(m.a)}</div><div class="sc">${si(m.sa,`setL(${i},'sa',this.value)`)}–${si(m.sb,`setL(${i},'sb',this.value)`)}</div><div class="b">${cr(m.b)} ${esc(m.b)}</div></div><button data-ok class="live-open" onclick="openLive('lg-${i}',${esc(JSON.stringify(m.a))},${esc(JSON.stringify(m.b))},'lg',${i},0,1)">${lvEnd('lg-'+i)?'✏️ রেজাল্ট এডিট / ম্যাচ দেখুন':'⚽ লাইভ ম্যাচ পরিচালনা'}</button>`).join('')+(rest.length?`<div class="rest">বিশ্রামে: ${rest.map(esc).join(', ')}</div>`:'')});
+h+=`<div class="rd">রাউন্ড ${r}</div>`+ms.map(([m,i])=>`<div class="m"><div class="a">${esc(m.a)} ${cr(m.a)}</div><div class="sc">${si(m.sa,`setL(${i},'sa',this.value)`)}–${si(m.sb,`setL(${i},'sb',this.value)`)}</div><div class="b">${cr(m.b)} ${esc(m.b)}</div></div>${!d.live&&!RO()&&m.sa===''&&m.sb===''?`<div class="lvw"><button onclick="startLive('L',${i})">🔴 লাইভ শুরু</button></div>`:''}`).join('')+(rest.length?`<div class="rest">বিশ্রামে: ${rest.map(esc).join(', ')}</div>`:'')});
 return h+'</div>'}
 function row(h,a,x,y,fx,fy,ok){return`<div class="m"><div class="a">${h}</div><div class="sc">${ok?si(x,fx)+'–'+si(y,fy):'vs'}</div><div class="b">${a}</div></div>`}
 function playK(){const K=D().ko,RN=K.length,fw=win(RN-1,0);
@@ -223,9 +219,8 @@ K.forEach((round,r)=>{const L=legs(r);h+=`<div class="card" id="kr${r}"><h2>${rn
 const nm=x=>x==null?'<span class="mu">—</span>':esc(x);
 if(a==='BYE'||b==='BYE')return`<div class="mm"><div class="bye">${nm(a==='BYE'?b:a)} — বাই (সরাসরি পরের রাউন্ডে)</div></div>`;
 const ok=a&&b,nL=x=>x==null?nm(x):(L===1&&x===w?'🏆 ':'')+esc(x)+' '+cr(x),nR=x=>x==null?nm(x):cr(x)+' '+(L===1&&x===w?'🏆 ':'')+esc(x),g=f=>`setK(${r},${i},'${f}',this.value)`;
-let x=`<div class="mm"><div class="lb">${L===2?'প্রথম লেগ':'ফাইনাল'}</div>`+row(nL(a),nR(b),m.l1a,m.l1b,g('l1a'),g('l1b'),ok);
-x+=!ok?'':`<button data-ok class="live-open" onclick="openLive('ko-${r}-${i}-1',${esc(JSON.stringify(a))},${esc(JSON.stringify(b))},'ko',${r},${i},1)">${lvEnd('ko-'+r+'-'+i+'-1')?'✏️ রেজাল্ট এডিট / ম্যাচ দেখুন':'⚽ '+(L===2?'প্রথম লেগ':'ফাইনাল')+' লাইভ পরিচালনা'}</button>`;
-if(L===2)x+=`<div class="lb">দ্বিতীয় লেগ</div>`+row(nL(b),nR(a),m.l2b,m.l2a,g('l2b'),g('l2a'),ok)+(!ok?'':`<button data-ok class="live-open" onclick="openLive('ko-${r}-${i}-2',${esc(JSON.stringify(b))},${esc(JSON.stringify(a))},'ko',${r},${i},2)">${lvEnd('ko-'+r+'-'+i+'-2')?'✏️ রেজাল্ট এডিট / ম্যাচ দেখুন':'⚽ দ্বিতীয় লেগ লাইভ পরিচালনা'}</button>`);
+let x=`<div class="mm"><div class="lb">${L===2?'প্রথম লেগ':'ফাইনাল'}</div>`+row(nL(a),nR(b),m.l1a,m.l1b,g('l1a'),g('l1b'),ok)+lw(r,i,1,ok&&m.l1a===''&&m.l1b==='');
+if(L===2)x+=`<div class="lb">দ্বিতীয় লেগ</div>`+row(nL(b),nR(a),m.l2b,m.l2a,g('l2b'),g('l2a'),ok)+lw(r,i,2,ok&&m.l2a===''&&m.l2b==='');
 if(ok&&done(m,L)){const[p,q]=agg(m,L);x+=`<div class="agg">${L===2?'মোট':'ফল'}: ${esc(a)} ${p} – ${q} ${esc(b)}${w?` · বিজয়ী: <b>${L===1?'🏆 ':''}${esc(w)}</b>`:''}</div>`;
 if(p===q)x+=`<div class="pen">ড্র! পেনাল্টি/এক্সট্রা টাইমে বিজয়ী: <button class="${m.pw==='a'?'on':''}" onclick="setK(${r},${i},'pw','a')">${esc(a)}</button><button class="${m.pw==='b'?'on':''}" onclick="setK(${r},${i},'pw','b')">${esc(b)}</button></div>`}
 return x+'</div>'}).join('')+'</div>'});
@@ -236,16 +231,17 @@ if(cl&&S.cur<S.divs.length-1&&leagueDone()){const q=table().slice(0,d.zu).map(x=
 if(dv){if(d.inc.length)h+=`<div class="card"><h2>পরের সিজনে আসছে</h2><p class="mu" style="margin:0">${d.inc.map(esc).join(', ')}</p></div>`;
 if(d.ended){const r=d.res;h+=`<div class="card"><h2>সিজন ${d.season} শেষ ✅</h2><p class="mu" style="margin-top:0">${r.up.length?`⬆️ ${esc(P.name)}-এ উঠেছে: <b>${r.up.map(esc).join(', ')}</b><br>`:''}${r.dn.length?`⬇️ ${esc(N.name)}-এ নেমেছে: <b>${r.dn.map(esc).join(', ')}</b><br>`:''}থাকছে: ${r.keep.map(esc).join(', ')||'—'}</p>${r.keep.length+d.inc.length<2?'<p class="mu">নতুন সিজনের জন্য কমপক্ষে ২ জন লাগবে। অন্য ডিভিশনের সিজন শেষ হলে টিম আসবে।</p>':''}<button class="pri big" onclick="newSeason()" ${r.keep.length+d.inc.length<2?'disabled':''}>নতুন সিজন শুরু করুন</button></div>`}
 else if(leagueDone())h+=`<div class="card"><h2>লিগ শেষ ✅</h2><p class="mu" style="margin-top:0">${d.zu&&P?`টপ ${d.zu} জন ${esc(P.name)}-এ উঠবে। `:''}${d.zd&&N?`বটম ${d.zd} জন ${esc(N.name)}-এ নামবে।`:''}</p><button class="pri big" onclick="endSeason()">সিজন শেষ করুন</button></div>`}
+h+=liveCard();
 if(both)h+=`<div class="tabs"><button class="${k?'on':''}" data-ok onclick="setTab('ko')">নকআউট</button><button class="${k?'':'on'}" data-ok onclick="setTab('lg')">লিগ টেবিল</button></div>`;
 h+=k?playK():playL();
 if(d.hist.length)h+=`<div class="card"><h2>আগের সিজন</h2>${d.hist.slice().reverse().map(x=>`<div class="rest">সিজন ${x.s}: 🏆 ${esc(x.c)}${x.up.length?' · ⬆️ '+x.up.map(esc).join(', '):''}${x.dn.length?' · ⬇️ '+x.dn.map(esc).join(', '):''}</div>`).join('')}</div>`;
 return h+overlay()}
-let LG=null,PLG='b7',HOME=true,JN=false,AB=false,dirty=false,RL=false,RE=false,TL=false,DC='',JM='',PN=false,PM='',pt=null,_last='',_np=false,busy=0;
+let LV=false,LK='',LN=-1,LG=null,PLG='b7',HOME=true,JN=false,AB=false,dirty=false,RL=false,RE=false,TL=false,DC='',JM='',PN=false,PM='',pt=null,_last='',_np=false,busy=0;
 const RO=()=>!!S.share&&S.share.role==='view';
 const shareBtn=()=>RO()?'':'<button onclick="openShare()">🔗 শেয়ার</button>';
 const A=v=>Array.isArray(v)?v:v&&typeof v==='object'?Object.values(v):[];
 const st=o=>JSON.stringify(o,(k,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.keys(v).sort().map(x=>[x,v[x]])):v);
-function fixS(x){x.divs=A(x.divs).map(d=>{d.liveMatches=d.liveMatches&&typeof d.liveMatches==='object'?d.liveMatches:{};Object.keys(d.liveMatches).forEach(k=>{const v=d.liveMatches[k];if(v&&typeof v==='object')v.events=A(v.events)});['players','league','inc','hist'].forEach(k=>d[k]=A(d[k]));d.ko=A(d.ko).map(A);if(d.res===undefined)d.res=null;if(d.res)['up','dn','keep'].forEach(k=>d.res[k]=A(d.res[k]));d.hist.forEach(h=>['up','dn'].forEach(k=>h[k]=A(h[k])));d.prize=d.prize||'';d.rules=d.rules||'';d.lg=A(d.lg);d.tab=d.tab||'ko';d.cel='';return d});x.mode=x.mode||'';return x}
+function fixS(x){x.divs=A(x.divs).map(d=>{['players','league','inc','hist'].forEach(k=>d[k]=A(d[k]));d.ko=A(d.ko).map(A);if(d.res===undefined)d.res=null;if(d.res)['up','dn','keep'].forEach(k=>d.res[k]=A(d.res[k]));d.hist.forEach(h=>['up','dn'].forEach(k=>h[k]=A(h[k])));d.prize=d.prize||'';d.rules=d.rules||'';d.lg=A(d.lg);d.tab=d.tab||'ko';d.live=d.live||null;if(d.live)d.live.ev=A(d.live.ev);d.cel='';return d});x.mode=x.mode||'';return x}
 const sn=(m,dv)=>st({mode:m,divs:dv.map(d=>({...d,cel:'',tab:''}))});
 const snap=()=>sn(S.mode,S.divs);
 const getFb=()=>{try{return localStorage.getItem('tmfb')||''}catch(e){return''}};
@@ -367,87 +363,49 @@ const cls=(r<RN-1?(i%2?'l':'u'):(cw&&cw!=='BYE'?'f':''))+(r>r0?' s':'');
 return`<div class="cell ${cls}" onclick="gotoList(${r})"><div class="bc">${row(a,p,w&&w!==a)}${row(b,q,w&&w!==b)}</div></div>`}).join('')+'</div>'}
 if(cw&&cw!=='BYE')h+=`<div class="bcol" style="min-width:170px"><div class="cell s"><div class="bc champ2"><div style="text-align:center;padding:10px 0"><div style="font-size:36px">🏆</div>${cr(cw,1)}<div class="bn2">${esc(cw)}</div><small class="mu">চ্যাম্পিয়ন</small></div></div></div></div>`;
 return h+'</div><p class="mu">কার্ডে চাপ দিলে স্কোর দেওয়ার লিস্টে যাবে।</p>'}
-function lock(){document.querySelectorAll('#app input,#app select,#app textarea,#app button').forEach(e=>{if(!e.hasAttribute('data-ok')&&!e.closest('.tl')&&!e.closest('.live-box'))e.disabled=true})}
+const el=L=>L.base+(L.on?(Date.now()-L.since)/1000:0);
+const rt=L=>90/(L.dur||10);
+const gsec=L=>Math.min(5400,el(L)*rt(L));
+const gshow=L=>{const g=gsec(L);return!L.h2&&g>2700?2700:g};
+const fmtT=L=>{const t=Math.floor(gshow(L)),g=gsec(L);return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0')+(g>=5400?' · পূর্ণ সময়':!L.h2&&g>=2700?' · হাফ টাইম':'')};
+const clkLbl=L=>{const g=gsec(L);return g>=5400?'⏹':!L.h2&&g>=2700?'▶ ২য় অর্ধ':L.on?'⏸':'▶'};
+const gc=(L,s)=>L.ev.filter(x=>x.t==='g'&&x.s===s).length;
+const lw=(r,i,l,c)=>c&&!D().live&&!RO()?`<div class="lvw"><button onclick="startLive('K',${r},${i},${l})">🔴 লাইভ শুরু</button></div>`:'';
+function startLive(t,a,b,c){const d=D();if(RO()||d.live)return;let ref,A_,B_;
+if(t==='L'){const m=d.league[a];ref={t,i:a};A_=m.a;B_=m.b}else{const[x,y]=teams(a,b);ref={t,r:a,i:b,l:c};if(c===2){A_=y;B_=x}else{A_=x;B_=y}}
+if(!A_||!B_||A_==='BYE'||B_==='BYE')return;d.live={id:Date.now().toString(36),ref,a:A_,b:B_,ev:[],on:false,base:0,since:0,dur:d.md||10};LV=true;R()}
+function addEv(t,s){if(RO())return;const L=D().live;if(!L)return;L.ev.push({t,s,m:Math.min(90,Math.max(1,Math.ceil(gshow(L)/60)))});R()}
+function undoEv(){if(RO())return;const L=D().live;if(L&&L.ev.length){L.ev.pop();R()}}
+function clk(){if(RO())return;const L=D().live;if(!L)return;const g=gsec(L);if(g>=5400)return;
+if(!L.h2&&g>=2700){L.h2=1;L.base=2700/rt(L);L.since=Date.now();L.on=true}else if(L.on){L.base=el(L);L.on=false}else{L.since=Date.now();L.on=true}R()}
+function setDur(v){if(RO())return;const d=D(),L=d.live;if(!L||L.on||L.base>0)return;L.dur=+v;d.md=+v;R()}
+function openLive(){LV=true;R()}
+function closeLive(){LV=false;R()}
+function finLive(){if(RO())return;const d=D(),L=d.live;if(!L)return;const ga=gc(L,'a'),gb=gc(L,'b'),f=L.ref;
+if(f.t==='L'){d.league[f.i].sa=ga;d.league[f.i].sb=gb}else{const m=d.ko[f.r][f.i];if(f.l===1){m.l1a=ga;m.l1b=gb}else{m.l2b=ga;m.l2a=gb}m.pw=''}
+d.live=null;LV=false;R()}
+function liveCard(){const L=D().live;if(!L)return'';return`<button class="lvc" data-ok onclick="openLive()"><span class="lvdot">🔴 LIVE</span><span>${esc(L.a)} <b>${gc(L,'a')} – ${gc(L,'b')}</b> ${esc(L.b)}</span><span class="lvt">${fmtT(L)}</span></button>`}
+function liveV(){const d=D(),L=d.live;if(!LV||!L)return'';const adm=!RO(),nm=s=>s==='a'?L.a:L.b;
+const btn=(s,t,ic,lb)=>`<button class="lvb" onclick="addEv('${t}','${s}')">${ic}<br><small>${lb}</small></button>`;
+const col=s=>`<div>${btn(s,'g','⚽','গোল')}${btn(s,'y','🟨','হলুদ')}${btn(s,'r','🟥','লাল')}</div>`;
+return`<div class="ov tl"><div class="cb sh lvp"><div class="lvh">🔴 LIVE · <span class="lvt">${fmtT(L)}</span>${adm?`<button class="lvk" onclick="clk()">${clkLbl(L)}</button>`:''}</div>
+<div class="mu" style="margin:0 0 8px">⏱ ${L.dur||10} মিনিটে ৯০ মিনিটের খেলা (${(90/(L.dur||10)).toFixed(1)}x)${adm&&!L.on&&!L.base?`<br><select onchange="setDur(this.value)">${[5,6,8,10,12,15,20,30,45].map(x=>`<option value="${x}" ${x===(L.dur||10)?'selected':''}>${x} মিনিটের ম্যাচ</option>`).join('')}</select>`:''}</div>
+<div class="lvs"><div class="lt">${cr(L.a,1)}<div>${esc(L.a)}</div></div><div class="ls">${gc(L,'a')} – ${gc(L,'b')}</div><div class="lt">${cr(L.b,1)}<div>${esc(L.b)}</div></div></div>
+${adm?`<div class="lvg">${col('a')}${col('b')}</div>`:''}
+<div class="lve">${L.ev.slice().reverse().map(e=>`<div class="lvr">${e.m}' ${e.t==='g'?'⚽ গোল':e.t==='y'?'🟨 হলুদ কার্ড':'🟥 লাল কার্ড'} — ${cr(nm(e.s))} ${esc(nm(e.s))}</div>`).join('')||'<div class="mu">এখনো কোনো ঘটনা নেই</div>'}</div>
+${adm?`<button onclick="undoEv()">↩ শেষ ঘটনা বাতিল</button><button class="pri" onclick="finLive()">✅ ম্যাচ শেষ, স্কোর সেভ</button>`:''}<button class="big" data-ok onclick="closeLive()">বন্ধ করুন</button></div></div>`}
+function showEvt(e,L){const old=document.getElementById('gl');if(old)old.remove();const w=document.createElement('div');w.id='gl';const g=e.t==='g',n=e.s==='a'?L.a:L.b;let cf='';
+if(g){const c=['#f43f5e','#f59e0b','#fde047','#3b82f6','#a855f7','#fff'];for(let i=0;i<45;i++)cf+=`<i class="cf" style="left:${Math.random()*100}%;background:${c[i%6]};animation-duration:${2+Math.random()*2.5}s;animation-delay:${Math.random()*1.2}s"></i>`}
+else w.style.background=e.t==='y'?'radial-gradient(circle at 50% 40%,#ca8a04,#422006)':'radial-gradient(circle at 50% 40%,#dc2626,#450a0a)';
+w.innerHTML=cf+`<div style="position:relative"><div class="gb">${g?'⚽':e.t==='y'?'🟨':'🟥'}</div><div class="gt">${g?'GOAL!':e.t==='y'?'হলুদ কার্ড':'লাল কার্ড'}</div><div class="gn">${cr(n,1)}<br>${esc(n)} · ${e.m}'</div>${g?`<div class="gs">${esc(L.a)} ${gc(L,'a')} – ${gc(L,'b')} ${esc(L.b)}</div>`:''}</div>`;
+const done=()=>{if(!w.parentNode)return;w.classList.add('out');setTimeout(()=>w.remove(),450)};w.onclick=done;document.body.appendChild(w);setTimeout(done,g?3600:2400)}
+function chkLive(){const d=D(),L=d&&d.live,k=L?S.cur+LIB.act+L.id:'',n=L?L.ev.length:0;
+if(k&&k===LK&&n>LN){try{showEvt(L.ev[n-1],L)}catch(e){}}LK=k;LN=n}
+function tick(){const L=D().live;if(!L)return;document.querySelectorAll('.lvt').forEach(e=>{e.textContent=fmtT(L)});document.querySelectorAll('.lvk').forEach(e=>{e.textContent=clkLbl(L)})}
+function lock(){document.querySelectorAll('#app input,#app select,#app textarea,#app button').forEach(e=>{if(!e.hasAttribute('data-ok')&&!e.closest('.tl'))e.disabled=true})}
 function R(){dirty=false;save();const h=HOME||!S.mode;
 $('#app').innerHTML=(h?'':roBar())+(h?homeDash():D().st?play():setup())+panelV()+tlistV()+rulesV()+joinV()+aboutV()+logoV()+liveV();
-const n=$('#nav');if(n)n.innerHTML=navV(h);if(RO()&&!h)lock()}
-
-let LM=null;
-const lvEnd=k=>{const v=(D().liveMatches||{})[k];return !!(v&&v.status==='ended')};
-function liveEditSave(){
- if(!LM||RO())return;const v=liveData(LM.key),ea=document.getElementById('live-ea'),eb=document.getElementById('live-eb');if(!ea||!eb)return;
- const x=Math.max(0,parseInt(ea.value)||0),y=Math.max(0,parseInt(eb.value)||0);v.a=x;v.b=y;
- if(LM.kind==='lg'){const m=D().league[LM.i];m.sa=x;m.sb=y}
- else{const m=D().ko[LM.r][LM.i];if(LM.leg===2){m.l2b=x;m.l2a=y}else{m.l1a=x;m.l1b=y}m.pw=''}
- v.events=v.events||[];v.events.push({icon:'✏️',text:'অ্যাডমিন রেজাল্ট এডিট: '+x+' – '+y,minute:liveMinuteNow(v),da:x,db:y});save();R();
-}
-function liveData(key){
- const d=D();d.liveMatches=d.liveMatches&&typeof d.liveMatches==='object'?d.liveMatches:{};
- if(!d.liveMatches[key])d.liveMatches[key]={a:0,b:0,events:[],status:'live',minute:1};
- return d.liveMatches[key];
-}
-function openLive(key,a,b,kind,r,i,leg=1){
- liveData(key);{const o=D().liveMatches[key];if(o.ta!==undefined&&(o.ta!==a||o.tb!==b))delete D().liveMatches[key]}
- const v=liveData(key);v.ta=a;v.tb=b;LM={key,a,b,kind,r,i,leg};
- if(!v._started){
-  v.startedAt=Date.now();v.elapsedMs=0;v.pausedAt=0;
-  if(kind==='lg'){const m=D().league[i];v.a=Number(m.sa)||0;v.b=Number(m.sb)||0;}
-  else{const m=D().ko[r][i];if(leg===2){v.a=Number(m.l2b)||0;v.b=Number(m.l2a)||0;}else{v.a=Number(m.l1a)||0;v.b=Number(m.l1b)||0;}}
-  v._started=true;save();
- }else if(v.status!=='ended'&&!v.pausedAt&&!v.startedAt){v.startedAt=Date.now();save();}
- if(v.status==='ended'){if(kind==='lg'){const m=D().league[i];v.a=Number(m.sa)||0;v.b=Number(m.sb)||0}else{const m=D().ko[r][i];if(leg===2){v.a=Number(m.l2b)||0;v.b=Number(m.l2a)||0}else{v.a=Number(m.l1a)||0;v.b=Number(m.l1b)||0}}}
- R();
-}
-function liveV(){
- if(!LM)return '';
- const v=liveData(LM.key),a=esc(LM.a),b=esc(LM.b),events=(v.events||[]).slice().reverse();
- const disabled=(RO()||v.status==='ended'||v.pausedAt)?'disabled':'';
- return `<div class="live-modal"><div class="live-box">
- <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 style="margin:0">🔴 লাইভ ম্যাচ</h2><button onclick="closeLive()">✕ বন্ধ</button></div>
- <div class="live-score" id="live-score"><div class="live-team">${a}</div><div class="live-num">${v.a||0} – ${v.b||0}</div><div class="live-team">${b}</div></div>
- <p style="text-align:center;margin:8px 0;color:var(--mu)"><strong id="live-clock" style="font-size:30px;font-variant-numeric:tabular-nums">${liveClockText(v)}</strong><br>${v.status==='ended'?'ম্যাচ শেষ':(v.pausedAt?'⏸️ বিরতিতে':'🔴 লাইভ চলছে')}</p>
- ${RO()?'<p class="mu">দর্শক মোড — শুধু লাইভ স্কোর ও ঘটনা দেখা যাবে।</p>':v.status==='ended'?`<p class="mu">এই ম্যাচটি শেষ হয়েছে। স্কোর পয়েন্ট টেবিলে হিসাব করা হয়েছে।</p><div class="live-edit"><h3 style="margin:0 0 6px">✏️ রেজাল্ট এডিট</h3><div style="display:flex;align-items:center;gap:8px"><span class="live-team">${a}</span><input id="live-ea" type="number" min="0" inputmode="numeric" value="${Number(v.a)||0}" onfocus="this.select()" style="width:64px;text-align:center"><b>–</b><input id="live-eb" type="number" min="0" inputmode="numeric" value="${Number(v.b)||0}" onfocus="this.select()" style="width:64px;text-align:center"><span class="live-team">${b}</span></div><button class="pri" style="margin-top:8px;width:100%" onclick="liveEditSave()">💾 রেজাল্ট সেভ</button></div>`:`
- <div class="live-actions"><button ${v.pausedAt?'disabled':''} onclick="livePause()">⏸️ বিরতি</button><button ${!v.pausedAt?'disabled':''} onclick="liveResume()">▶️ আবার শুরু</button></div>
- <div class="live-actions">
- <button ${disabled} onclick="liveGoal('a')">⚽ ${a} গোল</button><button ${disabled} onclick="liveGoal('b')">⚽ ${b} গোল</button>
- <button ${disabled} onclick="liveCard('a','🟨')">🟨 ${a} হলুদ কার্ড</button><button ${disabled} onclick="liveCard('b','🟨')">🟨 ${b} হলুদ কার্ড</button>
- <button ${disabled} onclick="liveCard('a','🟥')">🟥 ${a} লাল কার্ড</button><button ${disabled} onclick="liveCard('b','🟥')">🟥 ${b} লাল কার্ড</button>
- </div>
- <input id="live-player" class="live-input" placeholder="কার্ড পাওয়া খেলোয়াড়ের নাম (ঐচ্ছিক)">
- <div style="display:flex;gap:8px;flex-wrap:wrap"><button onclick="liveUndo()">↩️ শেষ ঘটনা বাতিল</button><button class="pri" onclick="liveFinish()">🏁 ম্যাচ শেষ ও স্কোর সেভ</button></div>`}
- <h3 style="margin-bottom:5px">ম্যাচের ঘটনাবলি</h3>
- <div>${events.length?events.map(e=>`<div class="live-event">${esc(e.minute)}' · ${esc(e.icon)} ${esc(e.text)}</div>`).join(''):'<p class="mu">এখনো কোনো ঘটনা যোগ হয়নি।</p>'}</div>
- </div></div>`;
-}
-function liveElapsed(v){let ms=Number(v.elapsedMs)||0;if(v.startedAt&&!v.pausedAt&&v.status!=='ended')ms+=Math.max(0,Date.now()-v.startedAt);return ms;}
-function liveClockText(v){const sec=Math.floor(liveElapsed(v)/1000),m=Math.floor(sec/60),s=sec%60;return String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');}
-function liveMinuteNow(v){return Math.max(1,Math.floor(liveElapsed(v)/60000)+1);}
-function livePause(){if(!LM)return;const v=liveData(LM.key);if(v.status==='ended'||v.pausedAt)return;v.elapsedMs=liveElapsed(v);v.pausedAt=Date.now();v.startedAt=0;save();R();}
-function liveResume(){if(!LM)return;const v=liveData(LM.key);if(v.status==='ended'||!v.pausedAt)return;v.startedAt=Date.now();v.pausedAt=0;save();R();}
-function liveTick(){if(!LM)return;const v=liveData(LM.key),el=document.getElementById('live-clock');if(el)el.textContent=liveClockText(v);}
-function liveGoal(side){
- if(!LM)return;const v=liveData(LM.key);if(v.status==='ended'||v.pausedAt)return;
- const da=Number(v.a)||0,db=Number(v.b)||0;if(side==='a')v.a=da+1;else v.b=db+1;
- const team=side==='a'?LM.a:LM.b;v.events=v.events||[];v.events.push({icon:'⚽',text:team+' — গোল!',minute:liveMinuteNow(v),da,db});save();R();
- const el=document.getElementById('live-score');if(el){el.classList.add('live-goal');setTimeout(()=>el.classList.remove('live-goal'),850);}
-}
-function liveCard(side,card){
- if(!LM)return;const v=liveData(LM.key);if(v.status==='ended'||v.pausedAt)return;
- const team=side==='a'?LM.a:LM.b,player=(document.getElementById('live-player')?.value||'').trim();v.events=v.events||[];
- v.events.push({icon:card,text:(player?player+' ('+team+')':team)+' — '+(card==='🟨'?'হলুদ কার্ড':'লাল কার্ড'),minute:liveMinuteNow(v),da:Number(v.a)||0,db:Number(v.b)||0});save();R();
-}
-function liveUndo(){
- if(!LM)return;const v=liveData(LM.key);if(v.status==='ended')return;const e=(v.events||[]).pop();
- if(e&&Number.isFinite(Number(e.da))&&Number.isFinite(Number(e.db))){v.a=Number(e.da);v.b=Number(e.db);}
- save();R();
-}
-function liveFinish(){
- if(!LM)return;const v=liveData(LM.key);if(v.status==='ended')return;
- if(LM.kind==='lg'){const m=D().league[LM.i];m.sa=Number(v.a)||0;m.sb=Number(v.b)||0;}
- else{const m=D().ko[LM.r][LM.i];if(LM.leg===2){m.l2b=Number(v.a)||0;m.l2a=Number(v.b)||0;}else{m.l1a=Number(v.a)||0;m.l1b=Number(v.b)||0;}m.pw='';}
- v.elapsedMs=liveElapsed(v);v.startedAt=0;v.pausedAt=0;v.status='ended';save();LM=null;R();
-}
-function closeLive(){LM=null;R();}
-R();hashJoin();setInterval(pull,4000);setInterval(liveTick,1000);try{welcome()}catch(e){}
+const n=$('#nav');if(n)n.innerHTML=navV(h);if(RO()&&!h)lock();chkLive()}
+R();hashJoin();setInterval(pull,4000);setInterval(tick,1000);try{welcome()}catch(e){}
 document.addEventListener('focusout',e=>{const t=e.target;if(dirty&&t.closest&&t.closest('.sc')&&!(e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest('.sc')))setTimeout(()=>{if(dirty)R()},350)});
 </script></body></html>
