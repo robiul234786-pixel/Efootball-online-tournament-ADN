@@ -55,7 +55,7 @@ tr.first td{font-weight:700;color:var(--ac)}
 .chipsr{display:flex;gap:8px;overflow-x:auto;margin-bottom:12px}.chipsr button{white-space:nowrap;border-radius:99px}
 .bk{display:flex;overflow-x:auto;padding:4px 14px 12px 0}.bcol{display:flex;flex-direction:column;min-width:min(66vw,250px);margin-right:26px;flex-shrink:0}.cell{flex:1;display:flex;align-items:center;position:relative;min-height:96px;cursor:pointer}.bc{width:100%;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:4px 10px}
 .br{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:14px}.br .bn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.br.lose{opacity:.55}.br.lose .bn{text-decoration:line-through}.br b{min-width:16px;text-align:right}
-.cell.u::after,.cell.l::after{content:'';position:absolute;right:-14px;width:14px;border:2px solid var(--bd);border-left:0}.cell.u::after{top:50%;height:50%;border-bottom:0;border-radius:0 8px 0 0}.cell.l::after{top:0;height:50%;border-top:0;border-radius:0 0 8px 0}.cell.s::before{content:'';position:absolute;left:-12px;width:12px;top:50%;border-top:2px solid var(--bd)}.cell.f::after{content:'';position:absolute;right:-14px;width:14px;top:50%;border-top:2px solid var(--bd)}.champ2{border-color:#f59e0b;background:linear-gradient(180deg,var(--soft),var(--card))}.bn2{font-size:18px;font-weight:800;color:var(--ac);margin-top:6px;word-break:break-word}</style></head><body><div id="app"></div><div id="nav"></div>
+.cell.u::after,.cell.l::after{content:'';position:absolute;right:-14px;width:14px;border:2px solid var(--bd);border-left:0}.cell.u::after{top:50%;height:50%;border-bottom:0;border-radius:0 8px 0 0}.cell.l::after{top:0;height:50%;border-top:0;border-radius:0 0 8px 0}.cell.s::before{content:'';position:absolute;left:-12px;width:12px;top:50%;border-top:2px solid var(--bd)}.cell.f::after{content:'';position:absolute;right:-14px;width:14px;top:50%;border-top:2px solid var(--bd)}.champ2{border-color:#f59e0b;background:linear-gradient(180deg,var(--soft),var(--card))}.bn2{font-size:18px;font-weight:800;color:var(--ac);margin-top:6px;word-break:break-word}.tiles .tile:last-child:nth-child(odd){grid-column:span 2}</style></head><body><div id="app"></div><div id="nav"></div>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -76,8 +76,8 @@ function setFmt(f){D().fmt=f;R()}
 function setName(v){D().name=v.trim()||D().name;R()}
 function setZ(f,v){D()[f]=Math.max(0,parseInt(v)||0);R()}
 function selDiv(i){S.cur=i;R()}
-function addDiv(){S.divs.push(nd(S.divs.length,S.mode));S.cur=S.divs.length-1;R()}
-function delDiv(){if(S.divs.length<2||D().st)return;S.divs.splice(S.cur,1);S.cur=0;R()}
+function addDiv(){if(S.mode==='cl'){if(S.divs.length-1>=4)return;const nm=QN.find(n=>!S.divs.some(d=>d.name===n));S.divs.splice(S.divs.length-1,0,qd(S.divs.length-1,nm));S.cur=S.divs.length-2}else{S.divs.push(nd(S.divs.length,S.mode));S.cur=S.divs.length-1}R()}
+function delDiv(){if(S.divs.length<2||D().st||(S.mode==='cl'&&(S.cur===S.divs.length-1||S.divs.length<3)))return;S.divs.splice(S.cur,1);S.cur=0;R()}
 function size(n){let s=2;while(s<n)s*=2;return s}
 function genLeague(p){let t=p.slice();if(t.length%2)t.push(null);const n=t.length,m=[];
 for(let r=0;r<n-1;r++){for(let i=0;i<n/2;i++){const a=t[i],b=t[n-1-i];if(a&&b)m.push({r:r+1,a,b,sa:'',sb:''})}t.splice(1,0,t.pop())}return m}
@@ -109,13 +109,13 @@ if(a==='BYE'&&b==='BYE')return'BYE';if(a==='BYE')return b;if(b==='BYE')return a;
 if(!a||!b||!done(m,L))return null;const[x,y]=agg(m,L);
 if(x>y)return a;if(y>x)return b;return m.pw==='a'?a:m.pw==='b'?b:null}
 function rname(r){const t=D().ko[r].length*2;return t===2?'ফাইনাল (১ লেগ)':t===4?'সেমিফাইনাল (২ লেগ)':t===8?'কোয়ার্টার ফাইনাল (২ লেগ)':`রাউন্ড অব ${t} (২ লেগ)`}
-function champ(){const d=D();if(d.fmt==='league')return d.league.length&&leagueDone()?table()[0].p:null;
+function champ(){const d=D();if(S.mode==='cl'&&S.cur<S.divs.length-1)return null;if(d.fmt==='league')return d.league.length&&leagueDone()?table()[0].p:null;
 if(!d.ko.length)return null;const w=win(d.ko.length-1,0);return w&&w!=='BYE'?w:null}
 const banner=n=>`<div class="champ">🏆 চ্যাম্পিয়ন: ${esc(n)}${D().prize?`<div style="font-size:15px;font-weight:600;margin-top:4px">🎁 প্রাইজ: ${esc(D().prize)}</div>`:''}<button data-ok onclick="replay()">🎉 আবার দেখুন</button></div>`;
 function celKey(){const n=champ();return n?S.cur+'|'+D().season+'|'+n:''}
 function overlay(){const d=D(),n=champ();if(!n||d.cel===celKey())return'';const c=['#f43f5e','#f59e0b','#22c55e','#3b82f6','#a855f7','#eab308'];let f='';
 for(let i=0;i<60;i++){const z=6+Math.random()*8;f+=`<i style="left:${Math.random()*100}%;background:${c[i%6]};width:${z}px;height:${z*1.6}px;animation-duration:${3+Math.random()*3}s;animation-delay:${Math.random()*2.5}s"></i>`}
-return`<div class="ov">${f}<div class="cb"><div class="tr">🏆</div><h2>🎉 অভিনন্দন! 🎉</h2><div>${cr(n,1)}</div><div class="cn">${esc(n)}</div><p class="mu">${S.mode==='div'?esc(d.name)+' · সিজন '+d.season+' চ্যাম্পিয়ন':'টুর্নামেন্ট চ্যাম্পিয়ন'}</p>${d.prize?`<div class="pz">🎁 প্রাইজ: ${esc(d.prize)}</div>`:''}<button class="pri big" data-ok onclick="closeCel()">ঠিক আছে</button></div></div>`}
+return`<div class="ov">${f}<div class="cb"><div class="tr">🏆</div><h2>🎉 অভিনন্দন! 🎉</h2><div>${cr(n,1)}</div><div class="cn">${esc(n)}</div><p class="mu">${S.mode==='div'?esc(d.name)+' · সিজন '+d.season+' চ্যাম্পিয়ন':S.mode==='cl'?'চ্যাম্পিয়নস লিগ চ্যাম্পিয়ন':'টুর্নামেন্ট চ্যাম্পিয়ন'}</p>${d.prize?`<div class="pz">🎁 প্রাইজ: ${esc(d.prize)}</div>`:''}<button class="pri big" data-ok onclick="closeCel()">ঠিক আছে</button></div></div>`}
 function closeCel(){D().cel=celKey();R()}
 function replay(){D().cel='';R()}
 function setPrize(v){D().prize=v.trim();R()}
@@ -134,22 +134,46 @@ function openJoin(){JN=true;JM='';R()}
 function closeJoin(){JN=false;R()}
 function openAbout(){AB=true;R()}
 function closeAbout(){AB=false;R()}
-async function startNew(m){const ns={mode:m,divs:[nd(0,m)],cur:0},p=LIB.items.find(i=>!i.s.mode);
+const QN=['🌍 ইউরোপা লিগ','🛡️ কনফারেন্স লিগ','🌐 নেশনস লিগ','⚡ সুপার লিগ'];
+const qd=(i,nm)=>Object.assign(nd(i,'div'),{name:nm||QN[i]||'লিগ '+(i+1),zu:2,zd:0});
+const md=()=>Object.assign(nd(0,'tour'),{name:'⭐ চ্যাম্পিয়নস লিগ'});
+const mkS=m=>m==='cl'?{mode:'cl',divs:[qd(0),qd(1),qd(2),md()],cur:0}:{mode:m,divs:[nd(0,m)],cur:0};
+async function startNew(m){const ns=mkS(m),p=LIB.items.find(i=>!i.s.mode);
 if(p){if(pt){clearTimeout(pt);await doPush()}save();p.s=ns;LIB.act=p.id;S=ns;_last=snap();HOME=false;TL=false;R()}else await addT('টুর্নামেন্ট '+(LIB.items.length+1),ns)}
 const navV=h=>`<button class="${h?'on':''}" onclick="goHome()"><span class="ic">🏠</span>হোম</button><button class="${TL?'on':''}" onclick="openT()"><span class="ic">📂</span>টুর্নামেন্ট</button><button class="${JN?'on':''}" onclick="openJoin()"><span class="ic">📡</span>লাইভ</button><button class="${RL?'on':''}" onclick="openRules()"><span class="ic">📜</span>নিয়ম</button><button class="${AB?'on':''}" onclick="openAbout()"><span class="ic">ℹ️</span>পরিচিতি</button>`;
-const tcard=i=>{const x=i.s,n=x.divs.reduce((a,d)=>a+d.players.length,0),go=x.divs.some(d=>d.st);return`<button class="tcard ${i.id===LIB.act?'act':''}" onclick="switchT('${i.id}')"><div class="tc1"><b>${esc(i.name)}</b><span class="bd ${go?'g':''}">${go?'চলছে':'সাজানো হচ্ছে'}</span></div><small>${x.mode==='div'?'🏅 ডিভিশন · '+x.divs.length+'টি ডিভিশন':'🏆 লিগ / নকআউট'} · 👥 ${n} জন${x.share?(x.share.role==='view'?' · 👁 লাইভ':' · 🛠 লাইভ'):''}</small></button>`};
+const tcard=i=>{const x=i.s,n=x.divs.reduce((a,d)=>a+d.players.length,0),go=x.divs.some(d=>d.st);return`<button class="tcard ${i.id===LIB.act?'act':''}" onclick="switchT('${i.id}')"><div class="tc1"><b>${esc(i.name)}</b><span class="bd ${go?'g':''}">${go?'চলছে':'সাজানো হচ্ছে'}</span></div><small>${x.mode==='div'?'🏅 ডিভিশন · '+x.divs.length+'টি ডিভিশন':x.mode==='cl'?'⭐ চ্যাম্পিয়নস লিগ · '+(x.divs.length-1)+'টি লিগ':'🏆 লিগ / নকআউট'} · 👥 ${n} জন${x.share?(x.share.role==='view'?' · 👁 লাইভ':' · 🛠 লাইভ'):''}</small></button>`};
 function homeDash(){const its=LIB.items.filter(i=>i.s.mode),live=its.filter(i=>i.s.share).length,run=its.filter(i=>i.s.divs.some(d=>d.st)).length;
 const tile=(ic,t,sub,fn)=>`<button class="tile" onclick="${fn}"><span class="ic">${ic}</span><b>${t}</b><small>${sub}</small></button>`;
 return`<div class="hero"><div class="hs">⚽</div><div class="hh">স্বাগতম</div><div class="hn">ADN ROBIUL</div><div class="hp">eFootball টুর্নামেন্ট ম্যানেজার</div><div class="stats"><div><b>${its.length}</b><small>টুর্নামেন্ট</small></div><div><b>${run}</b><small>চলছে</small></div><div><b>${live}</b><small>লাইভ</small></div></div></div>
-<h2 class="sec">দ্রুত শুরু করুন</h2><div class="tiles">${tile('🏆','নতুন টুর্নামেন্ট','লিগ + নকআউট',"startNew('tour')")}${tile('🏅','ডিভিশন সিস্টেম','প্রমোশন ও রেলিগেশন',"startNew('div')")}${tile('📡','লাইভ যোগ দিন','লিংক বা কোড দিয়ে',"openJoin()")}${tile('📜','নিয়মাবলী','খেলার নিয়ম দেখুন',"openRules()")}</div>
+<h2 class="sec">দ্রুত শুরু করুন</h2><div class="tiles">${tile('🏆','নতুন টুর্নামেন্ট','লিগ + নকআউট',"startNew('tour')")}${tile('🏅','ডিভিশন সিস্টেম','প্রমোশন ও রেলিগেশন',"startNew('div')")}${tile('⭐','চ্যাম্পিয়নস লিগ','৩-৪টি লিগ → চ্যাম্পিয়নস লিগ',"startNew('cl')")}${tile('📡','লাইভ যোগ দিন','লিংক বা কোড দিয়ে',"openJoin()")}${tile('📜','নিয়মাবলী','খেলার নিয়ম দেখুন',"openRules()")}</div>
 <h2 class="sec">আমার টুর্নামেন্ট</h2>${its.length?its.map(tcard).join(''):'<div class="card mu" style="margin:0">এখনো কোনো টুর্নামেন্ট নেই। উপরের বাটন থেকে শুরু করুন।</div>'}
 <p class="mu" style="text-align:center;margin-top:18px">অ্যাপ মালিক: ADN ROBIUL</p>`}
 function joinV(){if(!JN)return'';return`<div class="ov tl"><div class="cb sh"><h2>📡 লাইভ যোগ দিন</h2><p class="mu" style="margin-top:0">বন্ধুর পাঠানো লিংক বা কোড বসান। অ্যাডমিন কোড থাকলে নিচে দিন, নইলে খালি রাখুন। আলাদা টুর্নামেন্ট হিসেবে যুক্ত হবে, আপনারটা ঠিক থাকবে।</p><textarea id="jc" class="ta" rows="3" placeholder="লিংক বা কোড"></textarea><div class="row" style="margin-top:8px"><input id="jk" type="text" placeholder="অ্যাডমিন কোড (ঐচ্ছিক)"><button class="pri" onclick="joinBtn()">যোগ দিন</button></div>${JM?`<p class="mu" style="color:#ef4444">${esc(JM)}</p>`:''}<button class="big" onclick="closeJoin()">বন্ধ করুন</button></div></div>`}
-function aboutV(){if(!AB)return'';return`<div class="ov tl"><div class="cb sh"><div style="text-align:center"><div class="tr" style="font-size:56px">🏆</div><h2>eFootball টুর্নামেন্ট ম্যানেজার</h2><p class="mu">অ্যাপ মালিক</p><div class="cn" style="font-size:24px">ADN ROBIUL</div></div><p class="mu">✔ লিগ + নকআউট (২ লেগ)<br>✔ ডিভিশন, প্রমোশন ও রেলিগেশন<br>✔ লাইভ শেয়ার (দেখা ও অ্যাডমিন)<br>✔ একাধিক টুর্নামেন্ট<br>✔ চ্যাম্পিয়ন সেলিব্রেশন ও প্রাইজ</p><button class="big" onclick="closeAbout()">বন্ধ করুন</button></div></div>`}
+function aboutV(){if(!AB)return'';return`<div class="ov tl"><div class="cb sh"><div style="text-align:center"><div class="tr" style="font-size:56px">🏆</div><h2>eFootball টুর্নামেন্ট ম্যানেজার</h2><p class="mu">অ্যাপ মালিক</p><div class="cn" style="font-size:24px">ADN ROBIUL</div></div><p class="mu">✔ লিগ + নকআউট (২ লেগ)<br>✔ ডিভিশন, প্রমোশন ও রেলিগেশন<br>✔ চ্যাম্পিয়নস লিগ (৩-৪টি লিগ থেকে সেরারা ওঠে)<br>✔ লাইভ শেয়ার (দেখা ও অ্যাডমিন)<br>✔ একাধিক টুর্নামেন্ট<br>✔ চ্যাম্পিয়ন সেলিব্রেশন ও প্রাইজ</p><button class="big" onclick="closeAbout()">বন্ধ করুন</button></div></div>`}
 function welcome(){const w=document.createElement('div');w.id='wl';let b='';for(let i=0;i<9;i++)b+=`<span class="fb" style="left:${Math.random()*95}%;animation-duration:${4+Math.random()*4}s;animation-delay:${Math.random()*2.5}s">⚽</span>`;
 w.innerHTML=b+`<div class="wb"><div class="wt">🏆</div><div class="w1">স্বাগতম</div><div class="w2">অ্যাপ মালিকের পক্ষ থেকে আপনাকে স্বাগতম</div><div class="w3">ADN ROBIUL</div><div class="w4">eFootball টুর্নামেন্ট ম্যানেজার</div><div class="wp"><i></i></div><div class="w5">এগিয়ে যেতে স্পর্শ করুন</div></div>`;
 const done=()=>{if(!w.parentNode)return;w.classList.add('out');setTimeout(()=>w.remove(),500)};w.onclick=done;document.body.appendChild(w);setTimeout(done,3800)}
-function setup(){const d=D(),n=d.players.length,last=S.cur===S.divs.length-1,dv=S.mode==='div';let h='';
+function qualList(){const n=S.divs.length-1,rows=[];
+for(let i=0;i<n;i++){const d=S.divs[i];if(!d.st)continue;const t=withDiv(i,table),k=Math.min(d.zu,t.length);t.slice(0,k).forEach((x,pos)=>rows.push({p:x.p,pos,pts:x.Pts,gd:x.GF-x.GA,gf:x.GF,from:i}))}
+rows.sort((a,b)=>a.pos-b.pos||b.pts-a.pts||b.gd-a.gd||b.gf-a.gf||a.p.localeCompare(b.p));return rows}
+const clReady=()=>{const qs=S.divs.slice(0,-1).map((q,i)=>[q,i]).filter(([q])=>q.st||q.players.length);return qs.length>0&&qs.every(([q,i])=>q.st&&withDiv(i,leagueDone))};
+function startAllQ(){S.divs.slice(0,-1).forEach(d=>{if(d.players.length>1&&!d.st){initDiv(d,d.players);d.st=true;d.season=1;d.hist=[]}});R()}
+function startMain(){if(!clReady())return;const rows=qualList();if(rows.length<2)return;S.cur=S.divs.length-1;const d=D();
+d.players=rows.map(r=>r.p);d.st=true;d.season=1;d.hist=[];d.q=d.players.length;d.ko=[];d.league=[];d.tab='ko';
+if(d.fmt==='ko')d.ko=genKO(d.players);else d.league=genLeague(shuffle(d.players));R()}
+function setupCL(){const d=D(),n=d.players.length,m=S.divs.length-1,isM=S.cur===m,tabs=divTabs(isM||m>=4?'':'<button onclick="addDiv()">+ লিগ</button>');
+const hd=`<div class="top"><h1>⭐ চ্যাম্পিয়নস লিগ</h1><span>${shareBtn()}</span></div>${tabs}`;
+const prize=`<div class="card"><h2>🎁 চ্যাম্পিয়নের প্রাইজ (ঐচ্ছিক)</h2><div class="row"><input id="pz" type="text" maxlength="40" placeholder="যেমন: ৫০০ টাকা / ট্রফি" value="${esc(d.prize||'')}" onchange="setPrize(this.value)"></div></div>`;
+if(isM){const qs=S.divs.slice(0,m),rows=qs.some(q=>q.st)?qualList():[],ok=clReady(),fb=(k,t)=>`<button class="${d.fmt===k?'on':''}" onclick="setFmt('${k}')">${t}</button>`;
+return hd+`<div class="card"><h2>লিগগুলোর অবস্থা</h2>${qs.map((q,i)=>{const st=!q.st?'শুরু হয়নি':withDiv(i,leagueDone)?'শেষ ✅':'চলছে';return`<div class="rest" style="font-size:14px">${esc(q.name)} · টপ ${q.zu} উঠবে · ${st}</div>`}).join('')}</div>
+<div class="card"><h2>চ্যাম্পিয়নস লিগের ফরম্যাট</h2><div class="seg">${fb('lk','লিগ + নকআউট')}${fb('ko','শুধু নকআউট')}</div><p class="mu">কোয়ালিফাই করা প্লেয়ারদের নিয়ে খেলা হবে। এগিয়ে থাকারা ব্র্যাকেটে উপরের সিড পাবে।</p></div>${prize}
+<div class="card"><h2>চ্যাম্পিয়নস লিগে যারা উঠেছে (${rows.length} জন)</h2>${rows.length?rows.map((r,i)=>`<div class="rest" style="font-size:14px">${i+1}. ${cr(r.p)} ${esc(r.p)} · ${esc(S.divs[r.from].name)} (${r.pos+1}ম)</div>`).join(''):'<p class="mu" style="margin:0">লিগ শুরু হলে এখানে দেখা যাবে।</p>'}</div>
+<button class="pri big" onclick="startMain()" ${ok&&rows.length>1?'':'disabled'}>চ্যাম্পিয়নস লিগ শুরু করুন</button>${ok?'':'<p class="mu">সব লিগ শেষ হলে শুরু করা যাবে।</p>'}`}
+return hd+`<div class="card"><h2>লিগের নাম</h2><div class="row"><input id="dn" type="text" maxlength="24" value="${esc(d.name)}" onchange="setName(this.value)">${S.divs.length>2?'<button onclick="delDiv()">🗑</button>':''}</div></div>
+<div class="card"><h2>প্লেয়ার যোগ করুন</h2><div class="row"><button class="crb" onclick="openLogo('new')">${crestL(PLG)}</button><input id="nm" type="text" maxlength="20" placeholder="প্লেয়ারের নাম" onkeydown="if(event.key==='Enter')add()"><button class="pri" onclick="add()">যোগ</button></div><div class="chips">${d.players.map((p,i)=>`<span class="chip"><span onclick="openLogo(${i})" style="cursor:pointer">${cr(p)}</span>${esc(p)}<b onclick="del(${i})">×</b></span>`).join('')}</div><p class="mu">মোট ${n} জন প্লেয়ার</p></div>
+<div class="card"><h2>চ্যাম্পিয়নস লিগের টিকিট</h2><p class="mu" style="margin:0">${n>1?n*(n-1)/2+'টি ম্যাচ। জয় ৩, ড্র ১ পয়েন্ট।':'কমপক্ষে ২ জন প্লেয়ার লাগবে।'}</p><div class="zr2"><span>চ্যাম্পিয়নস লিগে উঠবে (টপ কতজন)</span>${zi('zu',d.zu)}</div></div>
+<button class="pri big" onclick="start()" ${n<2?'disabled':''}>এই লিগ শুরু করুন</button><button class="big" style="margin-top:8px" onclick="startAllQ()">সব লিগ একসাথে শুরু করুন</button>`}
+function setup(){if(S.mode==='cl')return setupCL();const d=D(),n=d.players.length,last=S.cur===S.divs.length-1,dv=S.mode==='div';let h='';
 if(n<2)h='কমপক্ষে ২ জন প্লেয়ার লাগবে।';
 else if(d.fmt==='league')h=`${n*(n-1)/2}টি ম্যাচ। জয় ৩, ড্র ১ পয়েন্ট।`;
 else if(d.fmt==='ko')h=`${size(n)}-এর ব্র্যাকেট, ফাইনাল বাদে সব রাউন্ডে ২ লেগ।`;
@@ -166,12 +190,12 @@ ${fm}<button class="pri big" onclick="start()" ${n<2?'disabled':''}>${dv?'এই
 function si(v,fn){return`<input type="number" min="0" inputmode="numeric" value="${v}" oninput="${fn};adv(this)" onfocus="this.select()">`}
 function playL(){const d=D(),t=table(),all=leagueDone(),n=d.players.length,last=S.cur===S.divs.length-1,zu=d.zu,zd=last?0:d.zd;
 const rs=[...new Set(d.league.map(m=>m.r))];
-let h=all&&d.fmt==='league'?banner(t[0].p):'';
+let h=all&&d.fmt==='league'&&S.mode!=='cl'?banner(t[0].p):'';
 if(all&&d.fmt==='lk'&&!d.ko.length){const q=d.q||n,opts=[n];for(let k=size(n)/2;k>=2;k/=2)if(k<n)opts.push(k);
 h+=`<div class="card"><h2>লিগ শেষ ✅</h2><p class="mu" style="margin-top:0">কতজন নকআউটে উঠবে?</p><select onchange="setQ(this.value)">${opts.map(o=>`<option value="${o}" ${o===q?'selected':''}>${o===n?'সবাই ('+n+' জন)':'টপ '+o}</option>`).join('')}</select><button class="pri big" onclick="startKO()">নকআউট শুরু করুন</button></div>`}
 h+=`<div class="card"><h2>পয়েন্ট টেবিল</h2><div class="tw"><table><tr><th class="n">প্লেয়ার</th><th>খে</th><th>জ</th><th>ড্র</th><th>হা</th><th>গোল</th><th>GD</th><th>পয়েন্ট</th></tr>
-${t.map((x,i)=>`<tr class="${i<zu?'zg':i>=n-zd?'zr':''}"><td class="n">${i+1}. ${cr(x.p)} ${i===0&&all&&d.fmt==='league'?'🏆 ':''}${esc(x.p)}</td><td>${x.P}</td><td>${x.W}</td><td>${x.D}</td><td>${x.L}</td><td>${x.GF}:${x.GA}</td><td>${x.GF-x.GA}</td><td><b>${x.Pts}</b></td></tr>`).join('')}</table></div>
-${zu?`<div class="lgd"><span class="dot" style="background:var(--ac)"></span>${S.cur===0?'কোয়ালিফাই':'প্রমোশন'} (টপ ${zu})</div>`:''}${zd?`<div class="lgd"><span class="dot" style="background:#ef4444"></span>রেলিগেশন (বটম ${zd})</div>`:''}</div>
+${t.map((x,i)=>`<tr class="${i<zu?'zg':i>=n-zd?'zr':''}"><td class="n">${i+1}. ${cr(x.p)} ${i===0&&all&&d.fmt==='league'&&S.mode!=='cl'?'🏆 ':''}${esc(x.p)}</td><td>${x.P}</td><td>${x.W}</td><td>${x.D}</td><td>${x.L}</td><td>${x.GF}:${x.GA}</td><td>${x.GF-x.GA}</td><td><b>${x.Pts}</b></td></tr>`).join('')}</table></div>
+${zu?`<div class="lgd"><span class="dot" style="background:var(--ac)"></span>${S.mode==='cl'?'চ্যাম্পিয়নস লিগে':S.cur===0?'কোয়ালিফাই':'প্রমোশন'} (টপ ${zu})</div>`:''}${zd?`<div class="lgd"><span class="dot" style="background:#ef4444"></span>রেলিগেশন (বটম ${zd})</div>`:''}</div>
 <div class="card"><h2>ম্যাচ ও রেজাল্ট</h2>`;
 rs.forEach(r=>{const ms=d.league.map((m,i)=>[m,i]).filter(x=>x[0].r===r);const pl=new Set();ms.forEach(([m])=>{pl.add(m.a);pl.add(m.b)});const rest=d.players.filter(p=>!pl.has(p));
 h+=`<div class="rd">রাউন্ড ${r}</div>`+ms.map(([m,i])=>`<div class="m"><div class="a">${esc(m.a)} ${cr(m.a)}</div><div class="sc">${si(m.sa,`setL(${i},'sa',this.value)`)}–${si(m.sb,`setL(${i},'sb',this.value)`)}</div><div class="b">${cr(m.b)} ${esc(m.b)}</div></div>`).join('')+(rest.length?`<div class="rest">বিশ্রামে: ${rest.map(esc).join(', ')}</div>`:'')});
@@ -191,8 +215,9 @@ if(ok&&done(m,L)){const[p,q]=agg(m,L);x+=`<div class="agg">${L===2?'মোট':'
 if(p===q)x+=`<div class="pen">ড্র! পেনাল্টি/এক্সট্রা টাইমে বিজয়ী: <button class="${m.pw==='a'?'on':''}" onclick="setK(${r},${i},'pw','a')">${esc(a)}</button><button class="${m.pw==='b'?'on':''}" onclick="setK(${r},${i},'pw','b')">${esc(b)}</button></div>`}
 return x+'</div>'}).join('')+'</div>'});
 return h}
-function play(){const d=D(),dv=S.mode==='div',both=d.league.length&&d.ko.length,k=both?d.tab!=='lg':!!d.ko.length,P=S.divs[S.cur-1],N=S.divs[S.cur+1];
-let h=`<div class="top"><h1>${dv?esc(d.name)+' · সিজন '+d.season:'🏆 টুর্নামেন্ট'}</h1><span>${shareBtn()}<button onclick="reset()">${dv?'রিসেট':'নতুন টুর্নামেন্ট'}</button></span></div>`+(dv?divTabs('<button onclick="addDiv()">+ ডিভিশন</button>'):'');
+function play(){const d=D(),dv=S.mode==='div',cl=S.mode==='cl',both=d.league.length&&d.ko.length,k=both?d.tab!=='lg':!!d.ko.length,P=S.divs[S.cur-1],N=S.divs[S.cur+1];
+let h=`<div class="top"><h1>${dv?esc(d.name)+' · সিজন '+d.season:cl?esc(d.name):'🏆 টুর্নামেন্ট'}</h1><span>${shareBtn()}<button onclick="reset()">${dv||cl?'রিসেট':'নতুন টুর্নামেন্ট'}</button></span></div>`+(dv?divTabs('<button onclick="addDiv()">+ ডিভিশন</button>'):cl?divTabs(''):'');
+if(cl&&S.cur<S.divs.length-1&&leagueDone()){const q=table().slice(0,d.zu).map(x=>cr(x.p)+' '+esc(x.p)).join('<br>');h+=`<div class="card"><h2>লিগ শেষ ✅</h2><p class="mu" style="margin-top:0">চ্যাম্পিয়নস লিগে উঠেছে:</p><div>${q}</div><button class="pri big" style="margin-top:10px" data-ok onclick="selDiv(${S.divs.length-1})">চ্যাম্পিয়নস লিগ দেখুন</button></div>`}
 if(dv){if(d.inc.length)h+=`<div class="card"><h2>পরের সিজনে আসছে</h2><p class="mu" style="margin:0">${d.inc.map(esc).join(', ')}</p></div>`;
 if(d.ended){const r=d.res;h+=`<div class="card"><h2>সিজন ${d.season} শেষ ✅</h2><p class="mu" style="margin-top:0">${r.up.length?`⬆️ ${esc(P.name)}-এ উঠেছে: <b>${r.up.map(esc).join(', ')}</b><br>`:''}${r.dn.length?`⬇️ ${esc(N.name)}-এ নেমেছে: <b>${r.dn.map(esc).join(', ')}</b><br>`:''}থাকছে: ${r.keep.map(esc).join(', ')||'—'}</p>${r.keep.length+d.inc.length<2?'<p class="mu">নতুন সিজনের জন্য কমপক্ষে ২ জন লাগবে। অন্য ডিভিশনের সিজন শেষ হলে টিম আসবে।</p>':''}<button class="pri big" onclick="newSeason()" ${r.keep.length+d.inc.length<2?'disabled':''}>নতুন সিজন শুরু করুন</button></div>`}
 else if(leagueDone())h+=`<div class="card"><h2>লিগ শেষ ✅</h2><p class="mu" style="margin-top:0">${d.zu&&P?`টপ ${d.zu} জন ${esc(P.name)}-এ উঠবে। `:''}${d.zd&&N?`বটম ${d.zd} জন ${esc(N.name)}-এ নামবে।`:''}</p><button class="pri big" onclick="endSeason()">সিজন শেষ করুন</button></div>`}
@@ -259,7 +284,7 @@ if(!LIB.items.length)LIB.items.push({id:fid(),name:'টুর্নামেন�
 if(LIB.act===id){LIB.act=LIB.items[0].id;S=LIB.items[0].s;_last=snap()}R()}
 function renameCur(v){const it=LIB.items.find(x=>x.id===LIB.act);it.name=v.trim()||it.name;R()}
 function tlistV(){if(!TL)return'';const cur=LIB.items.find(x=>x.id===LIB.act);
-const mt=x=>(x.mode==='div'?'ডিভিশন':x.mode==='tour'?'টুর্নামেন্ট':'নতুন')+(x.share?(x.share.role==='view'?' · 👁 লাইভ':' · 🛠 লাইভ'):'');
+const mt=x=>(x.mode==='div'?'ডিভিশন':x.mode==='cl'?'চ্যাম্পিয়নস লিগ':x.mode==='tour'?'টুর্নামেন্ট':'নতুন')+(x.share?(x.share.role==='view'?' · 👁 লাইভ':' · 🛠 লাইভ'):'');
 return`<div class="ov tl"><div class="cb sh"><h2>📂 আমার টুর্নামেন্ট</h2>${LIB.items.map(it=>`<div class="row"><button class="${it.id===LIB.act?'on':''}" style="flex:1;text-align:left" onclick="switchT('${it.id}')">${esc(it.name)}<br><small>${mt(it.s)}</small></button><button onclick="delT('${it.id}')">${DC===it.id?'নিশ্চিত?':'🗑'}</button></div>`).join('')}
 <h2 style="margin-top:14px">➕ নতুন টুর্নামেন্ট</h2><div class="row"><input id="tn" type="text" maxlength="30" placeholder="নাম (ঐচ্ছিক)"><button class="pri" onclick="newT()">বানান</button></div>
 <h2 style="margin-top:14px">✏️ বর্তমানের নাম বদলান</h2><input id="rn" type="text" maxlength="30" value="${esc(cur.name)}" onchange="renameCur(this.value)" style="width:100%"><button class="big" onclick="closeT()">বন্ধ করুন</button></div></div>`}
@@ -282,6 +307,12 @@ const RULES_DEF=`⚽ ম্যাচের নিয়ম
 ১২. মোট গোল সমান হলে পেনাল্টি বা এক্সট্রা টাইমে বিজয়ী ঠিক হবে। অ্যাওয়ে গোলের আলাদা সুবিধা নেই।
 ১৩. ফাইনাল এক ম্যাচের।
 ১৪. প্লেয়ার সংখ্যা ২-এর ঘাত না হলে (যেমন ৫ বা ৬) সেরা সিডের প্লেয়াররা বাই পাবে।
+
+⭐ চ্যাম্পিয়নস লিগের নিয়ম
+১৫. আগে ইউরোপা, কনফারেন্স, নেশনস ইত্যাদি লিগগুলো আলাদা আলাদা খেলা হবে।
+১৬. প্রতিটি লিগের টপ কয়েকজন চ্যাম্পিয়নস লিগে উঠবে (কতজন, অ্যাডমিন ঠিক করবে)।
+১৭. সব লিগ শেষ হলে কোয়ালিফাই করা প্লেয়ারদের নিয়ে চ্যাম্পিয়নস লিগ শুরু হবে।
+১৮. কোয়ালিফাইং লিগে এগিয়ে থাকা প্লেয়াররা ব্র্যাকেটে উপরের সিড পাবে।
 
 ⚖️ অ্যাডমিনের সিদ্ধান্তই চূড়ান্ত।`;
 function openRules(){RL=true;RE=false;R()}
