@@ -64,8 +64,8 @@ tr.first td{font-weight:700;color:var(--ac)}
 .live-num{font-size:42px;font-weight:900;font-variant-numeric:tabular-nums}
 .live-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
 .live-actions button,.live-box button{padding:10px;border:1px solid var(--bd);border-radius:10px;background:var(--bg);color:var(--tx)}
-.live-box button:disabled{opacity:.45}
-.live-event{padding:9px;border-bottom:1px solid var(--bd);font-size:14px}
+.live-box button.pri{background:var(--ac);color:var(--act);border-color:var(--ac);font-weight:600}.live-box button:disabled{opacity:.45}
+.live-edit{margin:12px 0;padding:12px;border:1px dashed var(--ac);border-radius:12px}.live-edit input{padding:9px;border:1px solid var(--bd);border-radius:9px;background:var(--bg);color:var(--tx);font:inherit}.live-event{padding:9px;border-bottom:1px solid var(--bd);font-size:14px}
 .live-goal{animation:goalflash .8s ease}
 @keyframes goalflash{0%{background:#16a34a;color:white;transform:scale(1)}35%{background:#16a34a;color:white;transform:scale(1.035)}100%{background:var(--soft);transform:scale(1)}}
 .live-input{width:100%;padding:10px;border:1px solid var(--bd);border-radius:9px;background:var(--bg);color:var(--tx);margin:5px 0}
@@ -73,7 +73,7 @@ tr.first td{font-weight:700;color:var(--ac)}
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const nd=(i,m)=>({name:'ডিভিশন '+(i+1),players:[],fmt:m==='div'?'league':'lk',league:[],ko:[],tab:'ko',q:0,zu:m==='div'?2:0,zd:m==='div'?2:0,st:false,season:1,ended:false,res:null,inc:[],hist:[],prize:'',rules:'',lg:[],cel:''});
+const nd=(i,m)=>({name:'ডিভিশন '+(i+1),players:[],fmt:m==='div'?'league':'lk',league:[],ko:[],tab:'ko',q:0,zu:m==='div'?2:0,zd:m==='div'?2:0,st:false,season:1,ended:false,res:null,inc:[],hist:[],prize:'',rules:'',lg:[],cel:'',liveMatches:{}});
 const fresh=()=>({mode:'',divs:[nd(0,'tour')],cur:0});
 let LIB=null,S;
 try{LIB=JSON.parse(localStorage.getItem('tm6'))}catch(e){}
@@ -100,10 +100,10 @@ function genKO(list){const n=list.length,sz=size(n),o=seedOrder(sz).map(s=>s<=n?
 const mk=()=>({l1a:'',l1b:'',l2a:'',l2b:'',pw:''});
 const r0=[];for(let i=0;i<sz/2;i++){r0.push({a:o[2*i],b:o[2*i+1],...mk()})}rounds.push(r0);
 for(let c=sz/4;c>=1;c/=2)rounds.push(Array.from({length:c},mk));return rounds}
-function initDiv(d,p){d.players=p;d.league=[];d.ko=[];d.tab='ko';d.q=p.length;if(d.fmt==='ko')d.ko=genKO(shuffle(p));else d.league=genLeague(shuffle(p))}
+function initDiv(d,p){d.players=p;d.league=[];d.ko=[];d.tab='ko';d.q=p.length;d.liveMatches={};if(d.fmt==='ko')d.ko=genKO(shuffle(p));else d.league=genLeague(shuffle(p))}
 function start(){const d=D();initDiv(d,d.players);d.st=true;d.season=1;d.hist=[];R()}
-function startKO(){const d=D();d.ko=genKO(table().slice(0,d.q||d.players.length).map(x=>x.p));d.tab='ko';R()}
-function reset(){const d=D();d.st=false;d.league=[];d.ko=[];d.ended=false;d.res=null;R()}
+function startKO(){const d=D();Object.keys(d.liveMatches||{}).forEach(k=>{if(k.indexOf('ko-')===0)delete d.liveMatches[k]});d.ko=genKO(table().slice(0,d.q||d.players.length).map(x=>x.p));d.tab='ko';R()}
+function reset(){const d=D();d.st=false;d.league=[];d.ko=[];d.ended=false;d.res=null;d.liveMatches={};R()}
 function num(v){return v===''?'':Math.max(0,parseInt(v)||0)}
 function setL(i,f,v){D().league[i][f]=num(v);dirty=true;save()}
 function setK(r,i,f,v){D().ko[r][i][f]=f==='pw'?v:num(v);if(f!=='pw'){D().ko[r][i].pw='';dirty=true;save()}else R()}
@@ -173,7 +173,7 @@ rows.sort((a,b)=>a.pos-b.pos||b.pts-a.pts||b.gd-a.gd||b.gf-a.gf||a.p.localeCompa
 const clReady=()=>{const qs=S.divs.slice(0,-1).map((q,i)=>[q,i]).filter(([q])=>q.st||q.players.length);return qs.length>0&&qs.every(([q,i])=>q.st&&withDiv(i,leagueDone))};
 function startAllQ(){S.divs.slice(0,-1).forEach(d=>{if(d.players.length>1&&!d.st){initDiv(d,d.players);d.st=true;d.season=1;d.hist=[]}});R()}
 function startMain(){if(!clReady())return;const rows=qualList();if(rows.length<2)return;S.cur=S.divs.length-1;const d=D();
-d.players=rows.map(r=>r.p);d.st=true;d.season=1;d.hist=[];d.q=d.players.length;d.ko=[];d.league=[];d.tab='ko';
+d.players=rows.map(r=>r.p);d.liveMatches={};d.st=true;d.season=1;d.hist=[];d.q=d.players.length;d.ko=[];d.league=[];d.tab='ko';
 if(d.fmt==='ko')d.ko=genKO(d.players);else d.league=genLeague(shuffle(d.players));R()}
 function setupCL(){const d=D(),n=d.players.length,m=S.divs.length-1,isM=S.cur===m,tabs=divTabs(isM||m>=4?'':'<button onclick="addDiv()">+ লিগ</button>');
 const hd=`<div class="top"><h1>⭐ চ্যাম্পিয়নস লিগ</h1><span>${shareBtn()}</span></div>${tabs}`;
@@ -212,7 +212,7 @@ ${t.map((x,i)=>`<tr class="${i<zu?'zg':i>=n-zd?'zr':''}"><td class="n">${i+1}. $
 ${zu?`<div class="lgd"><span class="dot" style="background:var(--ac)"></span>${S.mode==='cl'?'চ্যাম্পিয়নস লিগে':S.cur===0?'কোয়ালিফাই':'প্রমোশন'} (টপ ${zu})</div>`:''}${zd?`<div class="lgd"><span class="dot" style="background:#ef4444"></span>রেলিগেশন (বটম ${zd})</div>`:''}</div>
 <div class="card"><h2>ম্যাচ ও রেজাল্ট</h2>`;
 rs.forEach(r=>{const ms=d.league.map((m,i)=>[m,i]).filter(x=>x[0].r===r);const pl=new Set();ms.forEach(([m])=>{pl.add(m.a);pl.add(m.b)});const rest=d.players.filter(p=>!pl.has(p));
-h+=`<div class="rd">রাউন্ড ${r}</div>`+ms.map(([m,i])=>`<div class="m"><div class="a">${esc(m.a)} ${cr(m.a)}</div><div class="sc">${si(m.sa,`setL(${i},'sa',this.value)`)}–${si(m.sb,`setL(${i},'sb',this.value)`)}</div><div class="b">${cr(m.b)} ${esc(m.b)}</div></div><button data-ok class="live-open" onclick="openLive('lg-${i}',${esc(JSON.stringify(m.a))},${esc(JSON.stringify(m.b))},'lg',${i},0,1)">⚽ লাইভ ম্যাচ পরিচালনা</button>`).join('')+(rest.length?`<div class="rest">বিশ্রামে: ${rest.map(esc).join(', ')}</div>`:'')});
+h+=`<div class="rd">রাউন্ড ${r}</div>`+ms.map(([m,i])=>`<div class="m"><div class="a">${esc(m.a)} ${cr(m.a)}</div><div class="sc">${si(m.sa,`setL(${i},'sa',this.value)`)}–${si(m.sb,`setL(${i},'sb',this.value)`)}</div><div class="b">${cr(m.b)} ${esc(m.b)}</div></div><button data-ok class="live-open" onclick="openLive('lg-${i}',${esc(JSON.stringify(m.a))},${esc(JSON.stringify(m.b))},'lg',${i},0,1)">${lvEnd('lg-'+i)?'✏️ রেজাল্ট এডিট / ম্যাচ দেখুন':'⚽ লাইভ ম্যাচ পরিচালনা'}</button>`).join('')+(rest.length?`<div class="rest">বিশ্রামে: ${rest.map(esc).join(', ')}</div>`:'')});
 return h+'</div>'}
 function row(h,a,x,y,fx,fy,ok){return`<div class="m"><div class="a">${h}</div><div class="sc">${ok?si(x,fx)+'–'+si(y,fy):'vs'}</div><div class="b">${a}</div></div>`}
 function playK(){const K=D().ko,RN=K.length,fw=win(RN-1,0);
@@ -224,8 +224,8 @@ const nm=x=>x==null?'<span class="mu">—</span>':esc(x);
 if(a==='BYE'||b==='BYE')return`<div class="mm"><div class="bye">${nm(a==='BYE'?b:a)} — বাই (সরাসরি পরের রাউন্ডে)</div></div>`;
 const ok=a&&b,nL=x=>x==null?nm(x):(L===1&&x===w?'🏆 ':'')+esc(x)+' '+cr(x),nR=x=>x==null?nm(x):cr(x)+' '+(L===1&&x===w?'🏆 ':'')+esc(x),g=f=>`setK(${r},${i},'${f}',this.value)`;
 let x=`<div class="mm"><div class="lb">${L===2?'প্রথম লেগ':'ফাইনাল'}</div>`+row(nL(a),nR(b),m.l1a,m.l1b,g('l1a'),g('l1b'),ok);
-x+=`<button data-ok class="live-open" onclick="openLive('ko-${r}-${i}-1',${esc(JSON.stringify(a))},${esc(JSON.stringify(b))},'ko',${r},${i},1)">⚽ ${L===2?'প্রথম লেগ':'ফাইনাল'} লাইভ পরিচালনা</button>`;
-if(L===2)x+=`<div class="lb">দ্বিতীয় লেগ</div>`+row(nL(b),nR(a),m.l2b,m.l2a,g('l2b'),g('l2a'),ok)+`<button data-ok class="live-open" onclick="openLive('ko-${r}-${i}-2',${esc(JSON.stringify(b))},${esc(JSON.stringify(a))},'ko',${r},${i},2)">⚽ দ্বিতীয় লেগ লাইভ পরিচালনা</button>`;
+x+=!ok?'':`<button data-ok class="live-open" onclick="openLive('ko-${r}-${i}-1',${esc(JSON.stringify(a))},${esc(JSON.stringify(b))},'ko',${r},${i},1)">${lvEnd('ko-'+r+'-'+i+'-1')?'✏️ রেজাল্ট এডিট / ম্যাচ দেখুন':'⚽ '+(L===2?'প্রথম লেগ':'ফাইনাল')+' লাইভ পরিচালনা'}</button>`;
+if(L===2)x+=`<div class="lb">দ্বিতীয় লেগ</div>`+row(nL(b),nR(a),m.l2b,m.l2a,g('l2b'),g('l2a'),ok)+(!ok?'':`<button data-ok class="live-open" onclick="openLive('ko-${r}-${i}-2',${esc(JSON.stringify(b))},${esc(JSON.stringify(a))},'ko',${r},${i},2)">${lvEnd('ko-'+r+'-'+i+'-2')?'✏️ রেজাল্ট এডিট / ম্যাচ দেখুন':'⚽ দ্বিতীয় লেগ লাইভ পরিচালনা'}</button>`);
 if(ok&&done(m,L)){const[p,q]=agg(m,L);x+=`<div class="agg">${L===2?'মোট':'ফল'}: ${esc(a)} ${p} – ${q} ${esc(b)}${w?` · বিজয়ী: <b>${L===1?'🏆 ':''}${esc(w)}</b>`:''}</div>`;
 if(p===q)x+=`<div class="pen">ড্র! পেনাল্টি/এক্সট্রা টাইমে বিজয়ী: <button class="${m.pw==='a'?'on':''}" onclick="setK(${r},${i},'pw','a')">${esc(a)}</button><button class="${m.pw==='b'?'on':''}" onclick="setK(${r},${i},'pw','b')">${esc(b)}</button></div>`}
 return x+'</div>'}).join('')+'</div>'});
@@ -245,7 +245,7 @@ const RO=()=>!!S.share&&S.share.role==='view';
 const shareBtn=()=>RO()?'':'<button onclick="openShare()">🔗 শেয়ার</button>';
 const A=v=>Array.isArray(v)?v:v&&typeof v==='object'?Object.values(v):[];
 const st=o=>JSON.stringify(o,(k,v)=>v&&typeof v==='object'&&!Array.isArray(v)?Object.fromEntries(Object.keys(v).sort().map(x=>[x,v[x]])):v);
-function fixS(x){x.divs=A(x.divs).map(d=>{d.liveMatches=d.liveMatches&&typeof d.liveMatches==='object'?d.liveMatches:{};['players','league','inc','hist'].forEach(k=>d[k]=A(d[k]));d.ko=A(d.ko).map(A);if(d.res===undefined)d.res=null;if(d.res)['up','dn','keep'].forEach(k=>d.res[k]=A(d.res[k]));d.hist.forEach(h=>['up','dn'].forEach(k=>h[k]=A(h[k])));d.prize=d.prize||'';d.rules=d.rules||'';d.lg=A(d.lg);d.tab=d.tab||'ko';d.cel='';return d});x.mode=x.mode||'';return x}
+function fixS(x){x.divs=A(x.divs).map(d=>{d.liveMatches=d.liveMatches&&typeof d.liveMatches==='object'?d.liveMatches:{};Object.keys(d.liveMatches).forEach(k=>{const v=d.liveMatches[k];if(v&&typeof v==='object')v.events=A(v.events)});['players','league','inc','hist'].forEach(k=>d[k]=A(d[k]));d.ko=A(d.ko).map(A);if(d.res===undefined)d.res=null;if(d.res)['up','dn','keep'].forEach(k=>d.res[k]=A(d.res[k]));d.hist.forEach(h=>['up','dn'].forEach(k=>h[k]=A(h[k])));d.prize=d.prize||'';d.rules=d.rules||'';d.lg=A(d.lg);d.tab=d.tab||'ko';d.cel='';return d});x.mode=x.mode||'';return x}
 const sn=(m,dv)=>st({mode:m,divs:dv.map(d=>({...d,cel:'',tab:''}))});
 const snap=()=>sn(S.mode,S.divs);
 const getFb=()=>{try{return localStorage.getItem('tmfb')||''}catch(e){return''}};
@@ -373,6 +373,14 @@ $('#app').innerHTML=(h?'':roBar())+(h?homeDash():D().st?play():setup())+panelV()
 const n=$('#nav');if(n)n.innerHTML=navV(h);if(RO()&&!h)lock()}
 
 let LM=null;
+const lvEnd=k=>{const v=(D().liveMatches||{})[k];return !!(v&&v.status==='ended')};
+function liveEditSave(){
+ if(!LM||RO())return;const v=liveData(LM.key),ea=document.getElementById('live-ea'),eb=document.getElementById('live-eb');if(!ea||!eb)return;
+ const x=Math.max(0,parseInt(ea.value)||0),y=Math.max(0,parseInt(eb.value)||0);v.a=x;v.b=y;
+ if(LM.kind==='lg'){const m=D().league[LM.i];m.sa=x;m.sb=y}
+ else{const m=D().ko[LM.r][LM.i];if(LM.leg===2){m.l2b=x;m.l2a=y}else{m.l1a=x;m.l1b=y}m.pw=''}
+ v.events=v.events||[];v.events.push({icon:'✏️',text:'অ্যাডমিন রেজাল্ট এডিট: '+x+' – '+y,minute:liveMinuteNow(v),da:x,db:y});save();R();
+}
 function liveData(key){
  const d=D();d.liveMatches=d.liveMatches&&typeof d.liveMatches==='object'?d.liveMatches:{};
  if(!d.liveMatches[key])d.liveMatches[key]={a:0,b:0,events:[],status:'live',minute:1};
@@ -386,17 +394,18 @@ function openLive(key,a,b,kind,r,i,leg=1){
   else{const m=D().ko[r][i];if(leg===2){v.a=Number(m.l2b)||0;v.b=Number(m.l2a)||0;}else{v.a=Number(m.l1a)||0;v.b=Number(m.l1b)||0;}}
   v._started=true;save();
  }else if(v.status!=='ended'&&!v.pausedAt&&!v.startedAt){v.startedAt=Date.now();save();}
+ if(v.status==='ended'){if(kind==='lg'){const m=D().league[i];v.a=Number(m.sa)||0;v.b=Number(m.sb)||0}else{const m=D().ko[r][i];if(leg===2){v.a=Number(m.l2b)||0;v.b=Number(m.l2a)||0}else{v.a=Number(m.l1a)||0;v.b=Number(m.l1b)||0}}}
  R();
 }
 function liveV(){
  if(!LM)return '';
  const v=liveData(LM.key),a=esc(LM.a),b=esc(LM.b),events=(v.events||[]).slice().reverse();
- const disabled=RO()||v.status==='ended'?'disabled':'';
+ const disabled=(RO()||v.status==='ended'||v.pausedAt)?'disabled':'';
  return `<div class="live-modal"><div class="live-box">
  <div style="display:flex;justify-content:space-between;align-items:center;gap:8px"><h2 style="margin:0">🔴 লাইভ ম্যাচ</h2><button onclick="closeLive()">✕ বন্ধ</button></div>
  <div class="live-score" id="live-score"><div class="live-team">${a}</div><div class="live-num">${v.a||0} – ${v.b||0}</div><div class="live-team">${b}</div></div>
  <p style="text-align:center;margin:8px 0;color:var(--mu)"><strong id="live-clock" style="font-size:30px;font-variant-numeric:tabular-nums">${liveClockText(v)}</strong><br>${v.status==='ended'?'ম্যাচ শেষ':(v.pausedAt?'⏸️ বিরতিতে':'🔴 লাইভ চলছে')}</p>
- ${RO()?'<p class="mu">দর্শক মোড — শুধু লাইভ স্কোর ও ঘটনা দেখা যাবে।</p>':v.status==='ended'?'<p class="mu">এই ম্যাচটি শেষ হয়েছে। স্কোর পয়েন্ট টেবিলে হিসাব করা হয়েছে।</p>':`
+ ${RO()?'<p class="mu">দর্শক মোড — শুধু লাইভ স্কোর ও ঘটনা দেখা যাবে।</p>':v.status==='ended'?`<p class="mu">এই ম্যাচটি শেষ হয়েছে। স্কোর পয়েন্ট টেবিলে হিসাব করা হয়েছে।</p><div class="live-edit"><h3 style="margin:0 0 6px">✏️ রেজাল্ট এডিট</h3><div style="display:flex;align-items:center;gap:8px"><span class="live-team">${a}</span><input id="live-ea" type="number" min="0" inputmode="numeric" value="${Number(v.a)||0}" onfocus="this.select()" style="width:64px;text-align:center"><b>–</b><input id="live-eb" type="number" min="0" inputmode="numeric" value="${Number(v.b)||0}" onfocus="this.select()" style="width:64px;text-align:center"><span class="live-team">${b}</span></div><button class="pri" style="margin-top:8px;width:100%" onclick="liveEditSave()">💾 রেজাল্ট সেভ</button></div>`:`
  <div class="live-actions"><button ${v.pausedAt?'disabled':''} onclick="livePause()">⏸️ বিরতি</button><button ${!v.pausedAt?'disabled':''} onclick="liveResume()">▶️ আবার শুরু</button></div>
  <div class="live-actions">
  <button ${disabled} onclick="liveGoal('a')">⚽ ${a} গোল</button><button ${disabled} onclick="liveGoal('b')">⚽ ${b} গোল</button>
