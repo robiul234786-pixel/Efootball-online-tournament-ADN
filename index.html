@@ -55,7 +55,7 @@ tr.first td{font-weight:700;color:var(--ac)}
 .chipsr{display:flex;gap:8px;overflow-x:auto;margin-bottom:12px}.chipsr button{white-space:nowrap;border-radius:99px}
 .bk{display:flex;overflow-x:auto;padding:4px 14px 12px 0}.bcol{display:flex;flex-direction:column;min-width:min(66vw,250px);margin-right:26px;flex-shrink:0}.cell{flex:1;display:flex;align-items:center;position:relative;min-height:96px;cursor:pointer}.bc{width:100%;background:var(--card);border:1px solid var(--bd);border-radius:14px;padding:4px 10px}
 .br{display:flex;align-items:center;gap:8px;padding:6px 0;font-size:14px}.br .bn{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.br.lose{opacity:.55}.br.lose .bn{text-decoration:line-through}.br b{min-width:16px;text-align:right}
-.cell.u::after,.cell.l::after{content:'';position:absolute;right:-14px;width:14px;border:2px solid var(--bd);border-left:0}.cell.u::after{top:50%;height:50%;border-bottom:0;border-radius:0 8px 0 0}.cell.l::after{top:0;height:50%;border-top:0;border-radius:0 0 8px 0}.cell.s::before{content:'';position:absolute;left:-12px;width:12px;top:50%;border-top:2px solid var(--bd)}</style></head><body><div id="app"></div><div id="nav"></div>
+.cell.u::after,.cell.l::after{content:'';position:absolute;right:-14px;width:14px;border:2px solid var(--bd);border-left:0}.cell.u::after{top:50%;height:50%;border-bottom:0;border-radius:0 8px 0 0}.cell.l::after{top:0;height:50%;border-top:0;border-radius:0 0 8px 0}.cell.s::before{content:'';position:absolute;left:-12px;width:12px;top:50%;border-top:2px solid var(--bd)}.cell.f::after{content:'';position:absolute;right:-14px;width:14px;top:50%;border-top:2px solid var(--bd)}.champ2{border-color:#f59e0b;background:linear-gradient(180deg,var(--soft),var(--card))}.bn2{font-size:18px;font-weight:800;color:var(--ac);margin-top:6px;word-break:break-word}</style></head><body><div id="app"></div><div id="nav"></div>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -170,7 +170,7 @@ let h=all&&d.fmt==='league'?banner(t[0].p):'';
 if(all&&d.fmt==='lk'&&!d.ko.length){const q=d.q||n,opts=[n];for(let k=size(n)/2;k>=2;k/=2)if(k<n)opts.push(k);
 h+=`<div class="card"><h2>লিগ শেষ ✅</h2><p class="mu" style="margin-top:0">কতজন নকআউটে উঠবে?</p><select onchange="setQ(this.value)">${opts.map(o=>`<option value="${o}" ${o===q?'selected':''}>${o===n?'সবাই ('+n+' জন)':'টপ '+o}</option>`).join('')}</select><button class="pri big" onclick="startKO()">নকআউট শুরু করুন</button></div>`}
 h+=`<div class="card"><h2>পয়েন্ট টেবিল</h2><div class="tw"><table><tr><th class="n">প্লেয়ার</th><th>খে</th><th>জ</th><th>ড্র</th><th>হা</th><th>গোল</th><th>GD</th><th>পয়েন্ট</th></tr>
-${t.map((x,i)=>`<tr class="${i<zu?'zg':i>=n-zd?'zr':''}"><td class="n">${i+1}. ${cr(x.p)} ${esc(x.p)}</td><td>${x.P}</td><td>${x.W}</td><td>${x.D}</td><td>${x.L}</td><td>${x.GF}:${x.GA}</td><td>${x.GF-x.GA}</td><td><b>${x.Pts}</b></td></tr>`).join('')}</table></div>
+${t.map((x,i)=>`<tr class="${i<zu?'zg':i>=n-zd?'zr':''}"><td class="n">${i+1}. ${cr(x.p)} ${i===0&&all&&d.fmt==='league'?'🏆 ':''}${esc(x.p)}</td><td>${x.P}</td><td>${x.W}</td><td>${x.D}</td><td>${x.L}</td><td>${x.GF}:${x.GA}</td><td>${x.GF-x.GA}</td><td><b>${x.Pts}</b></td></tr>`).join('')}</table></div>
 ${zu?`<div class="lgd"><span class="dot" style="background:var(--ac)"></span>${S.cur===0?'কোয়ালিফাই':'প্রমোশন'} (টপ ${zu})</div>`:''}${zd?`<div class="lgd"><span class="dot" style="background:#ef4444"></span>রেলিগেশন (বটম ${zd})</div>`:''}</div>
 <div class="card"><h2>ম্যাচ ও রেজাল্ট</h2>`;
 rs.forEach(r=>{const ms=d.league.map((m,i)=>[m,i]).filter(x=>x[0].r===r);const pl=new Set();ms.forEach(([m])=>{pl.add(m.a);pl.add(m.b)});const rest=d.players.filter(p=>!pl.has(p));
@@ -184,10 +184,10 @@ if(v.kv==='b')return h+bracketV();
 K.forEach((round,r)=>{const L=legs(r);h+=`<div class="card" id="kr${r}"><h2>${rname(r)}</h2>`+round.map((m,i)=>{const[a,b]=teams(r,i),w=win(r,i);
 const nm=x=>x==null?'<span class="mu">—</span>':esc(x);
 if(a==='BYE'||b==='BYE')return`<div class="mm"><div class="bye">${nm(a==='BYE'?b:a)} — বাই (সরাসরি পরের রাউন্ডে)</div></div>`;
-const ok=a&&b,nL=x=>x==null?nm(x):esc(x)+' '+cr(x),nR=x=>x==null?nm(x):cr(x)+' '+esc(x),g=f=>`setK(${r},${i},'${f}',this.value)`;
+const ok=a&&b,nL=x=>x==null?nm(x):(L===1&&x===w?'🏆 ':'')+esc(x)+' '+cr(x),nR=x=>x==null?nm(x):cr(x)+' '+(L===1&&x===w?'🏆 ':'')+esc(x),g=f=>`setK(${r},${i},'${f}',this.value)`;
 let x=`<div class="mm"><div class="lb">${L===2?'প্রথম লেগ':'ফাইনাল'}</div>`+row(nL(a),nR(b),m.l1a,m.l1b,g('l1a'),g('l1b'),ok);
 if(L===2)x+=`<div class="lb">দ্বিতীয় লেগ</div>`+row(nL(b),nR(a),m.l2b,m.l2a,g('l2b'),g('l2a'),ok);
-if(ok&&done(m,L)){const[p,q]=agg(m,L);x+=`<div class="agg">${L===2?'মোট':'ফল'}: ${esc(a)} ${p} – ${q} ${esc(b)}${w?` · বিজয়ী: <b>${esc(w)}</b>`:''}</div>`;
+if(ok&&done(m,L)){const[p,q]=agg(m,L);x+=`<div class="agg">${L===2?'মোট':'ফল'}: ${esc(a)} ${p} – ${q} ${esc(b)}${w?` · বিজয়ী: <b>${L===1?'🏆 ':''}${esc(w)}</b>`:''}</div>`;
 if(p===q)x+=`<div class="pen">ড্র! পেনাল্টি/এক্সট্রা টাইমে বিজয়ী: <button class="${m.pw==='a'?'on':''}" onclick="setK(${r},${i},'pw','a')">${esc(a)}</button><button class="${m.pw==='b'?'on':''}" onclick="setK(${r},${i},'pw','b')">${esc(b)}</button></div>`}
 return x+'</div>'}).join('')+'</div>'});
 return h}
@@ -313,11 +313,13 @@ function setKR(r){uv().kr=r;R()}
 function gotoList(r){uv().kv='l';R();setTimeout(()=>{const e=document.getElementById('kr'+r);if(e&&e.scrollIntoView)e.scrollIntoView()},60)}
 function bracketV(){const K=D().ko,RN=K.length,r0=Math.min(uv().kr,RN-1);
 const rs=r=>{const t=K[r].length*2;return t===2?'ফাইনাল':t===4?'সেমিফাইনাল':t===8?'কোয়ার্টার ফাইনাল':'রাউন্ড অব '+t};
+const cw=win(RN-1,0);
 let h=`<div class="chipsr">${K.map((_,r)=>`<button data-ok class="${r===r0?'on':''}" onclick="setKR(${r})">${rs(r)}</button>`).join('')}</div><div class="bk">`;
 for(let r=r0;r<RN;r++){h+='<div class="bcol">'+K[r].map((mm,i)=>{const[a,b]=teams(r,i),w=win(r,i),L=legs(r),dn=a&&b&&a!=='BYE'&&b!=='BYE'&&done(mm,L),[p,q]=dn?agg(mm,L):['',''];
-const row=(t,sc,lose)=>t==null?'<div class="br"><span class="mu">—</span></div>':t==='BYE'?'<div class="br mu">বাই</div>':`<div class="br${lose?' lose':''}">${cr(t)}<span class="bn">${esc(t)}</span><b>${sc}</b></div>`;
-const cls=(r<RN-1?(i%2?'l':'u'):'')+(r>r0?' s':'');
+const row=(t,sc,lose)=>t==null?'<div class="br"><span class="mu">—</span></div>':t==='BYE'?'<div class="br mu">বাই</div>':`<div class="br${lose?' lose':''}">${cr(t)}<span class="bn">${r===RN-1&&t===w?'🏆 ':''}${esc(t)}</span><b>${sc}</b></div>`;
+const cls=(r<RN-1?(i%2?'l':'u'):(cw&&cw!=='BYE'?'f':''))+(r>r0?' s':'');
 return`<div class="cell ${cls}" onclick="gotoList(${r})"><div class="bc">${row(a,p,w&&w!==a)}${row(b,q,w&&w!==b)}</div></div>`}).join('')+'</div>'}
+if(cw&&cw!=='BYE')h+=`<div class="bcol" style="min-width:170px"><div class="cell s"><div class="bc champ2"><div style="text-align:center;padding:10px 0"><div style="font-size:36px">🏆</div>${cr(cw,1)}<div class="bn2">${esc(cw)}</div><small class="mu">চ্যাম্পিয়ন</small></div></div></div></div>`;
 return h+'</div><p class="mu">কার্ডে চাপ দিলে স্কোর দেওয়ার লিস্টে যাবে।</p>'}
 function lock(){document.querySelectorAll('#app input,#app select,#app textarea,#app button').forEach(e=>{if(!e.hasAttribute('data-ok')&&!e.closest('.tl'))e.disabled=true})}
 function R(){dirty=false;save();const h=HOME||!S.mode;
