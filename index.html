@@ -631,4 +631,194 @@ const ys=[135,148,165,188,218,256,300];for(let i=0;i<6;i+=2)st+=`<rect x="0" y="
 const leg=(x,c)=>`<g class="${c}" style="transform-origin:${x}px -16px"><line x1="${x}" y1="-16" x2="${x}" y2="-3" stroke="${sk}" stroke-width="5" stroke-linecap="round"/><rect x="${x-4.5}" y="-6" width="9" height="6" rx="2.5" fill="#111"/></g>`;
 const back=leg(-5,'gxl1')+leg(5,'gxl2')+`<rect x="-10" y="-28" width="20" height="13" rx="3" fill="${k2}"/><line x1="-11" y1="-47" x2="-17" y2="-30" stroke="${sk}" stroke-width="4" stroke-linecap="round"/><line x1="11" y1="-47" x2="17" y2="-30" stroke="${sk}" stroke-width="4" stroke-linecap="round"/><rect x="-11" y="-53" width="22" height="27" rx="6" fill="${k}"/><text x="0" y="-34" text-anchor="middle" font-size="12" font-weight="900" fill="#fff" font-family="Arial">10</text><circle cx="0" cy="-60" r="7" fill="${hr}"/>`;
 const front=`<line x1="-4" y1="-16" x2="-9" y2="-3" stroke="${sk}" stroke-width="5" stroke-linecap="round"/><line x1="4" y1="-16" x2="9" y2="-3" stroke="${sk}" stroke-width="5" stroke-linecap="round"/><rect x="-14" y="-6" width="9" height="6" rx="2.5" fill="#111"/><rect x="5" y="-6" width="9" height="6" rx="2.5" fill="#111"/><rect x="-10" y="-28" width="20" height="13" rx="3" fill="${k2}"/><line x1="-11" y1="-48" x2="-25" y2="-72" stroke="${k}" stroke-width="5" stroke-linecap="round"/><line x1="11" y1="-48" x2="25" y2="-72" stroke="${k}" stroke-width="5" stroke-linecap="round"/><circle cx="-25" cy="-74" r="3" fill="${sk}"/><circle cx="25" cy="-74" r="3" fill="${sk}"/><rect x="-11" y="-53" width="22" height="27" rx="6" fill="${k}"/><rect x="-2" y="-53" width="4" height="27" fill="#fff" opacity=".35"/><circle cx="0" cy="-60" r="7" fill="${sk}"/><path d="M-7.2 -61 a7.2 7.2 0 0 1 14.4 0z" fill="${hr}"/><circle cx="-2.6" cy="-60" r=".9" fill="#111"/><circle cx="2.6" cy="-60" r=".9" fill="#111"/><ellipse cx="0" cy="-56.2" rx="2.4" ry="2.8" fill="#7f1d1d"/>`;
-return`<svg class="gx" viewBox="0 0 360 300"><defs><linearGradi
+return`<svg class="gx" viewBox="0 0 360 300"><defs><linearGradient id="gxs" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#050816"/><stop offset="1" stop-color="#1e293b"/></linearGradient><linearGradient id="gxp" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#15803d"/><stop offset="1" stop-color="#14532d"/></linearGradient></defs><rect width="360" height="300" fill="url(#gxs)"/><circle cx="40" cy="30" r="14" fill="#fff" opacity=".9"/><circle cx="320" cy="30" r="14" fill="#fff" opacity=".9"/><rect y="78" width="360" height="52" fill="#0f172a"/>${cw}<rect y="135" width="360" height="165" fill="url(#gxp)"/>${st}<g fill="none" stroke="#fff" stroke-width="1.5" opacity=".5"><polygon points="100,135 80,170 280,170 260,135"/><polygon points="50,135 10,215 350,215 310,135"/></g><g class="gxg"><line x1="176" y1="135" x2="176" y2="118" stroke="#111" stroke-width="4" stroke-linecap="round"/><line x1="184" y1="135" x2="184" y2="118" stroke="#111" stroke-width="4" stroke-linecap="round"/><line x1="172" y1="101" x2="162" y2="113" stroke="#f97316" stroke-width="4" stroke-linecap="round"/><line x1="188" y1="101" x2="198" y2="113" stroke="#f97316" stroke-width="4" stroke-linecap="round"/><circle cx="162" cy="114" r="3" fill="#fde047"/><circle cx="198" cy="114" r="3" fill="#fde047"/><rect x="172" y="96" width="16" height="24" rx="5" fill="#f97316"/><circle cx="180" cy="90" r="6" fill="${sk}"/></g><g class="gxn" stroke="#fff" stroke-width=".8" opacity=".4">${nt}</g><path d="M110 135V70H250V135" stroke="#fff" stroke-width="4" fill="none" stroke-linejoin="round"/><g transform="translate(180 254)"><g class="gxb"><circle r="9" fill="#fff" stroke="#222" stroke-width="1"/><path d="M0 -4.5L4 -1.5L2.5 3.5L-2.5 3.5L-4 -1.5Z" fill="#222"/></g></g><g transform="translate(150 262)"><g class="gxrun">${back}</g></g><g transform="translate(180 266)"><g class="gxc"><g class="gxj">${front}</g></g></g><rect class="gxfl" width="360" height="300" fill="#fff"/></svg>`}
+function showEvt(e,L){if(e.t==='g')setTimeout(goalVoice,1700);const old=document.getElementById('gl');if(old)old.remove();const w=document.createElement('div');w.id='gl';const g=e.t==='g',n=e.s==='a'?L.a:L.b;let cf='';
+if(g){const c=['#f43f5e','#f59e0b','#fde047','#3b82f6','#a855f7','#fff'];for(let i=0;i<45;i++)cf+=`<i class="cf" style="left:${Math.random()*100}%;background:${c[i%6]};animation-duration:${2+Math.random()*2.5}s;animation-delay:${1.7+Math.random()*1.2}s"></i>`}
+else w.style.background=e.t==='y'?'radial-gradient(circle at 50% 40%,#ca8a04,#422006)':'radial-gradient(circle at 50% 40%,#dc2626,#450a0a)';
+w.innerHTML=cf+`<div style="position:relative">${g?goalSvg(hs(n)%360):`<div class="gb">${e.t==='y'?'🟨':'🟥'}</div>`}<div class="gt">${g?'GOAL!':e.t==='y'?'হলুদ কার্ড':'লাল কার্ড'}</div><div class="gn">${cr(n,1)}<br>${esc(n)} · ${e.m}'</div>${g?`<div class="gs">${esc(L.a)} ${gc(L,'a')} – ${gc(L,'b')} ${esc(L.b)}</div>`:''}</div>`;
+const done=()=>{if(!w.parentNode)return;w.classList.add('out');setTimeout(()=>w.remove(),450)};if(g)w.classList.add('gv');w.onclick=done;document.body.appendChild(w);setTimeout(done,g?7000:2400)}
+function chkLive(){const d=D(),L=d&&d.live,k=L?S.cur+LIB.act+L.id:'',n=L?L.ev.length:0;
+if(k&&k===LK&&n>LN){try{showEvt(L.ev[n-1],L)}catch(e){}}LK=k;LN=n}
+function tick(){const L=D().live;if(!L)return;document.querySelectorAll('.lvt').forEach(e=>{e.textContent=fmtT(L)});document.querySelectorAll('.lvk').forEach(e=>{e.textContent=clkLbl(L)});document.querySelectorAll('.lvrm').forEach(e=>{e.textContent=rem(L)});document.querySelectorAll('.lvbar i').forEach(e=>{e.style.width=(gsec(L)/54).toFixed(1)+'%'})}
+function lock(){document.querySelectorAll('#app input,#app select,#app textarea,#app button').forEach(e=>{if(!e.hasAttribute('data-ok')&&!e.closest('.tl'))e.disabled=true})}
+
+function nws(x,i,k,v,w){const d=D();d.news=A(d.news);d.news.push({t:Date.now(),i:i||'📰',x,k:k||'',v:v||null,w:w||''});if(d.news.length>300)d.news.splice(0,d.news.length-300)}
+function chkRound(){try{const d=D();d.nr=A(d.nr);d.news=A(d.news);const se=d.season||1;
+const rs=[...new Set(d.league.map(m=>m.r))];
+rs.forEach(r=>{const ms=d.league.filter(m=>m.r===r),key='L'+se+'-'+r;if(d.nr.includes(key)||!ms.every(m=>m.sa!==''&&m.sb!==''))return;d.nr.push(key);
+const g={};ms.forEach(m=>{g[m.a]=(g[m.a]||0)+m.sa;g[m.b]=(g[m.b]||0)+m.sb});const bt=Object.keys(g).sort((x,y)=>g[y]-g[x])[0],tb=table()[0];
+nws('🏁 রাউন্ড '+r+' শেষ\n'+ms.map(m=>m.a+' '+m.sa+'–'+m.sb+' '+m.b).join('\n')+(tb?'\n🔝 এগিয়ে: '+tb.p+' ('+tb.Pts+' পয়েন্ট)':'')+(bt?'\n⚽ এই রাউন্ডে সবচেয়ে বেশি গোল: '+bt+' ('+g[bt]+')':''),'🏁')});
+d.ko.forEach((K,r)=>{const key='K'+se+'-'+(d.po?'p':'')+r;if(d.nr.includes(key))return;const L=legs(r);let ok=true;const ln=[],g={};
+K.forEach((m,i)=>{const[a,b]=teams(r,i);if(a==='BYE'||b==='BYE')return;if(!a||!b||!done(m,L)){ok=false;return}const t=agg(m,L),w=win(r,i);g[a]=t[0];g[b]=t[1];ln.push(a+' '+t[0]+'–'+t[1]+' '+b+(w&&w!=='BYE'?' → '+w+' এগিয়ে':''))});
+if(!ok||!ln.length)return;d.nr.push(key);const bt=Object.keys(g).sort((x,y)=>g[y]-g[x])[0];
+nws('🏁 '+rname(r)+' শেষ\n'+ln.join('\n')+(bt?'\n⚽ সবচেয়ে বেশি গোল: '+bt+' ('+g[bt]+')':''),'🏁')});
+const c=champ(),ck=c?S.cur+'|'+se+'|'+c:'';if(c&&d.cnw!==ck){d.cnw=ck;nws('🏆 চ্যাম্পিয়ন! '+c+' টুর্নামেন্ট জিতে নিল 🎉','🏆','',[c])}}catch(e){}}
+function chkSoon(){clearTimeout(window._cs);window._cs=setTimeout(()=>{if(RO())return;chkRound();save()},3500)}
+var NV=false,NK='',NN=0;function openNews(){pgNav('news')}function closeNews(){NV=false;R()}
+function newsCard(){const d=D(),n=A(d.news);if(!n.length&&!d.st)return'';const l=n[n.length-1];return`<button class="nfc" data-ok onclick="openNews()"><b>📰 নিউজ ফিড (${n.length})</b><span>${l?esc(l.x.split('\n')[0]):'এখনো কোনো খবর নেই'}</span></button>`}
+function newsV(){return''}
+function showBanner(x){const o=document.getElementById('nto');if(o)o.remove();const w=document.createElement('div');w.id='nto';const c={'⚽':'g','🟥':'r','🟨':'y','🏆':'t','🔥':'o','🏁':'b','⚔️':'o','⏱':'b'}[x.i]||'b',ls=x.x.split('\n'),rest=ls.slice(1).join('\n');w.className='nbn nb'+(c==='r'?'x':c);w.innerHTML=`<div class="nbi">${x.i}</div><div class="nbh">${esc(ls[0])}</div>${x.v?`<div class="nbv">${cr(x.v[0],1)}<b>VS</b>${cr(x.v[1],1)}</div>`:''}${rest?`<div class="nbr">${esc(rest)}</div>`:''}<small>ট্যাপ করে বন্ধ করুন</small>`;const done=()=>{if(w.parentNode){w.classList.add('out');setTimeout(()=>w.remove(),400)}};w.onclick=done;document.body.appendChild(w);setTimeout(done,rest?10000:7000)}
+function chkNews(){const t=document.getElementById('tkr');if(t)t.remove()}
+
+var PG='',NF='all',MF='all',ND=0,NSEEN={};
+function pgNav(p){if(HOME||!S.mode)return;TL=JN=RL=AB=false;pgSet(p)}
+function pgSet(p){PG=p;R();window.scrollTo(0,0)}
+function ndTog(t){ND=ND===t?0:t;R()}
+const _bd=n=>String(n).replace(/\d/g,c=>'০১২৩৪৫৬৭৮৯'[c]);
+function ago(t){const s=Math.max(0,(Date.now()-t)/1000|0);if(s<60)return'এইমাত্র';const m=s/60|0;if(m<60)return _bd(m)+' মিনিট আগে';const h=m/60|0;if(h<24)return _bd(h)+' ঘণ্টা আগে';return _bd(h/24|0)+' দিন আগে'}
+function ncat(x){return x.i==='⚽'?'g':(x.i==='🟨'||x.i==='🟥')?'c':(x.i==='🏆'||x.i==='⚔️'||(x.i==='🏁'&&!x.v))?'r':'m'}
+function pimg(n){const p=(D().ph||{})[n];return p?`<img class="pim" src="${p}" alt="">`:`<div class="pcr">${cr(n)}</div>`}
+function nimg(x,big){const v=x.v||[],c={'⚽':'g','🟥':'x','🟨':'y','🏆':'t','🔥':'o','🏁':'b','⚔️':'o','⏱':'b'}[x.i]||'b';
+return`<div class="nim ni-${c}${big?' big':''}">`+(v.length===2?`<div class="nh">${pimg(v[0])}</div><div class="nh">${pimg(v[1])}</div><span class="nvs">VS</span>`:v.length===1?`<div class="nh">${pimg(v[0])}</div>`:`<span class="nem">${x.i}</span>`)+(v.length?`<span class="nbd">${x.i}</span>`:'')+`</div>`}
+function pgTabs(){return`<div class="pgt"><button data-ok onclick="pgSet('')">🏆 টুর্নামেন্ট</button><button data-ok class="${PG==='news'?'on':''}" onclick="pgSet('news')">📰 নিউজ</button><button data-ok class="${PG==='mt'?'on':''}" onclick="pgSet('mt')">⚽ ম্যাচ</button><button data-ok class="${PG==='st'?'on':''}" onclick="pgSet('st')">📊 স্ট্যাটস</button></div>`}
+function pageV(){return pgTabs()+(PG==='st'?statsPg():PG==='mt'?matchPg():newsPg())}
+function newsPg(){const all=A(D().news).slice().reverse();NSEEN[LIB.act+'|'+S.cur]=all.length;const fl=[['all','সব'],['m','ম্যাচ'],['g','গোল'],['c','কার্ড'],['r','রাউন্ড']],l=NF==='all'?all:all.filter(x=>ncat(x)===NF);
+const chips=`<div class="pgc">${fl.map(f=>`<button data-ok class="${NF===f[0]?'on':''}" onclick="NF='${f[0]}';R()">${f[1]}</button>`).join('')}</div>`;
+const it=(x,i)=>{const wh=x.w?`<div class="nwh">⏰ শুরু: ${esc(x.w)}</div>`:'';const ls=x.x.split('\n'),rest=ls.slice(1).join('\n'),op=ND===x.t,meta=`<div class="nmt">📰 টুর্নামেন্ট নিউজ · ${ago(x.t)}${rest&&!op?' · ▾':''}</div>`,more=op&&rest?`<div class="npb">${esc(rest)}</div>`:'';
+return i===0?`<div class="nhero" onclick="ndTog(${x.t})">${nimg(x,1)}<div class="ntt big">${esc(ls[0])}</div>${wh}${meta}${more}</div>`:`<div class="nrw" onclick="ndTog(${x.t})"><div class="nth">${nimg(x)}</div><div class="ntx"><div class="ntt">${esc(ls[0])}</div>${wh}${meta}</div></div>${more?`<div class="npb" style="margin:-6px 0 14px">${esc(rest)}</div>`:''}`};
+return chips+`<div class="ntrh"><span class="ntri">📈</span><b>ট্রেন্ডিং</b></div>`+(l.map(it).join('')||'<p class="mu">এখনো কোনো খবর নেই</p>')}
+function mList(){const d=D(),o=[],L=d.live,lk=L&&L.ref?(L.ref.t==='L'?'L'+L.ref.i:'K'+L.ref.r+'-'+L.ref.i+'-'+L.ref.l):'',dt=DTx();
+d.league.forEach((m,i)=>{if('L'+i===lk)return;const f=m.sa!==''&&m.sb!=='';o.push({a:m.a,b:m.b,sa:m.sa,sb:m.sb,st:f?'f':'u',lab:'রাউন্ড '+_bd(m.r),dt:dt['L'+m.r]||'',tm:dt['tL'+m.r]||'',k:'L'+i})});
+d.ko.forEach((K,r)=>{const n=legs(r);K.forEach((m,i)=>{const[a,b]=teams(r,i);if(!a||!b||a==='BYE'||b==='BYE')return;for(let l=1;l<=n;l++){if('K'+r+'-'+i+'-'+l===lk)continue;const x=l===1?[m.l1a,m.l1b]:[m.l2b,m.l2a],f=x[0]!==''&&x[1]!=='';o.push({a:l===1?a:b,b:l===1?b:a,sa:x[0],sb:x[1],st:f?'f':'u',lab:rname(r).replace(/ \(.*\)/,'')+(n===2?' · লেগ '+_bd(l):''),dt:dt['K'+r+(l===1?'a':'b')]||'',tm:dt['tK'+r+(l===1?'a':'b')]||'',k:'K'+r+'-'+i+'-'+l})}})});return o}
+function matchPg(){const d=D(),L=d.live,ls=mList(),up=ls.filter(x=>x.st==='u'),fn=ls.filter(x=>x.st==='f').reverse(),lv=L?[{a:L.a,b:L.b,sa:gc(L,'a'),sb:gc(L,'b'),st:'l',lab:'লাইভ',t:fmtT(L)}]:[];
+const fl=[['all','সব'],['l','🔴 লাইভ'],['u','আসছে'],['f','শেষ']],list=lv.concat(up,fn).filter(x=>MF==='all'||x.st===MF);
+const av=n=>{const p=(d.ph||{})[n];return p?`<img class="mph" src="${p}" alt="">`:`<span class="mcr">${cr(n)}</span>`};
+const card=x=>{const mid=x.st==='l'?`<b class="mlv">${x.sa} - ${x.sb}</b><small class="lvt mlv">${x.t}</small>`:x.st==='f'?`<b>${x.sa} - ${x.sb}</b><small>শেষ</small>`:`<b>VS</b><small>${x.dt?fdt(x.dt):'আসছে'}</small>${x.tm?`<small>⏰ ${fmtTm(x.tm)}</small>`:''}`;
+return`<div class="mc" ${x.st==='l'?'onclick="openLive()"':''}><div class="mpill">${x.st==='l'?'🔴':'⚽'} ${esc(x.lab)}</div><div class="mrow"><div class="mav">${av(x.a)}</div><div class="mmid">${mid}</div><div class="mav">${av(x.b)}</div></div><div class="mnm"><span>${esc(x.a)}</span><span>${esc(x.b)}</span></div></div>`};
+return`<div class="pgc">${fl.map(f=>`<button data-ok class="${MF===f[0]?'on':''}" onclick="MF='${f[0]}';R()">${f[1]}</button>`).join('')}</div><div class="mg">${list.map(card).join('')||'<p class="mu">কোনো ম্যাচ নেই</p>'}</div>`}
+
+function chkSched(){try{if(RO()||!S.mode||RF)return;let ch=0;S.divs.forEach((dv,ix)=>{if(!dv.st)return;withDiv(ix,()=>{const d=D();d.nr=A(d.nr);const se=d.season||1;mList().forEach(m=>{if(m.st!=='u'||!m.dt||!m.tm)return;const ts=new Date(m.dt+'T'+m.tm+':00').getTime(),key='P'+m.k+'-'+se,now=Date.now();if(isNaN(ts)||now<ts-15*6e4||now>ts+36e5*3||d.nr.includes(key))return;d.nr.push(key);const mn=Math.max(0,Math.round((ts-now)/6e4));nws('🔥 '+m.a+' বনাম '+m.b+' — টান টান উত্তেজনাপূর্ণ ম্যাচ! '+(mn>0?_bd(mn)+' মিনিট পর কিকঅফ':'কিকঅফ এখনই'),'🔥','',[m.a,m.b],fdt(m.dt)+' · '+fmtTm(m.tm));ch=1})})});if(ch){save();if(PG==='news'||PG==='mt')R()}}catch(e){}}
+setInterval(chkSched,30000);
+
+/*STATS*/
+var SG='top',HA='',HB='',SPL='',PKm='',PFr='',XI='';
+function xSet(k){SG=k;R()}
+function xRes(){const d=D(),o=[];d.league.forEach(m=>{if(m.sa!==''&&m.sb!=='')o.push({a:m.a,b:m.b,sa:m.sa,sb:m.sb})});
+d.ko.forEach((K,r)=>K.forEach((m,i)=>{const[x,y]=teams(r,i);if(!x||!y||x==='BYE'||y==='BYE')return;
+if(m.l1a!==''&&m.l1b!=='')o.push({a:x,b:y,sa:m.l1a,sb:m.l1b});
+if(legs(r)===2&&m.l2a!==''&&m.l2b!=='')o.push({a:x,b:y,sa:m.l2a,sb:m.l2b})}));return o}
+function xSt(){const d=D(),t={};d.players.forEach(p=>t[p]={p,P:0,W:0,D:0,L:0,GF:0,GA:0,Y:0,Rd:0,MV:0,F:[]});
+xRes().forEach(m=>{const a=t[m.a],b=t[m.b];if(!a||!b)return;a.P++;b.P++;a.GF+=m.sa;a.GA+=m.sb;b.GF+=m.sb;b.GA+=m.sa;
+if(m.sa>m.sb){a.W++;b.L++;a.F.push('W');b.F.push('L')}else if(m.sa<m.sb){b.W++;a.L++;a.F.push('L');b.F.push('W')}else{a.D++;b.D++;a.F.push('D');b.F.push('D')}});
+const se=d.season||1;A(d.mh).forEach(h=>{if(h.s!==se)return;A(h.ev).forEach(e=>{const p=t[e.s==='a'?h.a:h.b];if(!p)return;if(e.t==='y')p.Y++;if(e.t==='r')p.Rd++});if(h.mv&&t[h.mv])t[h.mv].MV++});return t}
+function xPM(){const d=D(),o=[];d.league.forEach((m,i)=>o.push({k:'L'+i,a:m.a,b:m.b,dn:m.sa!==''&&m.sb!=='',r:(m.sa===''||m.sb==='')?null:m.sa>m.sb?'a':m.sa<m.sb?'b':'d',lb:'রাউন্ড '+m.r}));
+d.ko.forEach((K,r)=>K.forEach((m,i)=>{const[x,y]=teams(r,i);if(!x||!y||x==='BYE'||y==='BYE')return;const w=win(r,i);o.push({k:'K'+r+'-'+i,a:x,b:y,dn:!!w,r:w===x?'a':w===y?'b':null,lb:rname(r),ko:1})}));return o}
+function xPick(p){if(RO())return;const f=PFr.trim(),d=D(),se=d.season||1;if(!f||!PKm)return;d.pr=A(d.pr).filter(z=>!(z.s===se&&z.k===PKm&&z.f===f));d.pr.push({s:se,k:PKm,f,p});R()}
+function xPDel(i){if(RO())return;D().pr=A(D().pr).filter((z,j)=>j!==i);R()}
+const xBd=c=>`<span style="display:inline-block;min-width:24px;text-align:center;margin:0 2px;padding:3px 6px;border-radius:6px;font-weight:700;font-size:12px;background:${c==='W'?'#22c55e':c==='D'?'#f59e0b':'#ef4444'};color:#111">${c==='W'?'জ':c==='D'?'ড্র':'হা'}</span>`;
+const xNm=p=>`<span style="display:inline-flex;align-items:center;gap:6px">${cr(p)}<b>${esc(p)}</b></span>`;
+const xOp=(ns,v)=>'<option value="">— বাছাই করুন —</option>'+ns.map(n=>`<option ${v===n?'selected':''} value="${esc(n)}">${esc(n)}</option>`).join('');
+function statsPg(){const d=D(),T=xSt(),L=Object.values(T),ns=L.map(x=>x.p);
+const tb=[['top','🥇 টপ'],['form','📈 ফর্ম'],['h2h','⚔️ H2H'],['pf','👤 প্রোফাইল'],['fp','🟨 ফেয়ার প্লে'],['hf','🏛️ হল অফ ফেম'],['pr','🎯 প্রেডিকশন'],['im','🖼️ ছবি']];
+let h=`<div class="pgc">${tb.map(f=>`<button data-ok class="${SG===f[0]?'on':''}" onclick="xSet('${f[0]}')">${f[1]}</button>`).join('')}</div>`;
+if(!L.length&&SG!=='hf')return h+'<p class="mu">এখনো কোনো প্লেয়ার নেই</p>';
+const th='<th style="text-align:left">প্লেয়ার</th>';
+if(SG==='top'){const a=L.slice().sort((x,y)=>y.GF-x.GF||x.P-y.P||x.p.localeCompare(y.p));
+h+=`<div class="card"><h2>🥇 টপ স্কোরার (গোল্ডেন বুট)</h2><table><tr><th>#</th>${th}<th>ম্যাচ</th><th>গোল</th><th>গড়</th></tr>${a.map((x,i)=>`<tr><td>${i===0&&x.GF?'🥇':i+1}</td><td>${xNm(x.p)}</td><td>${x.P}</td><td><b>${x.GF}</b></td><td>${x.P?(x.GF/x.P).toFixed(1):'-'}</td></tr>`).join('')}</table></div>`;
+const b=L.filter(x=>x.P).sort((x,y)=>x.GA/x.P-y.GA/y.P||x.p.localeCompare(y.p));
+if(b.length)h+=`<div class="card"><h2>🧱 সেরা ডিফেন্স</h2><table><tr><th>#</th>${th}<th>খাওয়া গোল</th><th>গড়</th></tr>${b.map((x,i)=>`<tr><td>${i===0?'🧱':i+1}</td><td>${xNm(x.p)}</td><td>${x.GA}</td><td>${(x.GA/x.P).toFixed(1)}</td></tr>`).join('')}</table></div>`;
+const m=L.filter(x=>x.MV).sort((x,y)=>y.MV-x.MV);
+h+=`<div class="card"><h2>⭐ ম্যাচ সেরা (MVP)</h2>${m.length?`<table>${m.map((x,i)=>`<tr><td>${i+1}</td><td>${xNm(x.p)}</td><td><b>${x.MV}</b> বার</td></tr>`).join('')}</table>`:'<p class="mu">লাইভ মোডে ম্যাচ শেষ করলে বিজয়ী ম্যাচ সেরা হবে</p>'}</div>`}
+else if(SG==='form'){h+=`<div class="card"><h2>📈 ফর্ম গাইড (শেষ ৫ ম্যাচ)</h2>${L.map(x=>`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--bd)">${xNm(x.p)}<span>${x.F.slice(-5).map(xBd).join('')||'<span class="mu">—</span>'}</span></div>`).join('')}</div>`}
+else if(SG==='h2h'){h+=`<div class="card"><h2>⚔️ হেড-টু-হেড</h2><div class="row"><select data-ok onchange="HA=this.value;R()">${xOp(ns,HA)}</select><select data-ok onchange="HB=this.value;R()">${xOp(ns,HB)}</select></div>`;
+if(HA&&HB&&HA!==HB){let w=0,dr=0,l=0,ga=0,gb=0;const ls=xRes().filter(m=>(m.a===HA&&m.b===HB)||(m.a===HB&&m.b===HA)).map(m=>{const s1=m.a===HA?m.sa:m.sb,s2=m.a===HA?m.sb:m.sa;ga+=s1;gb+=s2;if(s1>s2)w++;else if(s1<s2)l++;else dr++;return`<div class="agg">${esc(HA)} <b>${s1} – ${s2}</b> ${esc(HB)}</div>`});
+h+=ls.length?`<p style="text-align:center;font-size:18px;margin:14px 0 4px">${esc(HA)}: <b>${w}</b> জয় · <b>${dr}</b> ড্র · <b>${l}</b> হার</p><p class="mu" style="text-align:center">গোল ${ga} – ${gb}</p>`+ls.join(''):'<p class="mu">এই দুজনের মধ্যে এখনো ম্যাচ হয়নি</p>'}
+h+='</div>'}
+else if(SG==='pf'){h+=`<div class="card"><h2>👤 প্লেয়ার প্রোফাইল</h2><select data-ok style="width:100%" onchange="SPL=this.value;R()">${xOp(ns,SPL)}</select>`;
+const x=T[SPL];if(x){const tt=S.divs.reduce((a,dv)=>a+A(dv.hist).filter(z=>z.c===SPL).length,0),cp=champ()===SPL?1:0,cell=(t,v)=>`<div style="text-align:center;padding:10px;border-radius:12px;background:var(--bg)"><div style="font-size:22px;font-weight:800">${v}</div><div class="mu" style="margin:0">${t}</div></div>`;
+h+=`<div style="display:flex;justify-content:center;margin:14px 0;font-size:20px">${xNm(x.p)}</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px">${cell('ম্যাচ',x.P)}${cell('জয়',x.W)}${cell('ড্র',x.D)}${cell('হার',x.L)}${cell('গোল দিয়েছে',x.GF)}${cell('গোল খেয়েছে',x.GA)}${cell('🟨 হলুদ',x.Y)}${cell('🟥 লাল',x.Rd)}${cell('⭐ MVP',x.MV)}</div><p style="text-align:center;margin:14px 0 6px">🏆 ট্রফি: <b>${tt+cp}</b></p><div style="text-align:center">${x.F.slice(-5).map(xBd).join('')}</div>`}
+h+='</div>'}
+else if(SG==='fp'){const a=L.slice().sort((x,y)=>(x.Y+3*x.Rd)-(y.Y+3*y.Rd)||x.p.localeCompare(y.p));
+h+=`<div class="card"><h2>🟨 ফেয়ার প্লে টেবিল</h2><p class="mu" style="margin:0 0 8px">হলুদ=১, লাল=৩ পয়েন্ট। কম পয়েন্ট = বেশি ফেয়ার</p><table><tr><th>#</th>${th}<th>🟨</th><th>🟥</th><th>পয়েন্ট</th></tr>${a.map((x,i)=>`<tr><td>${i===0?'🕊️':i+1}</td><td>${xNm(x.p)}</td><td>${x.Y}</td><td>${x.Rd}</td><td><b>${x.Y+3*x.Rd}</b></td></tr>`).join('')}</table></div>`}
+else if(SG==='hf'){const rows=[];S.divs.forEach(dv=>A(dv.hist).forEach(z=>rows.push([dv.name,z.s,z.c])));const c=champ();if(c&&!A(d.hist).some(z=>z.s===(d.season||1)))rows.push([d.name,d.season||1,c]);
+const ct={};rows.forEach(r=>ct[r[2]]=(ct[r[2]]||0)+1);const cs=Object.keys(ct).sort((x,y)=>ct[y]-ct[x]);
+h+=`<div class="card"><h2>🏛️ হল অফ ফেম</h2>${rows.length?`<table>${rows.slice().reverse().map(r=>`<tr><td>সিজন ${r[1]}</td><td class="mu">${esc(r[0])}</td><td>🏆 ${xNm(r[2])}</td></tr>`).join('')}</table>`:'<p class="mu">এখনো কোনো চ্যাম্পিয়ন নেই</p>'}</div>`;
+if(cs.length)h+=`<div class="card"><h2>👑 সবচেয়ে বেশি ট্রফি</h2><table>${cs.map((n,i)=>`<tr><td>${i+1}</td><td>${xNm(n)}</td><td><b>${ct[n]}</b> 🏆</td></tr>`).join('')}</table></div>`}
+else if(SG==='pr'){const se=d.season||1,all=xPM(),pend=all.filter(x=>!x.dn).slice(0,80),pr=A(d.pr).map((z,i)=>({...z,i})).filter(z=>z.s===se);
+if(!pend.some(x=>x.k===PKm))PKm=pend[0]?pend[0].k:'';const cur=all.find(x=>x.k===PKm);
+const lb={};pr.forEach(z=>{const m=all.find(x=>x.k===z.k),e=lb[z.f]||(lb[z.f]={f:z.f,n:0,ok:0});e.n++;if(m&&m.dn&&m.r&&m.r===z.p)e.ok++});const ls=Object.values(lb).sort((x,y)=>y.ok-x.ok||x.n-y.n);
+h+=`<div class="card"><h2>🎯 বন্ধুদের প্রেডিকশন</h2>`;
+if(!RO()){if(cur){const fr=[...new Set(A(d.pr).map(z=>z.f))];
+h+=`<select data-ok style="width:100%;margin-bottom:8px" onchange="PKm=this.value;R()">${pend.map(x=>`<option ${x.k===PKm?'selected':''} value="${x.k}">${esc(x.a)} বনাম ${esc(x.b)} · ${esc(x.lb)}</option>`).join('')}</select><input type="text" list="pfl" placeholder="বন্ধুর নাম" value="${esc(PFr)}" oninput="PFr=this.value" style="width:100%;margin-bottom:8px"><datalist id="pfl">${fr.map(f=>`<option value="${esc(f)}">`).join('')}</datalist><div class="row"><button style="flex:1" onclick="xPick('a')">${esc(cur.a)} জিতবে</button>${cur.ko?'':'<button style="flex:1" onclick="xPick(\'d\')">ড্র</button>'}<button style="flex:1" onclick="xPick('b')">${esc(cur.b)} জিতবে</button></div>`}else h+='<p class="mu">প্রেডিকশনের জন্য কোনো বাকি ম্যাচ নেই</p>'}
+if(cur){const cp=pr.filter(z=>z.k===PKm);if(cp.length)h+=`<p class="mu"><b>এই ম্যাচের প্রেডিকশন:</b></p>`+cp.map(z=>`<div class="agg" style="text-align:left">${esc(z.f)} → <b>${z.p==='a'?esc(cur.a):z.p==='b'?esc(cur.b):'ড্র'}</b>${RO()?'':` <button style="padding:2px 8px" onclick="xPDel(${z.i})">✕</button>`}</div>`).join('')}
+h+='</div>';
+h+=`<div class="card"><h2>🏅 প্রেডিকশন লিডারবোর্ড</h2>${ls.length?`<table><tr><th>#</th><th style="text-align:left">বন্ধু</th><th>সঠিক</th><th>মোট</th></tr>${ls.map((x,i)=>`<tr><td>${i===0&&x.ok?'🥇':i+1}</td><td><b>${esc(x.f)}</b></td><td><b>${x.ok}</b></td><td>${x.n}</td></tr>`).join('')}</table>`:'<p class="mu">এখনো কেউ প্রেডিকশন দেয়নি</p>'}</div>`}
+else if(SG==='im'){h+=`<div class="card"><h2>🖼️ ছবি বানান ও শেয়ার</h2><div class="row"><button data-ok style="flex:1" onclick="xImg('tb')">📊 পয়েন্ট টেবিল</button><button data-ok style="flex:1" onclick="xImg('top')">🥇 টপ স্কোরার</button></div>${XI?`<img src="${XI}" style="width:100%;border-radius:12px;margin-top:12px"><button data-ok class="big" style="margin-top:10px" onclick="xShare()">📤 শেয়ার / সেভ</button><p class="mu">ছবিতে চেপে ধরলেও সেভ করা যায়</p>`:''}</div>`}
+return h}
+function xImg(k){const d=D(),T=xSt();let hd,rows;
+if(k==='tb'){hd=['','ম্যাচ','ব্যবধান','পয়েন্ট'];rows=table().map((x,i)=>[i+1,x.p,x.P,(x.GF-x.GA>0?'+':'')+(x.GF-x.GA),x.Pts])}
+else{hd=['','ম্যাচ','গড়','গোল'];rows=Object.values(T).sort((x,y)=>y.GF-x.GF||x.P-y.P).map((x,i)=>[i+1,x.p,x.P,x.P?(x.GF/x.P).toFixed(1):'-',x.GF])}
+const W=720,n=Math.min(rows.length,20),H=200+n*56+70,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');
+const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#0b1220');gr.addColorStop(1,'#14532d');g.fillStyle=gr;g.fillRect(0,0,W,H);
+g.textBaseline='middle';g.textAlign='center';g.fillStyle='#fff';g.font='bold 34px sans-serif';g.fillText('🏆 '+d.name,W/2,56);
+g.font='22px sans-serif';g.fillStyle='#a7f3d0';g.fillText((k==='tb'?'পয়েন্ট টেবিল':'টপ স্কোরার')+' · সিজন '+(d.season||1),W/2,98);
+g.font='bold 20px sans-serif';g.fillStyle='#86efac';[[hd[1],470],[hd[2],560],[hd[3],655]].forEach(a=>g.fillText(a[0],a[1],150));
+rows.slice(0,n).forEach((r,i)=>{const y=200+i*56;if(i%2===0){g.fillStyle='rgba(255,255,255,.07)';g.fillRect(20,y-26,W-40,52)}
+g.fillStyle=i===0?'#fde047':'#fff';g.font='bold 24px sans-serif';g.textAlign='center';g.fillText(String(r[0]),50,y);
+g.textAlign='left';let s=String(r[1]);while(g.measureText(s).width>330&&s.length>1)s=s.slice(0,-1);g.fillText(s,90,y);
+g.textAlign='center';g.fillText(String(r[2]),470,y);g.fillText(String(r[3]),560,y);g.fillStyle=i===0?'#fde047':'#4ade80';g.fillText(String(r[4]),655,y)});
+g.fillStyle='#9ca3af';g.font='18px sans-serif';g.textAlign='center';g.fillText('eFootball টুর্নামেন্ট ম্যানেজার',W/2,H-32);
+XI=c.toDataURL('image/png');R()}
+async function xShare(){try{const b=await(await fetch(XI)).blob(),f=new File([b],'tournament.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:D().name});return}}catch(e){if(e&&e.name==='AbortError')return}
+const a=document.createElement('a');a.href=XI;a.download='tournament.png';document.body.appendChild(a);a.click();a.remove()}
+function R(){if(RF){regPage();return}dirty=false;save();const h=HOME||!S.mode;
+$('#app').innerHTML=(h?'':roBar())+(h?homeDash():PG?pageV():D().st?play():setup())+panelV()+regV()+tlistV()+rulesV()+joinV()+aboutV()+logoV()+liveV()+newsV();
+const n=$('#nav');if(n)n.innerHTML=navV(h);if(RO()&&!h)lock();chkLive();chkNews()}
+var RG=false,RGL=[],RGM='',RGS='',RGE=false,RF=null,RFO,RFL=0,RFD='',RFE='',RFN='',RFX={};
+(function(){const m=location.hash.match(/#r=([^&\s]+)/);if(m){const p=parseJ('#j='+m[1]);if(p)RF=p}})();
+const dtl=x=>{const a=[x.g&&'🎮 '+x.g,x.p&&'📞 '+x.p,x.a&&'📍 '+x.a,x.tm&&'⚽ '+x.tm,x.c].filter(Boolean);return a.length?'<br><small class="mu">'+a.map(esc).join(' · ')+'</small>':''};
+const regLink=sh=>location.href.split('#')[0]+'#r='+vcode(sh);
+const isAd=()=>!!S.share&&S.share.role==='admin';
+const regBtn=()=>RO()?'':'<button class="big" style="margin-bottom:10px" onclick="openReg()">📝 রেজিস্ট্রেশন ফর্ম</button>';
+function openReg(){RG=true;RGM='';R();if(isAd())fetchRegs()}
+function closeReg(){RG=false;R()}
+function addPl(v,inf){v=(v||'').trim();const d=D();if(!v||d.st)return false;if(S.divs.some(x=>x.players.concat(x.inc).some(p=>p.toLowerCase()===v.toLowerCase())))return false;d.players.push(v);{const tk=tkSet(0);addLg(d,v,inf&&/^b\d{1,3}$/.test(inf.l||'')&&!tk.has(inf.l)?inf.l:rl())}if(inf&&inf.ph){d.ph=d.ph||{};d.ph[v]=inf.ph}if(inf){const o={};for(const k in inf)if(inf[k]&&k!=='id'&&k!=='n'&&k!=='t'&&k!=='l'&&k!=='ph')o[k]=inf[k];if(Object.keys(o).length){S.info=S.info||{};S.info[v]=o}}return true}
+function regAdd(){const v=$('#rn').value;RGM=addPl(v,{g:$('#rg').value.trim(),p:$('#rp').value.trim(),a:$('#ra').value.trim(),tm:$('#rt').value.trim()})?'✅ '+v.trim()+' যোগ হয়েছে':'যোগ করা যায়নি (নাম খালি, আগে থেকেই আছে, বা টুর্নামেন্ট শুরু হয়ে গেছে)';R();const e=$('#rn');if(e)e.focus()}
+async function fetchRegs(){const sh=S.share;if(!sh||sh.role!=='admin')return;
+try{const r=await fetch(sh.fb+'/regs/'+sh.room+'.json');if(!r.ok)throw 0;const x=(await r.json())||{};const l=Object.keys(x).map(k=>({id:k,n:String(x[k].n||''),c:String(x[k].c||''),l:String(x[k].l||''),g:String(x[k].g||''),p:String(x[k].p||''),a:String(x[k].a||''),tm:String(x[k].tm||''),t:x[k].t||0})).sort((a,b)=>a.t-b.t);const s=JSON.stringify(l),was=RGE;RGE=false;if(s!==RGS||was){RGS=s;RGL=l;if(RG&&!typing())R()}}
+catch(e){if(!RGE){RGE=true;if(RG)R()}}}
+async function regDel(id){const sh=S.share;try{await fetch(sh.fb+'/regs/'+sh.room+'/'+id+'.json',{method:'DELETE'})}catch(e){}RGL=RGL.filter(x=>x.id!==id);RGS=JSON.stringify(RGL)}
+async function regOk(id){const x=RGL.find(z=>z.id===id);if(!x)return;if(addPl(x.n,x)){await regDel(id);RGM='✅ '+x.n+' যোগ হয়েছে'}else RGM='যোগ করা যায়নি: '+x.n+' (নাম আগে থেকেই আছে বা টুর্নামেন্ট শুরু হয়ে গেছে)';R()}
+async function regNo(id){await regDel(id);R()}
+async function regAll(){let c=0;for(const x of RGL.slice())if(addPl(x.n,x)){await regDel(x.id);c++}RGM='✅ '+c+' জন যোগ হয়েছে';R()}
+function regTog(){S.share.ro=!S.share.ro;_last='';R()}
+function regV(){if(!RG)return'';const sh=S.share,ad=isAd(),d=D();
+let h=`<h2>📝 প্লেয়ার রেজিস্ট্রেশন</h2><p class="mu" style="margin-top:0">যোগ হবে: <b>${esc(d.name)}</b></p>`;
+if(d.st)h+='<p class="mu" style="color:#ef4444">টুর্নামেন্ট শুরু হয়ে গেছে, নতুন প্লেয়ার যোগ করা যাবে না।</p>';
+h+=`<p class="mu"><b>✍️ নিজে ফর্ম পূরণ করে যোগ করুন</b></p><input id="rn" type="text" maxlength="20" placeholder="প্লেয়ারের নাম *" style="width:100%;margin-bottom:8px"><input id="rg" type="text" maxlength="30" placeholder="eFootball আইডি / ইউজারনেম" style="width:100%;margin-bottom:8px"><input id="rp" type="text" inputmode="tel" maxlength="20" placeholder="ফোন / WhatsApp নম্বর" style="width:100%;margin-bottom:8px"><input id="ra" type="text" maxlength="30" placeholder="এলাকা / জেলা" style="width:100%;margin-bottom:8px"><input id="rt" type="text" maxlength="30" placeholder="প্রিয় টিম বা ক্লাব" style="width:100%;margin-bottom:8px"><button class="pri big" onclick="regAdd()">যোগ করুন</button>`;
+if(!ad)h+='<p class="mu"><b>🌐 অনলাইন ফর্ম</b><br>প্লেয়াররা নিজের ফোন থেকে পূরণ করতে চাইলে আগে লাইভ শেয়ার চালু করুন।</p><button class="pri big" onclick="closeReg();openShare()">🔗 শেয়ার চালু করুন</button>';
+else{h+=`<p class="mu"><b>🌐 অনলাইন ফর্ম</b> · ${sh.ro?'🟢 চালু':'🔴 বন্ধ'}</p><button class="${sh.ro?'':'pri'} big" onclick="regTog()">${sh.ro?'রেজিস্ট্রেশন বন্ধ করুন':'রেজিস্ট্রেশন চালু করুন'}</button>`;
+if(sh.ro)h+=`<p class="mu">ফর্মের লিংক (প্লেয়ারদের দিন):</p><textarea id="l3" class="ta" rows="3" readonly>${esc(regLink(sh))}</textarea><button onclick="cp('l3',this)">কপি</button>`;
+if(RGE)h+=`<p class="mu" style="color:#ef4444">ফর্ম চালাতে Firebase রুলস একবার আপডেট করতে হবে। Firebase → Realtime Database → Rules-এ সব মুছে নিচেরটা বসিয়ে Publish করুন:</p><textarea id="rl2" class="ta" rows="8" readonly>${esc(RULES)}</textarea><button onclick="cp('rl2',this)">রুলস কপি</button>`;
+else{h+=`<p class="mu"><b>অপেক্ষায় আছে (${RGL.length} জন)</b></p>`+(RGL.length?RGL.map(x=>`<div class="row" style="align-items:center;margin:6px 0"><div style="flex:1;min-width:0">${x.l?crestL(x.l)+' ':''}<b>${esc(x.n)}</b>${dtl(x)}</div><button class="pri" onclick="regOk('${x.id}')">✅</button><button onclick="regNo('${x.id}')">✕</button></div>`).join('')+(RGL.length>1?'<button class="big" onclick="regAll()">সবাইকে যোগ করুন</button>':''):'<p class="mu" style="margin-top:0">এখনো কেউ ফর্ম জমা দেয়নি।</p>')}}
+const ik=Object.keys(S.info||{});if(ik.length)h+='<p class="mu"><b>📋 প্লেয়ারদের তথ্য</b></p>'+ik.map(n=>`<div class="rest"><b>${esc(n)}</b>${dtl(S.info[n])}</div>`).join('');
+return`<div class="ov"><div class="cb sh">${h}${RGM?`<p class="mu">${esc(RGM)}</p>`:''}<button class="big" onclick="closeReg()">বন্ধ করুন</button></div></div>`}
+const ff=(id,ph,v,m,ex)=>`<input id="${id}" type="text" ${ex||''} maxlength="${m}" placeholder="${ph}" value="${esc(v||'')}" style="width:100%;margin-bottom:8px">`;
+var RFI=0,RFTK=null,RFK=0,RFLG='',RFLO=0,RFPG=0,RFOWN='';
+function rfSave(){const g=i=>{const e=document.getElementById(i);return e?e.value.trim():null};const n=g('fn');if(n!==null){RFN=n;RFX={g:g('fg')||'',p:g('fp')||'',a:g('fa')||'',tm:g('ft')||''}}}
+function rfFree(){return Array.from({length:1000},(_,i)=>'b'+i).filter(l=>!RFTK.has(l)||l===RFOWN)}
+function rfRand(){const f=rfFree();return f.length?f[Math.random()*f.length|0]:'b0'}
+async function rfTaken(){const [a,g]=await Promise.all([fetch(RF.fb+'/rooms/'+RF.room+'/pub/tk.json').then(r=>r.json()).catch(()=>null),fetch(RF.fb+'/regs/'+RF.room+'.json').then(r=>r.json()).catch(()=>null)]);const t=new Set(Object.values(a||{}).map(String));Object.values(g||{}).forEach(v=>{if(v&&v.l)t.add(String(v.l))});return t}
+function rfPickV(){let fr=rfFree();if(RFLG){fr=[RFLG].concat(fr.filter(l=>l!==RFLG))}const pn=Math.max(1,Math.ceil(fr.length/40));if(RFPG>=pn)RFPG=pn-1;return`<h2>🛡️ লোগো বেছে নিন</h2><p class="mu" style="margin-top:0">বাকি আছে ${fr.length}টি · অন্য কেউ নিলে সেটা আর দেখা যাবে না</p><div class="lgg" style="grid-template-columns:repeat(4,1fr)">${fr.slice(RFPG*40,RFPG*40+40).map(l=>`<button class="lgb" onclick="rfSet('${l}')">${crestL(l,1)}</button>`).join('')}</div><div class="row" style="margin:8px 0;align-items:center"><button onclick="rfPg(-1)" ${RFPG?'':'disabled'}>◀</button><span class="mu" style="flex:1;text-align:center">${RFPG+1} / ${pn}</span><button onclick="rfPg(1)" ${RFPG<pn-1?'':'disabled'}>▶</button></div><button onclick="rfSet(rfRand())">🎲 র‍্যান্ডম</button><button class="big" onclick="RFLO=0;R()">বন্ধ করুন</button>`}
+function rfPick(){rfSave();RFLO=1;RFPG=0;R()}
+function rfSet(l){RFLG=l;RFLO=0;R()}
+function rfPg(d){RFPG=Math.max(0,RFPG+d);R()}
+function regPage(){const n=$('#nav');if(n)n.innerHTML='';if(!RFI){RFI=1;try{const m=JSON.parse(localStorage.getItem('tmme'));if(m){RFN=m.n||'';RFX={g:m.g||'',p:m.p||'',a:m.a||'',tm:m.tm||''};RFOWN=m.l||'';RFLG=m.l||'';RFPH=m.ph||''}}catch(e){}}
+if(RFO===undefined&&!RFL){RFL=1;fetch(RF.fb+'/rooms/'+RF.room+'/pub/ro.json').then(r=>r.json()).then(v=>{RFO=v===true;R()}).catch(()=>{RFO=null;R()})}
+let b;
+if(RFO===true&&RFTK===null&&!RFK){RFK=1;rfTaken().then(t=>{RFTK=t;if(!RFLG||(t.has(RFLG)&&RFLG!==RFOWN))RFLG=rfRand();R()}).catch(()=>{RFTK=new Set();RFLG=RFLG||rfRand();R()})}
+if(RFO===undefined||(RFO===true&&RFTK===null))b='<p class="mu" style="text-align:center">লোড হচ্ছে…</p>';
+else if(RFO===null)b='<p class="mu" style="text-align:center;color:#ef4444">সংযোগ করা যায়নি। ইন্টারনেট দেখে আবার খুলুন।</p>';
+else if(!RFO)b='<div style="text-align:center"><div style="font-size:56px">🔒</div><h2>রেজিস্ট্রেশন এখন বন্ধ</h2><p class="mu">অ্যাডমিনের সাথে যোগাযোগ করুন।</p></div>';
+else if(RFD)b=`<div style="text-align:center"><div style="font-size:56px">✅</div><h2>জমা হয়েছে!</h2><p class="mu"><b>${esc(RFD)}</b> নামে আপনার রেজিস্ট্রেশন অ্যাডমিনের কাছে পৌঁছেছে। অনুমোদন পেলে প্লেয়ার তালিকায় আসবেন।</p><button class="big" onclick="RFD='';RFN='';RFX={};RFOWN='';RFTK=null;RFK=0;RFLG='';R()">আরেকজনের জন্য পূরণ করুন</button></div>`;
+else if(RFLO)b=rfPickV();
+else b=`<h2>আপনার তথ্য দিন</h2>${RFN?'<p class="mu">✅ আগের তথ্য বসানো আছে, শুধু জমা দিন</p>':''}<div class="row" style="align-items:center;margin-bottom:8px"><button class="crb" onclick="rfPick()">${crestL(RFLG,1)}</button><span class="mu" style="flex:1">আপনার টিমের লোগো · বদলাতে চাপুন<br>একজনের নেওয়া লোগো আর কেউ নিতে পারবে না</span></div><div class="row" style="align-items:center;margin-bottom:8px">${RFPH?`<img class="mph" src="${RFPH}" alt="" style="width:56px;height:56px">`:''}<label class="lgu" style="flex:1">${RFPH?'✅ ছবি দেওয়া হয়েছে · বদলাতে চাপুন':'📸 আপনার ছবি আপলোড করুন'}<input type="file" accept="image/*" onchange="rfUp(this)" hidden></label></div>${ff('fn','আপনার নাম * (তালিকায় যা দেখা যাবে)',RFN,20)}${ff('fg','eFootball আইডি / ইউজারনেম',RFX.g,30)}${ff('fp','ফোন / WhatsApp নম্বর',RFX.p,20,'inputmode="tel"')}${ff('fa','এলাকা / জেলা',RFX.a,30)}${ff('ft','প্রিয় টিম বা ক্লাব',RFX.tm,30)}<button class="pri big" style="margin-top:6px" onclick="regSend(this)">জমা দিন</button>${RFE?`<p class="mu" style="color:#ef4444">${esc(RFE)}</p>`:''}`;
+$('#app').innerHTML=`<div class="hero"><span class="hs">📝</span><div class="hh">eFootball টুর্নামেন্ট</div><div class="hn">রেজিস্ট্রেশন ফর্ম</div><div class="hp">অংশ নিতে নিচের ফর্মটি পূরণ করুন</div></div><div class="card">${b}</div>`}
+function rfUp(inp){const f=inp.files&&inp.files[0];if(!f)return;rfSave();const rd=new FileReader();rd.onload=()=>{const im=new Image();im.onload=()=>{const c=document.createElement('canvas');c.width=c.height=180;const x=c.getContext('2d'),m=Math.min(im.width,im.height);x.fillStyle='#fff';x.fillRect(0,0,180,180);x.drawImage(im,(im.width-m)/2,(im.height-m)/2,m,m,0,0,180,180);RFPH=c.toDataURL('image/jpeg',0.72);R()};im.src=rd.result};rd.readAsDataURL(f)}
+async function regSend(btn){const n=$('#fn').value.trim();RFN=n;RFX={g:$('#fg').value.trim(),p:$('#fp').value.trim(),a:$('#fa').value.trim(),tm:$('#ft').value.trim()};if(!n){RFE='নাম লিখুন';return R()}RFE='';btn.disabled=true;
+try{const t=await rfTaken();RFTK=t;if(t.has(RFLG)&&RFLG!==RFOWN){RFLG=rfRand();RFE='এই লোগোটা এইমাত্র আরেকজন নিয়ে নিয়েছে। নতুন একটা বসানো হয়েছে, দেখে আবার জমা দিন।';return R()}const r=await fetch(RF.fb+'/regs/'+RF.room+'.json',{method:'POST',body:JSON.stringify(Object.assign({n,t:Date.now(),l:RFLG,ph:RFPH},RFX))});if(!r.ok)throw 0;RFD=n;RFOWN=RFLG;try{localStorage.setItem('tmme',JSON.stringify(Object.assign({n,l:RFLG,ph:RFPH},RFX)))}catch(e){}}catch(e){RFE='জমা দেওয়া যায়নি, আবার চেষ্টা করুন।'}R()}
+setInterval(()=>{if(RG&&isAd()&&!typing())fetchRegs()},5000);
+
+R();hashJoin();setInterval(pull,4000);setInterval(tick,1000);if(!RF)try{welcome()}catch(e){}
+document.addEventListener('focusout',e=>{const t=e.target;if(dirty&&t.closest&&t.closest('.sc')&&!(e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest('.sc')))setTimeout(()=>{if(dirty)R()},350)});
+</script></body></html>
