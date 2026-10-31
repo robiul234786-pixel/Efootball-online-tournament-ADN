@@ -387,7 +387,7 @@ const mk=()=>({l1a:'',l1b:'',l2a:'',l2b:'',pw:''});
 const r0=[];for(let i=0;i<sz/2;i++){r0.push({a:o[2*i],b:o[2*i+1],...mk()})}rounds.push(r0);
 for(let c=sz/4;c>=1;c/=2)rounds.push(Array.from({length:c},mk));return rounds}
 function initDiv(d,p){d.players=p;d.league=[];d.ko=[];d.po=false;d.dt={};d.tab='ko';d.q=d.sty==='uefa'&&d.fmt==='lk'?Math.max(2,Math.ceil(p.length*2/3)):p.length;if(d.fmt==='ko')d.ko=genKO(shuffle(p));else d.league=lgGen(d,p)}
-function start(){const d=D();initDiv(d,d.players);d.st=true;nws('🏆 '+d.name+' শুরু! '+d.players.length+' জন অংশ নিচ্ছে: '+d.players.join(', '),'🏆');if(S.mode!=='cl'){d.season=1;d.hist=[]}R()}
+function start(){const d=D();initDiv(d,d.players);d.st=true;nws('🏆 '+TNM()+' শুরু! '+d.players.length+' জন অংশ নিচ্ছে: '+d.players.join(', '),'🏆');if(S.mode!=='cl'){d.season=1;d.hist=[]}R()}
 function startKO(){const d=D();d.ko=genKO(table().slice(0,d.q||d.players.length).map(x=>x.p));d.tab='ko';nws('⚔️ নকআউট পর্ব শুরু! লড়বে: '+table().slice(0,d.q||d.players.length).map(x=>x.p).join(', '),'⚔️');R()}
 function reset(){const d=D();d.news=[];d.nr=[];d.cnw='';d.st=false;d.po=false;d.dt={};d.league=[];d.ko=[];d.ended=false;d.res=null;R()}
 function num(v){return v===''?'':Math.max(0,parseInt(v)||0)}
@@ -500,12 +500,12 @@ const tcard=i=>{const x=i.s,n=x.divs.reduce((a,d)=>a+d.players.length,0),go=x.di
 function CAR(){try{const o=JSON.parse(localStorage.getItem('tmcareer'));if(o&&o.m)return o}catch(e){}return{m:{},t:{},p:{},n:0}}
 function careerSync(){if(!LIB||!LIB.items)return;const c=CAR();c.t=c.t||{};c.p=c.p||{};c.x=c.x||{};const b4=JSON.stringify(c),o=S;
 try{LIB.items.forEach(it=>{const s=it.s;if(!s||!s.mode||!A(s.divs).length)return;S=s;s.divs.forEach((dv,ix)=>{if(!dv.st)return;withDiv(ix,()=>{const d=D(),se=d.season||1,base=it.id+'|'+ix+'|'+se+'|';
-const put=(k,a,b,sa,sb,st)=>{const id=base+k;if(!a||!b||c.x[a]||c.x[b]||a==='BYE'||b==='BYE'||sa===''||sb===''||sa==null||sb==null){delete c.m[id];return}const e=c.m[id];if(e){e.a=a;e.b=b;e.sa=sa;e.sb=sb;e.st=st;e.tn=it.name;e.dv=dv.name}else c.m[id]={a,b,sa,sb,st,tn:it.name,dv:dv.name,se,q:++c.n}};
+const put=(k,a,b,sa,sb,st)=>{const id=base+k;if(!a||!b||c.x[a]||c.x[b]||a==='BYE'||b==='BYE'||sa===''||sb===''||sa==null||sb==null){delete c.m[id];return}const e=c.m[id];if(e){e.a=a;e.b=b;e.sa=sa;e.sb=sb;e.st=st;e.tn=it.name;e.dv=s.mode==='tour'?'':dv.name}else c.m[id]={a,b,sa,sb,st,tn:it.name,dv:s.mode==='tour'?'':dv.name,se,q:++c.n}};
 d.league.forEach((m,i)=>put('L'+i,m.a,m.b,m.sa,m.sb,'রাউন্ড '+m.r));
 d.ko.forEach((K,r)=>K.forEach((m,i)=>{const[x,y]=teams(r,i),nm=rname(r).replace(/ \(.*\)/,''),two=legs(r)===2;put('K'+r+'-'+i+'-1',x,y,m.l1a,m.l1b,nm+(two?' · ১ম লেগ':''));if(two)put('K'+r+'-'+i+'-2',x,y,m.l2a,m.l2b,nm+' · ২য় লেগ')}));
 d.players.forEach(n=>{if(c.x[n])return;const e=c.p[n]||(c.p[n]={}),ph=(d.ph||{})[n],l=A(d.lg).find(z=>z.n===n);if(ph&&e.ph!==ph)e.ph=ph;if(l&&l.l&&e.l!==l.l)e.l=l.l});
 const top=s.mode==='cl'?ix===s.divs.length-1:ix===0,tk=base+'T';
-if(top&&!d.po){const ch=champ();if(ch&&c.x[ch]){delete c.t[tk]}else if(ch){let ru=null;if(d.fmt==='league'){const t=table();ru=t[1]?t[1].p:null}else{const K=d.ko,[x,y]=teams(K.length-1,0);ru=x===ch?y:x;if(ru==='BYE')ru=null}if(ru&&c.x[ru])ru=null;c.t[tk]={c:ch,r:ru,tn:it.name,dv:dv.name,se}}else delete c.t[tk]}
+if(top&&!d.po){const ch=champ();if(ch&&c.x[ch]){delete c.t[tk]}else if(ch){let ru=null;if(d.fmt==='league'){const t=table();ru=t[1]?t[1].p:null}else{const K=d.ko,[x,y]=teams(K.length-1,0);ru=x===ch?y:x;if(ru==='BYE')ru=null}if(ru&&c.x[ru])ru=null;c.t[tk]={c:ch,r:ru,tn:it.name,dv:s.mode==='tour'?'':dv.name,se}}else delete c.t[tk]}
 A(d.hist).forEach(z=>{if(!top||!z.c||c.x[z.c])return;const k=it.id+'|'+ix+'|'+z.s+'|T';if(!c.t[k])c.t[k]={c:z.c,r:z.r||null,tn:it.name,dv:dv.name,se:z.s}})})})})}finally{S=o}
 if(JSON.stringify(c)!==b4)localStorage.setItem('tmcareer',JSON.stringify(c))}
 function careerStats(){const c=CAR(),T={},g=n=>T[n]||(T[n]={p:n,P:0,W:0,D:0,L:0,GF:0,GA:0,CS:0,tr:[],ru:[],ms:[],F:[],tn:new Set(),h:{},bw:null});
@@ -530,7 +530,7 @@ const cell=(t,v)=>`<div style="text-align:center;padding:10px 4px;border-radius:
 let h=`<div class="ov tl"><div class="cb sh" style="max-width:460px"><div style="text-align:center"><div style="display:flex;justify-content:center;font-size:30px">${pAv(PPN,c)}</div><h2 style="margin:8px 0 2px">${esc(PPN)}</h2>${info?`<p class="mu" style="margin:0">${esc(info)}</p>`:''}</div>
 <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:12px">${cell('ম্যাচ',x.P)}${cell('জয়',x.W)}${cell('ড্র',x.D)}${cell('হার',x.L)}${cell('গোল দিয়েছে',x.GF)}${cell('গোল খেয়েছে',x.GA)}${cell('ব্যবধান',(gd>0?'+':'')+gd)}${cell('জয়ের হার',x.P?Math.round(x.W*100/x.P)+'%':'-')}${cell('🏆 ট্রফি',x.tr.length)}${cell('🥈 রানার্সআপ',x.ru.length)}${cell('ক্লিন শিট',x.CS)}${cell('টুর্নামেন্ট',x.tn.size)}</div>`;
 if(x.P)h+=`<p style="text-align:center;margin:12px 0 4px">ফর্ম: ${x.F.slice(-5).map(xBd).join('')}</p><p class="mu" style="text-align:center;margin:0">গড় গোল ${(x.GF/x.P).toFixed(1)} · গড় খাওয়া ${(x.GA/x.P).toFixed(1)}${x.bw?' · সেরা জয় '+x.bw.f+'-'+x.bw.a+' ('+esc(x.bw.o)+')':''}</p>`;
-if(x.tr.length||x.ru.length)h+=`<p class="mu"><b>🏆 ট্রফি ও 🥈 রানার্সআপ</b></p>`+x.tr.map(t=>`<div class="agg" style="text-align:left">🏆 ${esc(t.tn)} · ${esc(t.dv)} · সিজন ${t.se}</div>`).join('')+x.ru.map(t=>`<div class="agg" style="text-align:left">🥈 ${esc(t.tn)} · ${esc(t.dv)} · সিজন ${t.se}</div>`).join('');
+if(x.tr.length||x.ru.length)h+=`<p class="mu"><b>🏆 ট্রফি ও 🥈 রানার্সআপ</b></p>`+x.tr.map(t=>`<div class="agg" style="text-align:left">🏆 ${[esc(t.tn),t.dv&&esc(t.dv),'সিজন '+t.se].filter(Boolean).join(' · ')}</div>`).join('')+x.ru.map(t=>`<div class="agg" style="text-align:left">🥈 ${[esc(t.tn),t.dv&&esc(t.dv),'সিজন '+t.se].filter(Boolean).join(' · ')}</div>`).join('');
 const hs2=Object.keys(x.h).sort((a,b)=>{const p=q=>x.h[q].W+x.h[q].D+x.h[q].L;return p(b)-p(a)||a.localeCompare(b)});
 if(hs2.length)h+=`<p class="mu"><b>⚔️ প্রতিপক্ষ অনুযায়ী</b></p><table><tr><th style="text-align:left">প্রতিপক্ষ</th><th>জ</th><th>ড্র</th><th>হা</th><th>গোল</th></tr>${hs2.map(o=>{const q=x.h[o];return`<tr><td>${esc(o)}</td><td>${q.W}</td><td>${q.D}</td><td>${q.L}</td><td>${q.GF}-${q.GA}</td></tr>`}).join('')}</table>`;
 h+=`<p class="mu"><b>📋 সব ম্যাচ (${x.P})</b></p>`+(x.ms.length?x.ms.slice().reverse().map(m=>`<div style="display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:1px solid var(--bd)">${xBd(m.r)}<span style="flex:1;font-size:13px"><b>${esc(PPN)}</b> ${m.f}–${m.a} <b>${esc(m.o)}</b><br><small class="mu">${esc(m.tn)} · ${esc(m.st)}${m.se>1?' · সিজন '+m.se:''}</small></span></div>`).join(''):'<p class="mu">এখনো কোনো ম্যাচ খেলেনি</p>');
@@ -539,12 +539,12 @@ return h+`<button class="big" style="margin-top:12px" onclick="closePP()">বন
 function leagueHdr(){const d=D();if(!d.st)return'';const sty=d.sty||'plain',main=S.mode==='cl'&&S.cur===S.divs.length-1,th=main||sty==='uefa'?'ucl':sty==='nl'?'nl':sty==='sl'?'sl':'pl',emb=th==='ucl'?'✦':th==='nl'?'🌐':th==='sl'?'⚡':'🦁',
 rs=xRes(),gl=rs.reduce((a,m)=>a+m.sa+m.sb,0),ms=d.league,rr=[...new Set(ms.map(m=>m.r))],cu=rr.find(r=>ms.some(m=>m.r===r&&(m.sa===''||m.sb===''))),ch=champ(),ld=ms.length&&rs.length?table()[0].p:'',
 box=(t,v)=>`<div><b>${v}</b><small>${t}</small></div>`,sub=(d.season>1?'সিজন '+d.season+' · ':'')+(ch?'সিজন শেষ':cu?'ম্যাচডে '+_bd(cu)+'/'+_bd(rr.length):ms.length?'লিগ ফেজ শেষ':'নকআউট পর্ব');
-return`<div class="lhd ${th}"><div class="lhm"><div class="lhe">${emb}</div><div class="lht"><h2>${esc(d.name==='ডিভিশন 1'&&S.mode==='tour'?'টুর্নামেন্ট':d.name)}</h2><small>${sub}</small></div>${ch?`<div class="lhc">🏆 ${esc(ch)}</div>`:''}</div><div class="lhs">${box('ম্যাচ',_bd(rs.length))}${box('গোল',_bd(gl))}${box('গড় গোল',rs.length?_bd((gl/rs.length).toFixed(1)):'—')}${box(ch?'চ্যাম্পিয়ন':'শীর্ষে',ch||ld?esc(ch||ld):'—')}</div></div>`}
+return`<div class="lhd ${th}"><div class="lhm"><div class="lhe">${emb}</div><div class="lht"><h2>${esc(TNM())}</h2><small>${sub}</small></div>${ch?`<div class="lhc">🏆 ${esc(ch)}</div>`:''}</div><div class="lhs">${box('ম্যাচ',_bd(rs.length))}${box('গোল',_bd(gl))}${box('গড় গোল',rs.length?_bd((gl/rs.length).toFixed(1)):'—')}${box(ch?'চ্যাম্পিয়ন':'শীর্ষে',ch||ld?esc(ch||ld):'—')}</div></div>`}
 var NRX=null;function openNR(t){NRX=t;R()}function closeNR(){NRX=null;R()}
 function nrBuild(x){const d=D(),sd=Math.abs((x.t|0)^hs(String(x.x)+(x.k||''))),R_=(()=>{let a=sd+1831565813|0;return()=>{a=a+1831565813|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}})(),pk=a=>a[Math.floor(R_()*a.length)],ic=x.i,ls=String(x.x).split('\n'),hd=ls[0],v=x.v||[],T=xSt(),lg=d.league.length>0,tb=lg?table():[],bn=_bd,
 st=p=>{const s=T[p]||{P:0,W:0,D:0,L:0,GF:0,GA:0,F:[]},i=tb.findIndex(z=>z.p===p);return Object.assign({},s,{Pts:s.W*3+s.D,pos:i+1})},
 fm=F=>F.length?F.slice(-5).map(c=>c==='W'?'জয়':c==='D'?'ড্র':'হার').join(' · '):'এখনো ম্যাচ খেলেনি',
-L=[],add=s=>{if(s)L.push(s)},tn=d.name+((d.season||1)>1?' (সিজন '+bn(d.season)+')':''),sc=hd.match(/(\d+)[–-](\d+)/);
+L=[],add=s=>{if(s)L.push(s)},tn=TNM()+((d.season||1)>1?' (সিজন '+bn(d.season)+')':''),sc=hd.match(/(\d+)[–-](\d+)/);
 const ctx=(a,b)=>{const A1=st(a),B1=st(b),r=xRes().filter(m=>(m.a===a&&m.b===b)||(m.a===b&&m.b===a)),V=(...z)=>pk(z),
 gd=q=>q.GF-q.GA,sg=n=>(n>0?'+':'')+bn(n),pc=q=>q.P?bn(Math.round(q.W*100/q.P)):'০',av=q=>q.P?bn((q.GF/q.P).toFixed(1)):'০',
 nl=F=>{let k=0;for(let i=F.length-1;i>=0&&F[i]!=='L';i--)k++;return k},
@@ -598,6 +598,7 @@ return L.slice(0,12)}
 function nrV(){if(NRX==null)return'';const x=A(D().news).find(z=>z.t===NRX);if(!x){NRX=null;return''}const L=nrBuild(x),ls=String(x.x).split('\n');
 return`<div class="ov tl"><div class="cb sh nrd" style="max-width:600px"><div class="nrk">📰 বিস্তারিত রিপোর্ট</div>${nimg(x,1)}<h2 class="nrh">${esc(ls[0])}</h2><div class="nrm">${ago(x.t)} · টুর্নামেন্ট নিউজ</div><div class="nrb">${L.map((l,i)=>`<p class="${i===0?'lede':''}">${esc(l)}</p>`).join('')}</div><button class="big" style="margin-top:14px" onclick="closeNR()">বন্ধ করুন</button></div></div>`}
 
+const TNM=()=>{const it=LIB&&LIB.items?LIB.items.find(x=>x.id===LIB.act):null;return S.mode==='tour'&&it?it.name:(it&&S.mode?it.name+' · '+D().name:D().name)};
 function togTheme(){const r=document.documentElement,c=r.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'),n=c==='dark'?'light':'dark';r.dataset.theme=n;try{localStorage.setItem('tmtheme',n)}catch(e){}}
 try{const _t=localStorage.getItem('tmtheme');if(_t)document.documentElement.dataset.theme=_t}catch(e){}
 function homeDash(){const its=LIB.items.filter(i=>i.s.mode),live=its.filter(i=>i.s.share).length,run=its.filter(i=>i.s.divs.some(d=>d.st)).length;
@@ -640,7 +641,7 @@ else h=`আগে লিগ (${n*(n-1)/2}টি ম্যাচ), শেষে �
 const f=(k,t)=>`<button class="${d.fmt===k?'on':''}" onclick="setFmt('${k}')">${t}</button>`;
 const fm=dv?`<div class="card"><h2>কোয়ালিফাই ও রেলিগেশন</h2><p class="mu" style="margin:0">${h}</p><div class="zr2"><span>${S.cur===0?'কোয়ালিফাই':'প্রমোশন (উপরের ডিভিশনে)'} · টপ কতজন</span>${zi('zu',d.zu)}</div>${last?'':`<div class="zr2"><span>রেলিগেশন (নিচের ডিভিশনে) · বটম কতজন</span>${zi('zd',d.zd)}</div>`}</div>`
 :`<div class="card"><h2>ফরম্যাট</h2><div style="display:grid;gap:8px">${f('lk','লিগ + নকআউট')}${f('league','শুধু লিগ')}${f('ko','শুধু নকআউট')}</div><p class="mu">${h}</p></div>`;
-return`<div class="top"><h1>${dv?'🏅 ডিভিশন সিস্টেম':'🏆 টুর্নামেন্ট'}</h1><span>${shareBtn()}</span></div>${dv?divTabs('<button onclick="addDiv()">+ ডিভিশন</button>'):''}
+return`<div class="top"><h1>${dv?'🏅 ডিভিশন সিস্টেম':'🏆 '+esc(TNM())}</h1><span>${shareBtn()}</span></div>${dv?divTabs('<button onclick="addDiv()">+ ডিভিশন</button>'):''}
 ${dv?`<div class="card"><h2>ডিভিশনের নাম</h2><div class="row"><input id="dn" type="text" maxlength="24" value="${esc(d.name)}" onchange="setName(this.value)">${S.divs.length>1?'<button onclick="delDiv()">🗑</button>':''}</div></div>`:''}
 <div class="card"><h2>প্লেয়ার যোগ করুন</h2>${regBtn()}<div class="row"><button class="crb" onclick="openLogo('new')">${crestL(PLG)}</button><input id="nm" type="text" maxlength="20" placeholder="প্লেয়ারের নাম" onkeydown="if(event.key==='Enter')add()"><button class="pri" onclick="add()">যোগ</button></div>
 <div class="chips">${d.players.map((p,i)=>`<span class="chip"><span onclick="openLogo(${i})" style="cursor:pointer">${cr(p)}</span>${esc(p)}<b onclick="del(${i})">×</b></span>`).join('')}</div><p class="mu">মোট ${n} জন প্লেয়ার</p>${rsV()}</div>
@@ -973,7 +974,7 @@ h+=`<div style="display:flex;justify-content:center;margin:14px 0;font-size:20px
 h+='</div>'}
 else if(SG==='fp'){const a=L.slice().sort((x,y)=>(x.Y+3*x.Rd)-(y.Y+3*y.Rd)||x.p.localeCompare(y.p));
 h+=`<div class="card"><h2>🟨 ফেয়ার প্লে টেবিল</h2><p class="mu" style="margin:0 0 8px">হলুদ=১, লাল=৩ পয়েন্ট। কম পয়েন্ট = বেশি ফেয়ার</p><table><tr><th>#</th>${th}<th>🟨</th><th>🟥</th><th>পয়েন্ট</th></tr>${a.map((x,i)=>`<tr><td>${i===0?'🕊️':i+1}</td><td>${xNm(x.p)}</td><td>${x.Y}</td><td>${x.Rd}</td><td><b>${x.Y+3*x.Rd}</b></td></tr>`).join('')}</table></div>`}
-else if(SG==='hf'){const rows=[];S.divs.forEach(dv=>A(dv.hist).forEach(z=>rows.push([dv.name,z.s,z.c])));const c=champ();if(c&&!A(d.hist).some(z=>z.s===(d.season||1)))rows.push([d.name,d.season||1,c]);
+else if(SG==='hf'){const rows=[];S.divs.forEach(dv=>A(dv.hist).forEach(z=>rows.push([S.mode==='tour'?TNM():dv.name,z.s,z.c])));const c=champ();if(c&&!A(d.hist).some(z=>z.s===(d.season||1)))rows.push([d.name,d.season||1,c]);
 const ct={};rows.forEach(r=>ct[r[2]]=(ct[r[2]]||0)+1);const cs=Object.keys(ct).sort((x,y)=>ct[y]-ct[x]);
 h+=`<div class="card"><h2>🏛️ হল অফ ফেম</h2>${rows.length?`<table>${rows.slice().reverse().map(r=>`<tr><td>সিজন ${r[1]}</td><td class="mu">${esc(r[0])}</td><td>🏆 ${xNm(r[2])}</td></tr>`).join('')}</table>`:'<p class="mu">এখনো কোনো চ্যাম্পিয়ন নেই</p>'}</div>`;
 if(cs.length)h+=`<div class="card"><h2>👑 সবচেয়ে বেশি ট্রফি</h2><table>${cs.map((n,i)=>`<tr><td>${i+1}</td><td>${xNm(n)}</td><td><b>${ct[n]}</b> 🏆</td></tr>`).join('')}</table></div>`}
@@ -993,7 +994,7 @@ if(k==='tb'){hd=['','ম্যাচ','ব্যবধান','পয়েন�
 else{hd=['','ম্যাচ','গড়','গোল'];rows=Object.values(T).sort((x,y)=>y.GF-x.GF||x.P-y.P).map((x,i)=>[i+1,x.p,x.P,x.P?(x.GF/x.P).toFixed(1):'-',x.GF])}
 const W=720,n=Math.min(rows.length,20),H=200+n*56+70,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');
 const gr=g.createLinearGradient(0,0,0,H);gr.addColorStop(0,'#0b1220');gr.addColorStop(1,'#14532d');g.fillStyle=gr;g.fillRect(0,0,W,H);
-g.textBaseline='middle';g.textAlign='center';g.fillStyle='#fff';g.font='bold 34px sans-serif';g.fillText('🏆 '+d.name,W/2,56);
+g.textBaseline='middle';g.textAlign='center';g.fillStyle='#fff';g.font='bold 34px sans-serif';g.fillText('🏆 '+TNM(),W/2,56);
 g.font='22px sans-serif';g.fillStyle='#a7f3d0';g.fillText((k==='tb'?'পয়েন্ট টেবিল':'টপ স্কোরার')+' · সিজন '+(d.season||1),W/2,98);
 g.font='bold 20px sans-serif';g.fillStyle='#86efac';[[hd[1],470],[hd[2],560],[hd[3],655]].forEach(a=>g.fillText(a[0],a[1],150));
 rows.slice(0,n).forEach((r,i)=>{const y=200+i*56;if(i%2===0){g.fillStyle='rgba(255,255,255,.07)';g.fillRect(20,y-26,W-40,52)}
