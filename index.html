@@ -346,6 +346,11 @@ tr.first td{background:transparent}tr.first td:last-child b{background:var(--g);
 .nrh{font-size:21px;font-weight:900;line-height:1.3;margin:12px 0 4px}.nrm{font-size:12px;color:var(--mu);margin-bottom:12px}
 .nrb p{margin:0 0 10px;font-size:15px;line-height:1.7}.nrb p.lede{font-weight:700;font-size:16.5px;padding-left:12px;border-left:4px solid var(--ac)}
 .nrd .nhero,.nrd>div:nth-of-type(2){border-radius:20px;overflow:hidden}
+
+.chm{margin:14px auto 0;max-width:340px;padding:14px 16px;border-radius:22px;text-align:left;background:rgba(255,255,255,.10);border:1px solid rgba(253,224,71,.45);backdrop-filter:blur(8px);box-shadow:0 0 24px rgba(245,158,11,.25);opacity:0;animation:cup .9s 2.1s forwards}
+.chm b{color:#fde047;font-size:14px}.chm p{margin:6px 0 0;font-size:14px;line-height:1.65;color:#fff}.chm .chs{font-size:12.5px;opacity:.85}
+.chm .chg{margin-top:8px;text-align:right;font-weight:800;font-size:13px;color:#fde68a}
+@media (max-height:720px){.tr3{font-size:76px}.chm{padding:10px 12px}.chm p{font-size:13px;line-height:1.5}}
 </style></head><body><div id="app"></div><div id="nav"></div>
 <script>
 const $=s=>document.querySelector(s);
@@ -413,9 +418,10 @@ function champ(){const d=D();if(S.mode==='cl'&&S.cur<S.divs.length-1)return null
 if(!d.ko.length)return null;const w=win(d.ko.length-1,0);return w&&w!=='BYE'?w:null}
 const banner=n=>`<div class="champ">🏆 চ্যাম্পিয়ন: ${esc(n)}${D().prize?`<div style="font-size:15px;font-weight:600;margin-top:4px">🎁 প্রাইজ: ${esc(D().prize)}</div>`:''}<button data-ok onclick="replay()">🎉 আবার দেখুন</button></div>`;
 function celKey(){const n=champ();return n?S.cur+'|'+D().season+'|'+n:''}
+function chMsg(n){const t=TNM(),T=[`অভিনন্দন ${n}! আপনার দুর্দান্ত খেলা আর লড়াকু মানসিকতায় ${t} জিতে নিলেন। আপনি সত্যিই এই মুকুটের যোগ্য চ্যাম্পিয়ন!`,`${n}, হৃদয়ের গভীর থেকে শুভেচ্ছা! ${t}-এর এই সোনালি জয় আপনার পরিশ্রম আর প্রতিভার ফসল। এভাবেই জয়ের ধারা বজায় রাখুন।`,`চ্যাম্পিয়ন ${n}-কে স্যালুট! ${t}-এ পুরো টুর্নামেন্ট জুড়ে আপনার পারফরম্যান্স ছিল অনন্য। সামনে আরও বড় জয়ের অপেক্ষা।`,`${n}, আপনি প্রমাণ করে দিলেন সেরারাই শেষ হাসি হাসে! ${t}-এর শিরোপা জয়ের জন্য আন্তরিক অভিনন্দন ও শুভকামনা।`],m=T[hs(n+t)%T.length];return`<div class="chm"><b>🎉 শুভেচ্ছা বার্তা</b><p>${esc(m)}</p><p class="chs">অন্য সব প্লেয়ারকেও ধন্যবাদ — আপনাদের লড়াইয়েই টুর্নামেন্ট প্রাণ পেয়েছে।</p><div class="chg">— ADN ROBIUL ও আয়োজক টিমের পক্ষ থেকে</div></div>`}
 function overlay(){const d=D(),n=champ();if(!n||d.cel===celKey())return'';
 if(!window._chL){window._chL=1;setTimeout(chLoop,30)}
-return`<div class="ov chn"><canvas id="chcv2"></canvas><div class="cb3"><div class="c1">✨ চ্যাম্পিয়ন ✨</div><div class="tr3">🏆</div><div class="n3">${esc(n)}</div><p class="c3">${S.mode==='div'?esc(d.name)+' · সিজন '+d.season+' চ্যাম্পিয়ন':S.mode==='cl'?'চ্যাম্পিয়নস লিগ চ্যাম্পিয়ন':'টুর্নামেন্ট চ্যাম্পিয়ন'}</p>${d.prize?`<div class="c4">🎁 প্রাইজ: ${esc(d.prize)}</div>`:''}<button class="pri big" style="margin-top:18px;max-width:280px" data-ok onclick="closeCel()">ঠিক আছে</button></div></div>`}
+return`<div class="ov chn"><canvas id="chcv2"></canvas><div class="cb3"><div class="c1">✨ চ্যাম্পিয়ন ✨</div><div class="tr3">🏆</div><div class="n3">${esc(n)}</div><p class="c3">${S.mode==='div'?esc(d.name)+' · সিজন '+d.season+' চ্যাম্পিয়ন':S.mode==='cl'?'চ্যাম্পিয়নস লিগ চ্যাম্পিয়ন':'টুর্নামেন্ট চ্যাম্পিয়ন'}</p>${d.prize?`<div class="c4">🎁 প্রাইজ: ${esc(d.prize)}</div>`:''}${chMsg(n)}<button class="pri big" style="margin-top:14px;max-width:280px" data-ok onclick="closeCel()">ঠিক আছে</button></div></div>`}
 
 function chLoop(){const cv=document.getElementById('chcv2'),tr=document.querySelector('.tr3');if(!cv||!tr){window._chL=0;return}
 const W=innerWidth,H=innerHeight;if(cv.width!==W||cv.height!==H){cv.width=W;cv.height=H}
