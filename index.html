@@ -248,6 +248,8 @@ function newSeason(){const d=D(),p=d.res.keep.concat(d.inc);if(p.length<2)return
 function divTabs(x){return`<div class="dv">${S.divs.map((d,i)=>`<button class="${i===S.cur?'on':''}" data-ok onclick="selDiv(${i})">${esc(d.name)}</button>`).join('')}${x||''}</div>`}
 const zi=(f,v)=>`<input type="number" min="0" inputmode="numeric" value="${v}" onchange="setZ('${f}',this.value)">`;
 function goHome(){HOME=true;TL=PN=RL=JN=AB=false;R()}
+function bkUp(){try{const o={tm6:localStorage.getItem('tm6'),tmroster:localStorage.getItem('tmroster')},a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify(o)],{type:'application/json'}));a.download='efootball-backup-'+new Date().toISOString().slice(0,10)+'.json';document.body.appendChild(a);a.click();a.remove()}catch(e){alert('ব্যাকআপ হয়নি')}}
+function bkIn(inp){const f=inp.files&&inp.files[0];if(!f)return;const r=new FileReader();r.onload=()=>{try{const o=JSON.parse(r.result);if(!o.tm6)throw 0;JSON.parse(o.tm6);if(!confirm('বর্তমান ডাটা মুছে ব্যাকআপ বসবে। ঠিক আছে?'))return;localStorage.setItem('tm6',o.tm6);if(o.tmroster)localStorage.setItem('tmroster',o.tmroster);location.reload()}catch(e){alert('ফাইলটা ঠিক নয়')}};r.readAsText(f)}
 function openJoin(){JN=true;JM='';R()}
 function closeJoin(){JN=false;R()}
 function openAbout(){AB=true;R()}
@@ -263,7 +265,7 @@ const tcard=i=>{const x=i.s,n=x.divs.reduce((a,d)=>a+d.players.length,0),go=x.di
 function homeDash(){const its=LIB.items.filter(i=>i.s.mode),live=its.filter(i=>i.s.share).length,run=its.filter(i=>i.s.divs.some(d=>d.st)).length;
 const tile=(ic,t,sub,fn)=>`<button class="tile" onclick="${fn}"><span class="ic">${ic}</span><b>${t}</b><small>${sub}</small></button>`;
 return`<div class="hero"><div class="hs">⚽</div><div class="hh">স্বাগতম</div><div class="hn">ADN ROBIUL</div><div class="hp">eFootball টুর্নামেন্ট ম্যানেজার</div><div class="stats"><div><b>${its.length}</b><small>টুর্নামেন্ট</small></div><div><b>${run}</b><small>চলছে</small></div><div><b>${live}</b><small>লাইভ</small></div></div></div>
-<h2 class="sec">দ্রুত শুরু করুন</h2><div class="tiles">${tile('🏆','নতুন টুর্নামেন্ট','লিগ + নকআউট',"startNew('tour')")}${tile('🏅','ডিভিশন সিস্টেম','প্রমোশন ও রেলিগেশন',"startNew('div')")}${tile('⭐','চ্যাম্পিয়নস লিগ','৩-৪টি লিগ → চ্যাম্পিয়নস লিগ',"startNew('cl')")}${tile('📡','লাইভ যোগ দিন','লিংক বা কোড দিয়ে',"openJoin()")}${tile('📜','নিয়মাবলী','খেলার নিয়ম দেখুন',"openRules()")}</div>
+<h2 class="sec">দ্রুত শুরু করুন</h2><div class="tiles">${tile('🏆','নতুন টুর্নামেন্ট','লিগ + নকআউট',"startNew('tour')")}${tile('🏅','ডিভিশন সিস্টেম','প্রমোশন ও রেলিগেশন',"startNew('div')")}${tile('⭐','চ্যাম্পিয়নস লিগ','৩-৪টি লিগ → চ্যাম্পিয়নস লিগ',"startNew('cl')")}${tile('📡','লাইভ যোগ দিন','লিংক বা কোড দিয়ে',"openJoin()")}${tile('📜','নিয়মাবলী','খেলার নিয়ম দেখুন',"openRules()")}${tile('💾','ব্যাকআপ','সব ডাটা ফাইলে সেভ',"bkUp()")}${tile('📥','রিস্টোর','ব্যাকআপ ফাইল থেকে',"document.getElementById('bkf').click()")}</div><input id="bkf" type="file" accept=".json,application/json" hidden onchange="bkIn(this)">
 <h2 class="sec">আমার টুর্নামেন্ট</h2>${its.length?its.map(tcard).join(''):'<div class="card mu" style="margin:0">এখনো কোনো টুর্নামেন্ট নেই। উপরের বাটন থেকে শুরু করুন।</div>'}
 <p class="mu" style="text-align:center;margin-top:18px">অ্যাপ মালিক: ADN ROBIUL</p>`}
 function joinV(){if(!JN)return'';return`<div class="ov tl"><div class="cb sh"><h2>📡 লাইভ যোগ দিন</h2><p class="mu" style="margin-top:0">বন্ধুর পাঠানো লিংক বা কোড বসান। অ্যাডমিন কোড থাকলে নিচে দিন, নইলে খালি রাখুন। আলাদা টুর্নামেন্ট হিসেবে যুক্ত হবে, আপনারটা ঠিক থাকবে।</p><textarea id="jc" class="ta" rows="3" placeholder="লিংক বা কোড"></textarea><div class="row" style="margin-top:8px"><input id="jk" type="text" placeholder="অ্যাডমিন কোড (ঐচ্ছিক)"><button class="pri" onclick="joinBtn()">যোগ দিন</button></div>${JM?`<p class="mu" style="color:#ef4444">${esc(JM)}</p>`:''}<button class="big" onclick="closeJoin()">বন্ধ করুন</button></div></div>`}
@@ -482,7 +484,7 @@ return`<div class="cell ${cls}" onclick="gotoList(${r})"><div class="bc">${row(a
 if(cw&&cw!=='BYE')h+=`<div class="bcol" style="min-width:170px"><div class="cell s"><div class="bc champ2"><div style="text-align:center;padding:10px 0"><div style="font-size:36px">🏆</div>${cr(cw,1)}<div class="bn2">${esc(cw)}</div><small class="mu">চ্যাম্পিয়ন</small></div></div></div></div>`;
 return h+'</div><p class="mu">কার্ডে চাপ দিলে স্কোর দেওয়ার লিস্টে যাবে।</p>'}
 const el=L=>L.base+(L.on?(Date.now()-L.since)/1000:0);
-const rt=L=>90/(L.dur||10);
+const rt=L=>90/(L.dur||6);
 const gsec=L=>Math.min(5400,el(L)*rt(L));
 const gshow=L=>{const g=gsec(L);return!L.h2&&g>2700?2700:g};
 const fmtT=L=>{const t=Math.floor(gshow(L)),g=gsec(L);return String(Math.floor(t/60)).padStart(2,'0')+':'+String(t%60).padStart(2,'0')+(g>=5400?' · পূর্ণ সময়':!L.h2&&g>=2700?' · হাফ টাইম':'')};
@@ -491,10 +493,12 @@ const gc=(L,s)=>L.ev.filter(x=>x.t==='g'&&x.s===s).length;
 const lw=(r,i,l,c)=>c&&!D().live&&!RO()?`<div class="lvw"><button onclick="startLive('K',${r},${i},${l})">🔴 লাইভ শুরু</button></div>`:'';
 function startLive(t,a,b,c){const d=D();if(RO()||d.live)return;let ref,A_,B_;
 if(t==='L'){const m=d.league[a];ref={t,i:a};A_=m.a;B_=m.b}else{const[x,y]=teams(a,b);ref={t,r:a,i:b,l:c};if(c===2){A_=y;B_=x}else{A_=x;B_=y}}
-if(!A_||!B_||A_==='BYE'||B_==='BYE')return;d.live={id:Date.now().toString(36),ref,a:A_,b:B_,ev:[],on:false,base:0,since:0,dur:d.md||10};LV=true;R()}
+if(!A_||!B_||A_==='BYE'||B_==='BYE')return;d.live={id:Date.now().toString(36),ref,a:A_,b:B_,ev:[],on:false,base:0,since:0,dur:d.md||6};LV=true;R()}
 function addEv(t,s){if(RO())return;const L=D().live;if(!L)return;L.ev.push({t,s,m:Math.min(90,Math.max(1,Math.ceil(gshow(L)/60)))});R()}
 function undoEv(){if(RO())return;const L=D().live;if(L&&L.ev.length){L.ev.pop();R()}}
-function clk(){if(RO())return;const L=D().live;if(!L)return;const g=gsec(L);if(g>=5400)return;
+var WL=null;function wl(){try{if(navigator.wakeLock&&!WL)navigator.wakeLock.request('screen').then(x=>{WL=x;x.addEventListener('release',()=>{WL=null})}).catch(()=>{})}catch(e){}}
+document.addEventListener('visibilitychange',()=>{try{const L=D().live;if(L&&L.on&&document.visibilityState==='visible')wl()}catch(e){}});
+function clk(){if(RO())return;wl();const L=D().live;if(!L)return;const g=gsec(L);if(g>=5400)return;
 if(!L.h2&&g>=2700){L.h2=1;L.base=2700/rt(L);L.since=Date.now();L.on=true}else if(L.on){L.base=el(L);L.on=false}else{L.since=Date.now();L.on=true}R()}
 function setDur(v){if(RO())return;const d=D(),L=d.live;if(!L||L.on||L.base>0)return;L.dur=+v;d.md=+v;R()}
 function openLive(){LV=true;R()}
@@ -507,12 +511,14 @@ function liveV(){const d=D(),L=d.live;if(!LV||!L)return'';const adm=!RO(),nm=s=>
 const btn=(s,t,ic,lb)=>`<button class="lvb" onclick="addEv('${t}','${s}')">${ic}<br><small>${lb}</small></button>`;
 const col=s=>`<div>${btn(s,'g','⚽','গোল')}${btn(s,'y','🟨','হলুদ')}${btn(s,'r','🟥','লাল')}</div>`;
 return`<div class="ov tl"><div class="cb sh lvp"><div class="lvh">🔴 LIVE · <span class="lvt">${fmtT(L)}</span>${adm?`<button class="lvk" onclick="clk()">${clkLbl(L)}</button>`:''}</div>
-<div class="mu" style="margin:0 0 8px">⏱ ${L.dur||10} মিনিটে ৯০ মিনিটের খেলা (${(90/(L.dur||10)).toFixed(1)}x)${adm&&!L.on&&!L.base?`<br><select onchange="setDur(this.value)">${[5,10,15,20,25,30].map(x=>`<option value="${x}" ${x===(L.dur||10)?'selected':''}>${x} মিনিটের ম্যাচ</option>`).join('')}</select>`:''}</div>
+<div class="mu" style="margin:0 0 8px">⏱ ${L.dur||6} মিনিটে ৯০ মিনিটের খেলা (${(90/(L.dur||6)).toFixed(1)}x)${adm&&!L.on&&!L.base?`<br><select onchange="setDur(this.value)">${[5,6,7,8,10,15,20,25,30].map(x=>`<option value="${x}" ${x===(L.dur||6)?'selected':''}>${x} মিনিটের ম্যাচ</option>`).join('')}</select>`:''}</div>
 <div class="lvs"><div class="lt">${cr(L.a,1)}<div>${esc(L.a)}</div></div><div class="ls">${gc(L,'a')} – ${gc(L,'b')}</div><div class="lt">${cr(L.b,1)}<div>${esc(L.b)}</div></div></div>
 ${adm?`<div class="lvg">${col('a')}${col('b')}</div>`:''}
 <div class="lve">${L.ev.slice().reverse().map(e=>`<div class="lvr">${e.m}' ${e.t==='g'?'⚽ গোল':e.t==='y'?'🟨 হলুদ কার্ড':'🟥 লাল কার্ড'} — ${cr(nm(e.s))} ${esc(nm(e.s))}</div>`).join('')||'<div class="mu">এখনো কোনো ঘটনা নেই</div>'}</div>
 ${adm?`<button onclick="undoEv()">↩ শেষ ঘটনা বাতিল</button><button class="pri" onclick="finLive()">✅ ম্যাচ শেষ, স্কোর সেভ</button>`:''}<button class="big" data-ok onclick="closeLive()">বন্ধ করুন</button></div></div>`}
-function showEvt(e,L){const old=document.getElementById('gl');if(old)old.remove();const w=document.createElement('div');w.id='gl';const g=e.t==='g',n=e.s==='a'?L.a:L.b;let cf='';
+var _vz=null;function goalVoice(){try{const ss=window.speechSynthesis;if(!ss)return;ss.cancel();const u=new SpeechSynthesisUtterance('গোওওওওওওল! গোওওওওওওল!');u.lang='bn-BD';const v=ss.getVoices().find(x=>/^bn/i.test(x.lang));if(v)u.voice=v;u.volume=1;u.rate=0.65;u.pitch=1.6;ss.speak(u)}catch(x){}}
+document.addEventListener('click',()=>{if(_vz)return;_vz=1;try{const u=new SpeechSynthesisUtterance(' ');u.volume=0;window.speechSynthesis.speak(u)}catch(x){}},{once:true});
+function showEvt(e,L){if(e.t==='g')goalVoice();const old=document.getElementById('gl');if(old)old.remove();const w=document.createElement('div');w.id='gl';const g=e.t==='g',n=e.s==='a'?L.a:L.b;let cf='';
 if(g){const c=['#f43f5e','#f59e0b','#fde047','#3b82f6','#a855f7','#fff'];for(let i=0;i<45;i++)cf+=`<i class="cf" style="left:${Math.random()*100}%;background:${c[i%6]};animation-duration:${2+Math.random()*2.5}s;animation-delay:${Math.random()*1.2}s"></i>`}
 else w.style.background=e.t==='y'?'radial-gradient(circle at 50% 40%,#ca8a04,#422006)':'radial-gradient(circle at 50% 40%,#dc2626,#450a0a)';
 w.innerHTML=cf+`<div style="position:relative"><div class="gb">${g?'⚽':e.t==='y'?'🟨':'🟥'}</div><div class="gt">${g?'GOAL!':e.t==='y'?'হলুদ কার্ড':'লাল কার্ড'}</div><div class="gn">${cr(n,1)}<br>${esc(n)} · ${e.m}'</div>${g?`<div class="gs">${esc(L.a)} ${gc(L,'a')} – ${gc(L,'b')} ${esc(L.b)}</div>`:''}</div>`;
