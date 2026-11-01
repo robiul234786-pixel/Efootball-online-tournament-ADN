@@ -351,7 +351,31 @@ tr.first td{background:transparent}tr.first td:last-child b{background:var(--g);
 .chm b{color:#fde047;font-size:14px}.chm p{margin:6px 0 0;font-size:14px;line-height:1.65;color:#fff}.chm .chs{font-size:12.5px;opacity:.85}
 .chm .chg{margin-top:8px;text-align:right;font-weight:800;font-size:13px;color:#fde68a}
 @media (max-height:720px){.tr3{font-size:76px}.chm{padding:10px 12px}.chm p{font-size:13px;line-height:1.5}}
-</style></head><body><div id="app"></div><div id="nav"></div>
+</style><style>:root{--bg:#eef1f9;--card:#fff;--tx:#12162b;--mu:#5d6585;--bd:#dde2f1;--ac:#3157d5;--act:#fff;--soft:#e4eaff}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0c1020;--card:#151b33;--tx:#eef0fa;--mu:#9aa3c7;--bd:#262e52;--ac:#ffb703;--act:#1d1500;--soft:#241f10}}
+:root[data-theme="dark"]{--bg:#0c1020;--card:#151b33;--tx:#eef0fa;--mu:#9aa3c7;--bd:#262e52;--ac:#ffb703;--act:#1d1500;--soft:#241f10}
+body{font-family:"Hind Siliguri","Noto Sans Bengali",system-ui,sans-serif;letter-spacing:.1px}
+.card{border-radius:22px;padding:16px;border-width:1.5px}
+button{border-radius:999px;padding:10px 16px;transition:transform .12s}
+button:active{transform:scale(.96)}
+button.pri,button.on{box-shadow:0 4px 14px color-mix(in srgb,var(--ac) 35%,transparent)}
+input[type=text],select,.ta{border-radius:14px}
+th{font-size:12px;letter-spacing:.3px}
+tr.first td{color:var(--ac)}
+.hero{border-radius:26px!important;background:linear-gradient(145deg,var(--ac),color-mix(in srgb,var(--ac) 40%,#000))!important;color:var(--act)!important}
+.tile{border-radius:20px!important}
+#fab{position:fixed;right:14px;bottom:calc(86px + env(safe-area-inset-bottom,0px));z-index:40;width:52px;height:52px;padding:0;font-size:22px;border-radius:50%}
+#xo{position:fixed;inset:0;z-index:60;background:rgba(5,8,20,.7);display:none;align-items:flex-end;justify-content:center}
+#xo.on{display:flex}
+#xb{background:var(--bg);color:var(--tx);width:100%;max-width:640px;max-height:90vh;overflow:auto;border-radius:26px 26px 0 0;padding:16px;animation:up .25s ease-out}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+#xb .tabs2{display:flex;gap:6px;overflow-x:auto;margin-bottom:12px}
+#xb .tabs2 button{white-space:nowrap;padding:8px 12px;font-size:14px}
+.pill{display:inline-block;background:var(--soft);border-radius:99px;padding:3px 10px;font-size:13px;margin:2px}
+.fm{display:inline-block;width:20px;height:20px;border-radius:6px;text-align:center;font-size:12px;line-height:20px;margin-right:3px;color:#fff}
+.fW{background:#16a34a}.fD{background:#8b93b3}.fL{background:#e11d48}
+@media (prefers-reduced-motion:reduce){#xb{animation:none}}
+</style><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0c1020"></head><body><div id="app"></div><div id="nav"></div>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -1071,4 +1095,84 @@ setInterval(()=>{if(RG&&isAd()&&!typing())fetchRegs()},5000);
 
 R();hashJoin();setInterval(pull,4000);setInterval(tick,1000);if(!RF)try{welcome()}catch(e){}
 document.addEventListener('focusout',e=>{const t=e.target;if(dirty&&t.closest&&t.closest('.sc')&&!(e.relatedTarget&&e.relatedTarget.closest&&e.relatedTarget.closest('.sc')))setTimeout(()=>{if(dirty)R()},350)});
+
+;(function(){
+const X={tab:'elo'};
+const G=()=>{const g=[];try{S.divs.forEach((d,di)=>{(d.league||[]).forEach(m=>{if(m.sa!==''&&m.sb!=='')g.push({a:m.a,b:m.b,x:+m.sa,y:+m.sb})});withDiv(di,()=>{(d.ko||[]).forEach((K,r)=>K.forEach((m,i)=>{const[a,b]=teams(r,i);if(!a||!b||a==='BYE'||b==='BYE')return;if(m.l1a!==''&&m.l1b!=='')g.push({a,b,x:+m.l1a,y:+m.l1b});if(m.l2a!==undefined&&m.l2a!==''&&m.l2b!=='')g.push({a,b,x:+m.l2a,y:+m.l2b})}))})})}catch(e){}return g};
+const P=g=>{const p={};const f=n=>p[n]||(p[n]={n,e:1000,P:0,W:0,D:0,L:0,GF:0,GA:0,f:[],u:0,mu:0});
+g.forEach(m=>{const a=f(m.a),b=f(m.b),ea=1/(1+Math.pow(10,(b.e-a.e)/400)),sa=m.x>m.y?1:m.x<m.y?0:.5;a.e+=24*(sa-ea);b.e+=24*((1-sa)-(1-ea));
+[[a,m.x,m.y],[b,m.y,m.x]].forEach(([q,gf,ga])=>{q.P++;q.GF+=gf;q.GA+=ga;const r=gf>ga?'W':gf<ga?'L':'D';q[r]++;q.f.push(r);if(r==='L')q.u=0;else{q.u++;q.mu=Math.max(q.mu,q.u)}})});return Object.values(p).sort((x,y)=>y.e-x.e)};
+const fm=a=>a.slice(-5).map(r=>`<span class="fm f${r}">${r==='W'?'জ':r==='D'?'ড্র':'হা'}</span>`).join('');
+const V={
+elo(g,p){return p.length?`<div class="card"><h2>🏅 ELO র‍্যাংকিং</h2><div class="tw"><table><tr><th class="n">#</th><th class="n">প্লেয়ার</th><th>ELO</th><th>ম্যাচ</th><th>ফর্ম</th></tr>${p.map((q,i)=>`<tr${i?'':' class="first"'}><td class="n">${i+1}</td><td class="n">${esc(q.n)}</td><td>${Math.round(q.e)}</td><td>${q.P}</td><td>${fm(q.f)}</td></tr>`).join('')}</table></div></div>`:'<p class="mu">এখনো কোনো ম্যাচের ফল নেই।</p>'},
+rec(g,p){if(!g.length)return V.elo(g,p);const bw=g.reduce((s,m)=>Math.abs(m.x-m.y)>Math.abs(s.x-s.y)?m:s),hg=g.reduce((s,m)=>m.x+m.y>s.x+s.y?m:s),u=p.reduce((s,q)=>q.mu>s.mu?q:s),gl=p.reduce((s,q)=>q.GF>s.GF?q:s),dw=p.filter(q=>q.P>=3).reduce((s,q)=>!s||q.GA/q.P<s.GA/s.P?q:s,null);
+const bd=p.map(q=>{const b=[];if(q.P>=3&&!q.L)b.push('🛡️ অপরাজিত');if(q===gl&&q.GF)b.push('⚽ গোল মেশিন');if(q===dw)b.push('🧱 লৌহ প্রাচীর');if(q.W>=3)b.push('🔥 ৩+ জয়');return b.length?`<p><b>${esc(q.n)}</b><br>${b.map(x=>`<span class="pill">${x}</span>`).join('')}</p>`:''}).join('');
+return`<div class="card"><h2>📜 রেকর্ড</h2><p>সবচেয়ে বড় জয়: <b>${esc(bw.a)} ${bw.x}-${bw.y} ${esc(bw.b)}</b></p><p>এক ম্যাচে সর্বোচ্চ গোল: <b>${esc(hg.a)} ${hg.x}-${hg.y} ${esc(hg.b)}</b></p><p>দীর্ঘতম অপরাজিত ধারা: <b>${esc(u.n)}</b> (${u.mu} ম্যাচ)</p></div><div class="card"><h2>🎖️ ব্যাজ</h2>${bd||'<p class="mu">এখনো কোনো ব্যাজ নেই।</p>'}</div>`},
+h2h(g,p){const o=p.map(q=>`<option>${esc(q.n)}</option>`).join('');const a=X.a||(p[0]||{}).n,b=X.b||(p[1]||{}).n;let r='';if(a&&b&&a!==b){let w=0,d=0,l=0,gf=0,ga=0;g.forEach(m=>{let x,y;if(m.a===a&&m.b===b){x=m.x;y=m.y}else if(m.a===b&&m.b===a){x=m.y;y=m.x}else return;gf+=x;ga+=y;x>y?w++:x<y?l++:d++});r=`<p style="font-size:20px;text-align:center"><b>${esc(a)}</b> ${w} জয় · ${d} ড্র · ${l} হার <b>${esc(b)}</b><br><small class="mu">গোল ${gf}-${ga}</small></p>`}
+return`<div class="card"><h2>⚔️ রাইভালি</h2><select onchange="XA.set('a',this.value)">${o.replace(`<option>${esc(a||'')}`,`<option selected>${esc(a||'')}`)}</select><select onchange="XA.set('b',this.value)">${o.replace(`<option>${esc(b||'')}`,`<option selected>${esc(b||'')}`)}</select>${r}</div>`},
+fee(g,p){const d=D(),F=S.fee=S.fee||{amt:0,paid:{},pz:[50,30,20]},pl=[].concat(...S.divs.map(x=>x.players)),n=pl.filter(x=>F.paid[x]).length,tot=n*(+F.amt||0);
+return`<div class="card"><h2>💰 এন্ট্রি ফি ও প্রাইজ পুল</h2><div class="row"><input type="text" inputmode="numeric" placeholder="জনপ্রতি ফি (টাকা)" value="${F.amt||''}" onchange="XA.fee(this.value)"></div><p>জমা: <b>${n}/${pl.length}</b> জন · মোট পুল: <b>${tot} ৳</b></p><p>${F.pz.map((z,i)=>`<span class="pill">${['🥇','🥈','🥉'][i]} ${Math.round(tot*z/100)} ৳</span>`).join('')}</p><div class="chips">${pl.map(x=>`<span class="chip" onclick="XA.pay(this.dataset.n)" data-n="${esc(x)}" style="cursor:pointer;${F.paid[x]?'background:var(--ac);color:var(--act)':''}">${F.paid[x]?'✓ ':''}${esc(x)}</span>`).join('')}</div></div>`},
+poster(g,p){return`<div class="card"><h2>🖼️ পোস্টার</h2><p class="mu">টুর্নামেন্টের টেবিল/চ্যাম্পিয়ন পোস্টার ছবি হিসেবে শেয়ার করুন।</p><button class="pri big" onclick="XA.poster()">ছবি বানান ও শেয়ার করুন</button></div>`}};
+const TT={elo:'র‍্যাংকিং',rec:'রেকর্ড',h2h:'রাইভালি',fee:'ফি/প্রাইজ',poster:'পোস্টার'};
+function draw(){const g=G(),p=P(g);$('#xb').innerHTML=`<div class="top"><h2>📊 স্ট্যাটস</h2><button onclick="XA.close()">✕</button></div><div class="tabs2">${Object.keys(TT).map(k=>`<button class="${X.tab===k?'on':''}" onclick="XA.tab('${k}')">${TT[k]}</button>`).join('')}</div>${V[X.tab](g,p)}`}
+window.XV=V;window.XT=TT;window.XA={open(){$('#xo').classList.add('on');draw()},close(){$('#xo').classList.remove('on')},tab(k){X.tab=k;draw()},set(k,v){X[k]=v;draw()},
+fee(v){S.fee=S.fee||{amt:0,paid:{},pz:[50,30,20]};S.fee.amt=+v||0;save();draw()},pay(n){const F=S.fee=S.fee||{amt:0,paid:{},pz:[50,30,20]};F.paid[n]=!F.paid[n];save();draw()},
+async poster(){const g=G(),p=P(g),c=document.createElement('canvas');c.width=1080;c.height=1350;const x=c.getContext('2d'),dk=getComputedStyle(document.documentElement).getPropertyValue('--bg').trim()||'#0c1020',ac=getComputedStyle(document.documentElement).getPropertyValue('--ac').trim()||'#ffb703';
+x.fillStyle='#0c1020';x.fillRect(0,0,1080,1350);x.fillStyle=ac;x.fillRect(0,0,1080,14);x.textAlign='center';x.fillStyle='#eef0fa';x.font='bold 64px sans-serif';x.fillText(D().name||'টুর্নামেন্ট',540,130);
+let ch='';try{ch=D().res&&D().res.champ||''}catch(e){}const T=table().slice(0,8);x.fillStyle=ac;x.font='bold 40px sans-serif';x.fillText(ch?'🏆 চ্যাম্পিয়ন: '+ch:'পয়েন্ট টেবিল',540,210);
+x.textAlign='left';x.font='36px sans-serif';T.forEach((t,i)=>{const y=330+i*120;x.fillStyle=i?'#151b33':ac;x.fillRect(70,y-60,940,100);x.fillStyle=i?'#eef0fa':'#1d1500';x.fillText((i+1)+'. '+t.p,100,y+8);x.textAlign='right';x.fillText(t.P+'ম  '+t.Pts+' পয়েন্ট',980,y+8);x.textAlign='left'});
+x.fillStyle='#9aa3c7';x.font='28px sans-serif';x.textAlign='center';x.fillText('ADN ROBIUL · eFootball টুর্নামেন্ট ম্যানেজার',540,1300);
+c.toBlob(async b=>{const f=new File([b],'poster.png',{type:'image/png'});try{if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f]});return}}catch(e){}const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='poster.png';a.click()})}};
+const o=document.createElement('div');o.id='xo';o.innerHTML='<div id="xb"></div>';o.onclick=e=>{if(e.target===o)XA.close()};document.body.appendChild(o);
+if(!RF){const b=document.createElement('button');b.id='fab';b.className='pri';b.textContent='📊';b.setAttribute('aria-label','স্ট্যাটস');b.onclick=XA.open;document.body.appendChild(b)}
+})();
+
+;(function(){
+const Y={gs:3,gr:null},L=t=>{S.alog=(S.alog||[]).concat({t:Date.now(),m:t}).slice(-60)},lg=()=>D().league||[],un=()=>lg().map((m,i)=>[m,i]).filter(([m])=>m.sa===''||m.sb==='');
+const RF2=()=>XA.tab(XA.cur||'draw'),pls=()=>[].concat(...S.divs.map(x=>x.players));
+const T=XT,W=XV;
+Object.assign(T,{draw:'🎲 ড্র',wo:'ওয়াকওভার',disp:'ডিসপিউট',poll:'পোল',rx:'রিঅ্যাকশন',draft:'টিম ড্রাফট',log:'লগ'});
+W.draw=()=>{const g=Y.gr;return`<div class="card"><h2>🎲 লটারি ড্র</h2><select onchange="XB.gs(this.value)">${[2,3,4,5].map(n=>`<option value="${n}"${n==Y.gs?' selected':''}>প্রতি গ্রুপে ${n} জন</option>`).join('')}</select><button class="pri big" onclick="XB.draw()">ড্র শুরু করুন</button>${g?g.map((a,i)=>`<h2 style="margin-top:14px">গ্রুপ ${String.fromCharCode(65+i)}</h2><div class="chips">${a.map(n=>`<span class="chip">${esc(n)}</span>`).join('')}</div>`).join(''):''}</div>`};
+W.wo=()=>{const u=un();return`<div class="card"><h2>🚫 ওয়াকওভার</h2><p class="mu">কেউ না এলে অন্যজন ৩-০ জিতবে (বর্তমান ডিভিশনের লিগ ম্যাচ)।</p>${u.length?u.map(([m,i])=>`<div class="mm"><b>${esc(m.a)}</b> বনাম <b>${esc(m.b)}</b><div class="row" style="margin-top:6px"><button onclick="XB.wo(${i},'a')">${esc(m.a)} জিতবে</button><button onclick="XB.wo(${i},'b')">${esc(m.b)} জিতবে</button></div></div>`).join(''):'<p class="mu">বাকি কোনো ম্যাচ নেই।</p>'}</div>`};
+W.disp=()=>{const d=S.disp||[];return`<div class="card"><h2>⚖️ ডিসপিউট</h2><div class="row"><input id="dsp" type="text" placeholder="কী সমস্যা? (যেমন: ভুল স্কোর)"><button class="pri" onclick="XB.dsp()">জমা</button></div>${d.map((x,i)=>`<div class="mm" style="${x.ok?'opacity:.55':''}">${esc(x.t)}<br><button onclick="XB.dok(${i})">${x.ok?'আবার খুলুন':'সমাধান হয়েছে'}</button></div>`).join('')||'<p class="mu">কোনো আপত্তি নেই।</p>'}</div>`};
+W.poll=()=>{const P=S.pl=S.pl||{},u=un(),pl=pls(),sc={};lg().forEach((m,i)=>{if(m.sa===''||m.sb===''||!P[i])return;const r=m.sa>m.sb?'a':m.sa<m.sb?'b':'d';for(const n in P[i])if(P[i][n]===r)sc[n]=(sc[n]||0)+1});const lb=Object.entries(sc).sort((a,b)=>b[1]-a[1]);
+return`<div class="card"><h2>🗳️ কে জিতবে?</h2><select id="pn">${pl.map(n=>`<option>${esc(n)}</option>`).join('')}</select>${u.slice(0,8).map(([m,i])=>{const v=P[i]||{},c=k=>Object.values(v).filter(z=>z===k).length;return`<div class="mm"><b>${esc(m.a)}</b> বনাম <b>${esc(m.b)}</b><div class="row" style="margin-top:6px"><button onclick="XB.vote(${i},'a')">${esc(m.a)} (${c('a')})</button><button onclick="XB.vote(${i},'d')">ড্র (${c('d')})</button><button onclick="XB.vote(${i},'b')">${esc(m.b)} (${c('b')})</button></div></div>`}).join('')||'<p class="mu">বাকি ম্যাচ নেই।</p>'}</div><div class="card"><h2>🔮 সঠিক ভবিষ্যদ্বাণী</h2>${lb.map(([n,c],i)=>`<p>${i+1}. <b>${esc(n)}</b> — ${c}</p>`).join('')||'<p class="mu">এখনো কেউ মেলাতে পারেনি।</p>'}</div>`};
+W.rx=()=>{const R=S.rx=S.rx||{},pl=lg().map((m,i)=>[m,i]).filter(([m])=>m.sa!==''&&m.sb!=='').slice(-6).reverse();return`<div class="card"><h2>😍 ম্যাচ রিঅ্যাকশন</h2>${pl.map(([m,i])=>`<div class="mm"><b>${esc(m.a)} ${m.sa}-${m.sb} ${esc(m.b)}</b><div style="margin-top:6px">${['🔥','😂','😱','👏'].map(e=>`<button onclick="XB.rx(${i},'${e}')">${e} ${R[i+e]||0}</button> `).join('')}</div></div>`).join('')||'<p class="mu">ফল আসা ম্যাচ নেই।</p>'}</div>`};
+W.draft=()=>{const d=S.dr;return`<div class="card"><h2>🧩 টিম ড্রাফট</h2><p class="mu">একই দল দুজন নিতে পারবে না। কমা দিয়ে দলের নাম লিখুন।</p><input id="dt" type="text" placeholder="Real Madrid, Barcelona, PSG…"><button class="pri big" style="margin-top:8px" onclick="XB.draft()">র‍্যান্ডম ড্রাফট</button>${d?d.map(([n,t],i)=>`<p>${i+1}. <b>${esc(n)}</b> → ${esc(t)}</p>`).join(''):''}</div>`};
+W.log=()=>`<div class="card"><h2>🧾 অ্যাডমিন লগ</h2>${(S.alog||[]).slice().reverse().map(x=>`<p><small class="mu">${new Date(x.t).toLocaleString('bn-BD')}</small><br>${esc(x.m)}</p>`).join('')||'<p class="mu">কিছু নেই।</p>'}</div>`;
+const tk=XA.tab;XA.tab=k=>{XA.cur=k;tk(k)};
+window.XB={gs(v){Y.gs=+v},
+draw(){const p=shuffle(pls()),n=Math.max(1,Math.ceil(p.length/Y.gs)),g=Array.from({length:n},()=>[]);Y.gr=g;let i=0;const t=setInterval(()=>{if(i>=p.length){clearInterval(t);L('লটারি ড্র হয়েছে');save();return}g[i%n].push(p[i]);i++;if(XA.cur==='draw')RF2()},450)},
+wo(i,s){const m=lg()[i];if(!m)return;m.sa=s==='a'?3:0;m.sb=s==='a'?0:3;L('ওয়াকওভার: '+m.a+' বনাম '+m.b+' → '+(s==='a'?m.a:m.b)+' জিতেছে');R();RF2()},
+dsp(){const v=$('#dsp').value.trim();if(!v)return;(S.disp=S.disp||[]).push({t:v,ok:0});L('ডিসপিউট: '+v);save();RF2()},
+dok(i){S.disp[i].ok=!S.disp[i].ok;L('ডিসপিউট '+(S.disp[i].ok?'সমাধান':'আবার খোলা')+': '+S.disp[i].t);save();RF2()},
+vote(i,r){const n=$('#pn').value;if(!n)return;(S.pl[i]=S.pl[i]||{})[n]=r;save();RF2()},
+rx(i,e){S.rx[i+e]=(S.rx[i+e]||0)+1;save();RF2()},
+draft(){const t=$('#dt').value.split(',').map(x=>x.trim()).filter(Boolean),p=shuffle(pls());if(t.length<p.length){alert('খেলোয়াড়ের চেয়ে দল কম');return}const u=shuffle(t);S.dr=p.map((n,i)=>[n,u[i]]);L('টিম ড্রাফট হয়েছে');save();RF2()}};
+})();
+
+;(function(){
+const Y={gs:4,q:2},pls=()=>[].concat(...S.divs.map(x=>x.players)),lgp=t=>{S.alog=(S.alog||[]).concat({t:Date.now(),m:t}).slice(-60)};
+const num=v=>v===''||v==null?'':Math.max(0,parseInt(v)||0);
+const tbl=(g,ms)=>{const t={};g.forEach(n=>t[n]={n,P:0,W:0,D:0,L:0,GF:0,GA:0,Pts:0});ms.filter(m=>m.sa!==''&&m.sb!=='').forEach(m=>{const a=t[m.a],b=t[m.b];a.P++;b.P++;a.GF+=m.sa;a.GA+=m.sb;b.GF+=m.sb;b.GA+=m.sa;if(m.sa>m.sb){a.W++;b.L++;a.Pts+=3}else if(m.sa<m.sb){b.W++;a.L++;b.Pts+=3}else{a.D++;b.D++;a.Pts++;b.Pts++}});return Object.values(t).sort((x,y)=>y.Pts-x.Pts||(y.GF-y.GA)-(x.GF-x.GA)||y.GF-x.GF||x.n.localeCompare(y.n))};
+const wn=m=>{if(m.a==='BYE'&&m.b==='BYE')return'BYE';if(m.a==='BYE')return m.b;if(m.b==='BYE')return m.a;if(!m.a||!m.b||m.x===''||m.y==='')return null;return m.x>m.y?m.a:m.y>m.x?m.b:m.pw==='a'?m.a:m.pw==='b'?m.b:null};
+const sync=()=>{const k=S.gs.k;if(!k)return;for(let r=1;r<k.length;r++)k[r].forEach((m,i)=>{m.a=wn(k[r-1][2*i])||'';m.b=wn(k[r-1][2*i+1])||''})};
+const rn=(r,n)=>{const t=n*2;return t===2?'ফাইনাল':t===4?'সেমিফাইনাল':t===8?'কোয়ার্টার ফাইনাল':'রাউন্ড অব '+t};
+XT.gs='গ্রুপ+নকআউট';
+XV.gs=()=>{const G=S.gs;if(!G)return`<div class="card"><h2>🏟️ গ্রুপ স্টেজ + নকআউট</h2><p class="mu">খেলোয়াড় ${pls().length} জন। গ্রুপে লিগ খেলে সেরারা নকআউটে যাবে।</p><select onchange="XC.set('gs',this.value)">${[3,4,5,6].map(n=>`<option value="${n}"${n==Y.gs?' selected':''}>প্রতি গ্রুপে ${n} জন</option>`).join('')}</select><select onchange="XC.set('q',this.value)">${[1,2].map(n=>`<option value="${n}"${n==Y.q?' selected':''}>গ্রুপ থেকে ${n} জন উঠবে</option>`).join('')}</select><button class="pri big" onclick="XC.make()">গ্রুপ বানান (র‍্যান্ডম ড্র)</button></div>`;
+const ok=G.m.every(m=>m.sa!==''&&m.sb!=='');const inp=(f,v,i)=>`<input type="text" inputmode="numeric" value="${v}" style="width:44px;text-align:center;padding:6px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)" onchange="XC.${f}(${i},this.value)">`;
+let h=G.g.map((g,gi)=>{const ms=G.m.filter(m=>m.g===gi);return`<div class="card"><h2>গ্রুপ ${String.fromCharCode(65+gi)}</h2><div class="tw"><table><tr><th class="n">প্লেয়ার</th><th>ম্যা</th><th>জয়</th><th>ড্র</th><th>হার</th><th>+/-</th><th>পয়েন্ট</th></tr>${tbl(g,ms).map((t,i)=>`<tr${i<G.q?' class="first"':''}><td class="n">${esc(t.n)}</td><td>${t.P}</td><td>${t.W}</td><td>${t.D}</td><td>${t.L}</td><td>${t.GF-t.GA}</td><td>${t.Pts}</td></tr>`).join('')}</table></div>${ms.map(m=>{const i=G.m.indexOf(m);return`<div class="m"><span class="a">${esc(m.a)}</span><span class="sc">${inp('sa',m.sa,i)}-${inp('sb',m.sb,i)}</span><span class="b">${esc(m.b)}</span></div>`}).join('')}</div>`}).join('');
+if(G.k){const ki=(f,v,r,i)=>`<input type="text" inputmode="numeric" value="${v}" style="width:44px;text-align:center;padding:6px;border:1px solid var(--bd);border-radius:8px;background:var(--bg);color:var(--tx)" onchange="XC.kv('${f}',${r},${i},this.value)">`;
+h+=G.k.map((R,r)=>`<div class="card"><h2>${rn(r,R.length)}</h2>${R.map((m,i)=>{if(m.a==='BYE'&&m.b==='BYE')return'';const dr=m.x!==''&&m.x===m.y&&m.a&&m.b&&m.a!=='BYE'&&m.b!=='BYE';return`<div class="m"><span class="a">${esc(m.a||'?')}</span><span class="sc">${ki('x',m.x,r,i)}-${ki('y',m.y,r,i)}</span><span class="b">${esc(m.b||'?')}</span>${dr?`<div class="pen">পেনাল্টিতে জিতেছে: <button class="${m.pw==='a'?'on':''}" onclick="XC.kv('pw',${r},${i},'a')">${esc(m.a)}</button><button class="${m.pw==='b'?'on':''}" onclick="XC.kv('pw',${r},${i},'b')">${esc(m.b)}</button></div>`:''}</div>`}).join('')}</div>`).reverse().join('');const c=wn(G.k[G.k.length-1][0]);if(c&&c!=='BYE')h=`<div class="champ">🏆 চ্যাম্পিয়ন: ${esc(c)}</div>`+h}
+else h+=`<button class="pri big" ${ok?'':'disabled'} onclick="XC.ko()">নকআউট শুরু করুন</button>`;
+return h+`<button class="big" style="margin-top:10px" onclick="XC.reset()">গ্রুপ স্টেজ মুছে নতুন করে শুরু</button>`};
+window.XC={set(k,v){Y[k]=+v},
+make(){const p=shuffle(pls());if(p.length<4){alert('কমপক্ষে ৪ জন লাগবে');return}const n=Math.max(2,Math.round(p.length/Y.gs)),g=Array.from({length:n},()=>[]);p.forEach((x,i)=>g[i%n].push(x));const m=[];g.forEach((a,gi)=>{for(let i=0;i<a.length;i++)for(let j=i+1;j<a.length;j++)m.push({g:gi,a:a[i],b:a[j],sa:'',sb:''})});S.gs={g,m,q:Y.q,k:null};lgp('গ্রুপ স্টেজ শুরু: '+n+'টি গ্রুপ');save();XA.tab('gs')},
+sa(i,v){S.gs.m[i].sa=num(v);save();XA.tab('gs')},sb(i,v){S.gs.m[i].sb=num(v);save();XA.tab('gs')},
+ko(){const G=S.gs,f=[],s=[];G.g.forEach((g,gi)=>{const t=tbl(g,G.m.filter(m=>m.g===gi));f.push(t[0].n);s.push(t[1]?t[1].n:'BYE')});let pr=[];if(G.q===1){const l=f.slice();for(let i=0;i<l.length;i+=2)pr.push([l[i],l[i+1]||'BYE'])}else f.forEach((x,i)=>pr.push([x,s[(i+1)%s.length]]));let z=1;while(z<pr.length)z*=2;while(pr.length<z)pr.push(['BYE','BYE']);const k=[pr.map(([a,b])=>({a,b,x:'',y:'',pw:''}))];for(let c=z/2;c>=1;c/=2)k.push(Array.from({length:c},()=>({a:'',b:'',x:'',y:'',pw:''})));G.k=k;sync();lgp('নকআউট শুরু');save();XA.tab('gs')},
+kv(f,r,i,v){const m=S.gs.k[r][i];m[f]=f==='pw'?v:num(v);if(f!=='pw'&&m.x!==m.y)m.pw='';sync();save();XA.tab('gs')},
+reset(){if(!confirm('গ্রুপ স্টেজের সব মুছবে। ঠিক আছে?'))return;S.gs=null;save();XA.tab('gs')}};
+})();
+
+if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script></body></html>
