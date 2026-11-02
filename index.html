@@ -815,18 +815,18 @@ const getFb=()=>{let v='';try{v=localStorage.getItem('tmfb')||''}catch(e){}if(!v
 const rnd=n=>{const c='abcdefghjkmnpqrstuvwxyz23456789',a=new Uint8Array(n);crypto.getRandomValues(a);return Array.from(a,x=>c[x%c.length]).join('')};
 function ui(t){const e=$('#sy');if(e){let tm='';try{tm=new Date().toLocaleTimeString([],{hour:'2-digit',minute:'2-digit'})}catch(x){}e.textContent=t+' '+tm}}
 function sched(){clearTimeout(pt);pt=setTimeout(doPush,700)}
-async function doPush(){pt=null;const sh=S.share;if(!sh||sh.role!=='admin')return;const sn=snap(),tk=Array.from(tkSet(0)).sort(),ts=tk.join(',');if(sn===_last&&ts===window._ltk)return;
-try{const r=await fetch(sh.fb+'/rooms/'+sh.room+'.json',{method:'PUT',body:JSON.stringify({key:sh.key,pub:Object.assign(JSON.parse(sn),{ro:!!sh.ro,tk})})});if(r.ok){_last=sn;window._ltk=ts;ui('🟢 লাইভ')}else throw 0}catch(e){ui('🔴 পাঠানো যায়নি');pt=setTimeout(doPush,5000)}}
+async function doPush(){pt=null;const sh=S.share;if(!sh||sh.role!=='admin')return;const sn=snap(),tk=Array.from(tkSet(0)).sort(),ts=tk.join(','),tn=(LIB.items.find(i=>i.id===LIB.act)||{}).name||'';if(sn===_last&&ts===window._ltk&&tn===window._ltn)return;
+try{const r=await fetch(sh.fb+'/rooms/'+sh.room+'.json',{method:'PUT',body:JSON.stringify({key:sh.key,pub:Object.assign(JSON.parse(sn),{ro:!!sh.ro,tk,tn})})});if(r.ok){_last=sn;window._ltk=ts;window._ltn=tn;ui('🟢 লাইভ')}else throw 0}catch(e){ui('🔴 পাঠানো যায়নি');pt=setTimeout(doPush,5000)}}
 const typing=()=>{const a=document.activeElement;return!!(a&&/INPUT|SELECT|TEXTAREA/.test(a.tagName)&&a.closest&&a.closest('#app')&&!a.disabled)};
 function adopt(x){x.divs.forEach((d,i)=>{d.cel=(S.divs[i]&&S.divs[i].cel)||'';d.tab=(S.divs[i]&&S.divs[i].tab)||'ko'});const c=Math.max(0,Math.min(S.cur,x.divs.length-1));S={mode:x.mode,divs:x.divs,cur:c,share:S.share,info:S.info};_last=snap();_np=true;R();_np=false}
 async function pull(){const sh=S.share;if(!sh||pt||busy)return;busy=1;
-try{const r=await fetch(sh.fb+'/rooms/'+sh.room+'/pub.json');if(!r.ok)throw 0;const x=await r.json();ui('🟢 লাইভ');if(x){fixS(x);if(sn(x.mode,x.divs)!==snap()&&!typing())adopt(x)}}catch(e){ui('🔴 সংযোগ নেই')}busy=0}
+try{const r=await fetch(sh.fb+'/rooms/'+sh.room+'/pub.json');if(!r.ok)throw 0;const x=await r.json();ui('🟢 লাইভ');if(x){fixS(x);if(RO()&&x.tn){const it=LIB.items.find(i=>i.id===LIB.act);if(it&&it.name!==x.tn){it.name=x.tn;try{save()}catch(e){}if(!typing()){_np=true;R();_np=false}}}if(sn(x.mode,x.divs)!==snap()&&!typing())adopt(x)}}catch(e){ui('🔴 সংযোগ নেই')}busy=0}
 function parseJ(t){t=(t||'').trim();let k='';const m=t.match(/#j=([^&\s]+)(?:&k=([^&\s]+))?/);if(m){t=m[1];k=m[2]||''}
 const i=t.indexOf('~');if(i<1)return null;let b=t.slice(i+1).replace(/-/g,'+').replace(/_/g,'/');while(b.length%4)b+='=';let h;try{h=atob(b)}catch(e){return null}return{room:t.slice(0,i),fb:'https://'+h,k}}
 async function joinRoom(t,k){const p=parseJ(t);if(!p){JM='কোড ঠিক নেই';return R()}k=(k||'').trim()||p.k;if(!k){const ex=LIB.items.find(i=>i.s.share&&i.s.share.room===p.room);if(ex)return switchT(ex.id)}
 try{const r=await fetch(p.fb+'/rooms/'+p.room+'/pub.json');if(!r.ok)throw 0;const x=await r.json();if(!x)throw 0;fixS(x);let role='view';
-if(k){const w=await fetch(p.fb+'/rooms/'+p.room+'.json',{method:'PUT',body:JSON.stringify({key:k,pub:{mode:x.mode,divs:x.divs,ro:!!x.ro}})});if(!w.ok){JM='অ্যাডমিন কোড ভুল';return R()}role='admin'}
-JM='';try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}try{if(!localStorage.getItem('tmfb'))localStorage.setItem('tmfb',p.fb)}catch(e){}await addT('লাইভ: '+p.room,{mode:x.mode,divs:x.divs,cur:0,share:{room:p.room,fb:p.fb,role,key:role==='admin'?k:'',ro:role==='admin'&&!!x.ro}})}
+if(k){const w=await fetch(p.fb+'/rooms/'+p.room+'.json',{method:'PUT',body:JSON.stringify({key:k,pub:{mode:x.mode,divs:x.divs,ro:!!x.ro,tn:x.tn||''}})});if(!w.ok){JM='অ্যাডমিন কোড ভুল';return R()}role='admin'}
+JM='';try{history.replaceState(null,'',location.pathname+location.search)}catch(e){}try{if(!localStorage.getItem('tmfb'))localStorage.setItem('tmfb',p.fb)}catch(e){}await addT(x.tn||('লাইভ: '+p.room),{mode:x.mode,divs:x.divs,cur:0,share:{room:p.room,fb:p.fb,role,key:role==='admin'?k:'',ro:role==='admin'&&!!x.ro}})}
 catch(e){JM='যুক্ত হওয়া যায়নি। কোড আর ইন্টারনেট দেখুন।';R()}}
 function joinBtn(){joinRoom($('#jc').value,$('#jk').value)}
 function hashJoin(){if(/#j=/.test(location.hash))joinRoom(location.hash,'')}
@@ -836,7 +836,7 @@ function closeShare(){PN=false;R()}
 function saveFb(){let v=$('#fbu').value.trim().replace(/\/+$/,'');if(!/^https:\/\/[\w.-]+\.(firebaseio\.com|firebasedatabase\.app)$/.test(v)){PM='লিংকটা ঠিক নয়। https://....firebaseio.com এরকম হবে।';return R()}try{localStorage.setItem('tmfb',v)}catch(e){}PM='';R()}
 function chgFb(){try{localStorage.removeItem('tmfb')}catch(e){}R()}
 async function createShare(){const fb=getFb();const room=rnd(6),key=rnd(10);
-try{const r=await fetch(fb+'/rooms/'+room+'.json',{method:'PUT',body:JSON.stringify({key,pub:JSON.parse(snap())})});if(!r.ok)throw r.status;S.share={room,fb,role:'admin',key};_last=snap();PM=''}
+try{const r=await fetch(fb+'/rooms/'+room+'.json',{method:'PUT',body:JSON.stringify({key,pub:Object.assign(JSON.parse(snap()),{tn:(LIB.items.find(i=>i.id===LIB.act)||{}).name||''})})});if(!r.ok)throw r.status;S.share={room,fb,role:'admin',key};_last=snap();PM=''}
 catch(e){PM='চালু করা যায়নি ('+e+')। Firebase লিংক আর রুলস ঠিক আছে কি দেখুন।'}R()}
 function cp(id,b){const e=document.getElementById(id);e.select();let ok=false;try{ok=document.execCommand('copy')}catch(x){}try{navigator.clipboard.writeText(e.value)}catch(x){}b.textContent='✓ কপি হয়েছে'}
 function vcode(sh){return sh.room+'~'+btoa(sh.fb.replace('https://','')).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
