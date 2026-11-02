@@ -1238,7 +1238,7 @@ function pvShow(){const e=document.getElementById('pv');if(e)e.textContent=PVT}
 async function pvTick(){const s=FBX();if(!s){PVT='';return pvShow()}
 try{if(RO())await fetch(s.fb+'/pres/'+s.room+'/'+pvId()+'.json',{method:'PUT',body:JSON.stringify({t:Date.now()})});
 const r=await fetch(s.fb+'/pres/'+s.room+'.json');if(!r.ok)throw 0;const x=(await r.json())||{},ks=Object.keys(x),now=Date.now(),on=ks.filter(k=>now-(x[k].t||0)<45000).length;
-PVE=false;PVT=' · 👥 '+on+' জন দেখছে'+(isAd()?' (মোট '+ks.length+')':'');pvShow()}catch(e){if(!PVE){PVE=true;PVT=' · 👥 ⚠️ রুলস';pvShow()}}}
+PVE=false;PVT=' · 👥 এখন '+on+' জন · মোট '+ks.length+' জন দেখেছেন';pvShow()}catch(e){if(!PVE){PVE=true;PVT=' · 👥 ⚠️ রুলস';pvShow()}}}
 setInterval(pvTick,15000);setTimeout(pvTick,2500);
 function rqAdm(){if(!isAd()||!RQL.length)return'';return`<div class="card" style="border:2px solid #f59e0b;margin:0 0 12px"><h2 style="margin:0 0 6px">🔔 সময় বদলের অনুরোধ (${RQL.length})</h2>${RQL.map(x=>`<div style="margin:8px 0"><b>${esc(x.n||'')}</b> · ${esc(x.a||'')} বনাম ${esc(x.b||'')}<br><small class="mu">${esc(x.lab||'')} → ${x.dt?fdt(x.dt):''} ${x.tm?fmtTm(x.tm):''}${x.r?' · '+esc(x.r):''}</small><div class="row" style="margin-top:4px"><button class="pri" onclick="rqOk('${x.id}')">✅ মঞ্জুর</button><button onclick="rqNo('${x.id}')">✕ বাতিল</button></div></div>`).join('')}</div>`}
 async function rqDel(id){const s=FBX();try{await fetch(s.fb+'/req/'+s.room+'/'+id+'.json',{method:'DELETE'})}catch(e){}RQL=RQL.filter(x=>x.id!==id);RQS=JSON.stringify(RQL)}
