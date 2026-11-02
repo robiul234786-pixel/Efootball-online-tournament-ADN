@@ -840,7 +840,7 @@ try{const r=await fetch(fb+'/rooms/'+room+'.json',{method:'PUT',body:JSON.string
 catch(e){PM='চালু করা যায়নি ('+e+')। Firebase লিংক আর রুলস ঠিক আছে কি দেখুন।'}R()}
 function cp(id,b){const e=document.getElementById(id);e.select();let ok=false;try{ok=document.execCommand('copy')}catch(x){}try{navigator.clipboard.writeText(e.value)}catch(x){}b.textContent='✓ কপি হয়েছে'}
 function vcode(sh){return sh.room+'~'+btoa(sh.fb.replace('https://','')).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
-const RULES=JSON.stringify({rules:{rooms:{$room:{'.read':false,'.write':"!data.child('key').exists() || newData.child('key').val() === data.child('key').val()",pub:{'.read':true}}},regs:{$room:{'.read':true,$id:{'.write':'!data.exists() || !newData.exists()','.validate':"newData.hasChildren(['n','t']) && newData.child('n').isString() && newData.child('n').val().length>0 && newData.child('n').val().length<=30 && (!newData.hasChild('c') || (newData.child('c').isString() && newData.child('c').val().length<=40))"}}}}},null,1);
+const RULES=JSON.stringify({rules:{rooms:{$room:{'.read':false,'.write':"!data.child('key').exists() || newData.child('key').val() === data.child('key').val()",pub:{'.read':true}}},pres:{$room:{'.read':true,$id:{'.write':true}}},regs:{$room:{'.read':true,$id:{'.write':'!data.exists() || !newData.exists()','.validate':"newData.hasChildren(['n','t']) && newData.child('n').isString() && newData.child('n').val().length>0 && newData.child('n').val().length<=30 && (!newData.hasChild('c') || (newData.child('c').isString() && newData.child('c').val().length<=40))"}}}}},null,1);
 function panelV(){if(!PN)return'';const sh=S.share,fb=getFb();let b='';
 if(sh&&sh.role==='admin'){const base=location.href.split('#')[0],vc=vcode(sh);
 b=`<h2>📡 লাইভ শেয়ার চালু</h2><p class="mu">👁 শুধু দেখার লিংক (সবাইকে দিন):</p><textarea id="l1" class="ta" rows="3" readonly>${esc(base+'#j='+vc)}</textarea><button onclick="cp('l1',this)">কপি</button>
@@ -851,7 +851,7 @@ else if(!fb)b=`<h2>📡 লাইভ শেয়ার সেটআপ</h2><p c
 <p class="mu">৪. <b>Data</b> ট্যাবের উপরে থাকা লিংক (https://…firebaseio.com) কপি করে এখানে বসান:</p><div class="row"><input id="fbu" type="text" placeholder="https://…firebaseio.com"><button class="pri" onclick="saveFb()">সেভ</button></div>`;
 else b=`<h2>📡 লাইভ শেয়ার</h2><p class="mu">Firebase যুক্ত আছে ✅ শেয়ার চালু করলে একটা দেখার লিংক আর একটা অ্যাডমিন লিংক পাবেন।</p><button class="pri big" onclick="createShare()">শেয়ার চালু করুন</button><button onclick="chgFb()">Firebase লিংক বদলান</button>`;
 return`<div class="ov"><div class="cb sh">${b}${PM?`<p class="mu" style="color:#ef4444">${esc(PM)}</p>`:''}<button class="big" data-ok onclick="closeShare()">বন্ধ করুন</button></div></div>`}
-function roBar(){const it=LIB.items.find(x=>x.id===LIB.act);return`<div class="sbar"><button data-ok onclick="openT()">📂 ${esc(it.name)} ▾</button>${S.mode?'<button data-ok onclick="openRules()">📜 নিয়ম</button>':''}${S.share?`<span>${RO()?'👁':'🛠'} <span id="sy">🟢 লাইভ</span></span><button data-ok onclick="leave()">${RO()?'ছেড়ে যান':'শেয়ার বন্ধ'}</button>`:''}</div>`}
+function roBar(){const it=LIB.items.find(x=>x.id===LIB.act);return`<div class="sbar"><button data-ok onclick="openT()">📂 ${esc(it.name)} ▾</button>${S.mode?'<button data-ok onclick="openRules()">📜 নিয়ম</button>':''}${S.share?`<span>${RO()?'👁':'🛠'} <span id="sy">🟢 লাইভ</span></span><span id="pv" style="font-weight:700">${PVT}</span><button data-ok onclick="leave()">${RO()?'ছেড়ে যান':'শেয়ার বন্ধ'}</button>`:''}</div>`}
 const fid=()=>'t'+Date.now().toString(36)+Math.floor(Math.random()*99);
 function openT(){TL=true;DC='';R()}
 function closeT(){TL=false;DC='';R()}
@@ -1232,6 +1232,14 @@ async function rqSend(){const s=FBX();if(!s||!RQ)return;const n=$('#rqn').value.
 try{const x=await fetch(s.fb+'/req/'+s.room+'.json',{method:'POST',body:JSON.stringify({k:RQ.k,a:RQ.a,b:RQ.b,lab:RQ.lab,d:RQ.d,dt,tm,r,n,t:Date.now()})});if(!x.ok)throw 0;RQM='✅ অনুরোধ অ্যাডমিনকে পাঠানো হয়েছে';setTimeout(()=>{RQM='';if(!typing())R()},6000)}catch(e){RQM='❌ পাঠানো যায়নি, আবার চেষ্টা করুন'}RQ=null;R()}
 async function rqPoll(){const s=FBX();if(!s||!isAd())return;try{const r=await fetch(s.fb+'/req/'+s.room+'.json');if(!r.ok)throw 0;const x=(await r.json())||{};const l=Object.keys(x).map(k=>Object.assign({id:k},x[k])).sort((a,b)=>(a.t||0)-(b.t||0)),j=JSON.stringify(l);if(j!==RQS){const g=l.length>RQL.length;RQS=j;RQL=l;if(g){try{navigator.vibrate&&navigator.vibrate(200)}catch(e){}}if(!typing())R()}}catch(e){}}
 setInterval(rqPoll,7000);setTimeout(rqPoll,2000);
+var PVT='';
+function pvId(){let v='';try{v=localStorage.getItem('tmvid')||''}catch(e){}if(!v){v=Math.random().toString(36).slice(2,10);try{localStorage.setItem('tmvid',v)}catch(e){}}return v}
+function pvShow(){const e=document.getElementById('pv');if(e)e.textContent=PVT}
+async function pvTick(){const s=FBX();if(!s){PVT='';return pvShow()}
+try{if(RO())await fetch(s.fb+'/pres/'+s.room+'/'+pvId()+'.json',{method:'PUT',body:JSON.stringify({t:Date.now()})});
+const r=await fetch(s.fb+'/pres/'+s.room+'.json');if(!r.ok)throw 0;const x=(await r.json())||{},ks=Object.keys(x),now=Date.now(),on=ks.filter(k=>now-(x[k].t||0)<45000).length;
+PVT=' · 👥 '+on+' জন দেখছে'+(isAd()?' (মোট '+ks.length+')':'');pvShow()}catch(e){}}
+setInterval(pvTick,15000);setTimeout(pvTick,2500);
 function rqAdm(){if(!isAd()||!RQL.length)return'';return`<div class="card" style="border:2px solid #f59e0b;margin:0 0 12px"><h2 style="margin:0 0 6px">🔔 সময় বদলের অনুরোধ (${RQL.length})</h2>${RQL.map(x=>`<div style="margin:8px 0"><b>${esc(x.n||'')}</b> · ${esc(x.a||'')} বনাম ${esc(x.b||'')}<br><small class="mu">${esc(x.lab||'')} → ${x.dt?fdt(x.dt):''} ${x.tm?fmtTm(x.tm):''}${x.r?' · '+esc(x.r):''}</small><div class="row" style="margin-top:4px"><button class="pri" onclick="rqOk('${x.id}')">✅ মঞ্জুর</button><button onclick="rqNo('${x.id}')">✕ বাতিল</button></div></div>`).join('')}</div>`}
 async function rqDel(id){const s=FBX();try{await fetch(s.fb+'/req/'+s.room+'/'+id+'.json',{method:'DELETE'})}catch(e){}RQL=RQL.filter(x=>x.id!==id);RQS=JSON.stringify(RQL)}
 async function rqOk(id){const x=RQL.find(z=>z.id===id);if(!x||RO())return;const di=Math.max(0,Math.min(S.divs.length-1,x.d||0));withDiv(di,()=>{const d=D();d.pm=d.pm||{};const p=d.pm[x.k]||{};d.pm[x.k]={dt:x.dt||p.dt||'',tm:x.tm||p.tm||''};nws('🔄 ম্যাচের সময় বদল: '+x.a+' বনাম '+x.b+(x.dt?' — নতুন তারিখ '+fdt(x.dt):'')+(x.tm?' · '+fmtTm(x.tm):''),'🔄','',[x.a,x.b])});await rqDel(id);R()}
