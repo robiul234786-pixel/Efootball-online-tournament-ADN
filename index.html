@@ -395,6 +395,44 @@ tr.first td{color:var(--ac)}
 .fm{display:inline-block;width:20px;height:20px;border-radius:6px;text-align:center;font-size:12px;line-height:20px;margin-right:3px;color:#fff}
 .fW{background:#16a34a}.fD{background:#8b93b3}.fL{background:#e11d48}
 @media (prefers-reduced-motion:reduce){#xb{animation:none}}
+
+/* HOME NEON THEME */
+body.hmx{--bg:#050b24;--card:#0b1745;--tx:#fff;--mu:#9fb2ea;--bd:#1f3a8a;--soft:#0f1f55;--ac:#facc15;--act:#111;background:linear-gradient(180deg,#0a1f7a 0,#06124a 38%,#050b24 100%) fixed,#050b24}
+body.hmx .hero{margin:-14px -14px 14px!important;padding:14px 14px 18px!important;border-radius:0 0 30px 30px!important;border:0!important;color:#fff!important;text-align:center;box-shadow:0 10px 30px rgba(20,60,200,.45)!important;background:radial-gradient(circle at 6% 14%,#fff 0,rgba(255,255,255,.9) 1.5%,rgba(120,170,255,.55) 5%,transparent 14%),radial-gradient(circle at 30% 9%,#fff 0,rgba(255,255,255,.85) 1.2%,rgba(120,170,255,.5) 4%,transparent 12%),radial-gradient(circle at 70% 9%,#fff 0,rgba(255,255,255,.85) 1.2%,rgba(120,170,255,.5) 4%,transparent 12%),radial-gradient(circle at 94% 14%,#fff 0,rgba(255,255,255,.9) 1.5%,rgba(120,170,255,.55) 5%,transparent 14%),linear-gradient(180deg,#0c35c4 0,#0a2a9c 45%,#071a66 100%)!important}
+body.hmx .hero::before{content:"";position:absolute;left:0;top:0;right:0;bottom:0;width:auto;height:auto;border-radius:0;background:radial-gradient(circle,rgba(150,190,255,.55) 1.4px,transparent 2px) 0 0/9px 7px;-webkit-mask-image:linear-gradient(transparent 8%,#000 28%,#000 42%,transparent 66%);mask-image:linear-gradient(transparent 8%,#000 28%,#000 42%,transparent 66%);opacity:.55;z-index:0}
+body.hmx .hero::after{content:"";position:absolute;left:0;right:0;bottom:0;top:auto;width:auto;height:45%;border-radius:0;background:linear-gradient(transparent,rgba(5,11,36,.65));z-index:0}
+.htb{display:flex;align-items:center;justify-content:space-between;gap:6px}
+.hib{position:relative;width:42px;height:42px;padding:0;border:0;background:transparent;color:#fff;font-size:26px}
+.hib i{position:absolute;right:0;top:0;min-width:18px;height:18px;border-radius:9px;background:#ef4444;font:700 11px/18px system-ui;font-style:normal}
+.hlg{display:flex;align-items:center;gap:8px}.hlg i{width:36px;height:36px;border-radius:50%;background:repeating-linear-gradient(#facc15 0 7px,transparent 7px 11px);box-shadow:0 0 12px #facc15}
+.hlg div{text-align:left}.hlg b{display:block;font-size:24px;line-height:1;font-weight:900;font-style:italic;color:#facc15}.hlg small{font-size:12px;font-weight:800;letter-spacing:.5px;color:#fff}
+.hpm{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:4px;font-weight:700;color:#facc15;font-size:16px}
+.hpm u{width:44px;height:2px;background:#facc15;opacity:.9}.hpm s{text-decoration:none;color:#fff}
+.hbig{margin-top:12px;display:flex;flex-direction:column;align-items:center}
+.hbig i{width:92px;height:92px;border-radius:50%;background:repeating-linear-gradient(#facc15 0 17px,transparent 17px 27px);filter:drop-shadow(0 0 14px rgba(250,204,21,.8))}
+.hbig b{margin-top:8px;font-size:44px;line-height:1;font-weight:900;font-style:italic;letter-spacing:1px;color:#facc15;text-shadow:0 0 18px rgba(250,204,21,.6)}
+.hbig sup{font-size:14px}.hbig small{font-size:19px;font-weight:800;letter-spacing:.5px;color:#fff}
+.hq{position:relative;display:inline-block;margin:12px 0 4px;font-style:italic;font-weight:700;font-size:22px;color:#fff}
+.hq::after{content:"";display:block;height:4px;width:75%;margin:2px auto 0;border-radius:4px;background:#facc15;transform:rotate(-2deg)}
+.nxt{display:flex;align-items:center;gap:12px;padding:12px 14px;margin:-6px 0 16px;border-radius:20px;border:2px solid #2a4fc4;background:linear-gradient(135deg,#0b1a52,#050b24);box-shadow:0 0 18px rgba(42,79,196,.55)}
+.nxt>span{font-size:34px}.nxt small{display:block;font-size:12px;color:#cfd9ff}.nxt b{font-size:17px;color:#facc15;display:block}
+.nxt .vl{width:1px;align-self:stretch;background:#2a4fc4}.nxt>div:nth-of-type(1){flex:1;min-width:0}
+body.hmx .tiles{gap:12px}
+body.hmx .tile{position:relative;flex-direction:row;flex-wrap:wrap;align-items:center;column-gap:10px;row-gap:0;min-height:84px;padding:12px 28px 12px 12px;border-radius:20px;background:linear-gradient(135deg,color-mix(in srgb,var(--c) 34%,#06102e),#06102e 85%);border:2px solid var(--c);box-shadow:0 0 16px color-mix(in srgb,var(--c) 55%,transparent)}
+body.hmx .tile .ic{background:transparent!important;margin:0!important;width:auto!important;height:auto!important;font-size:36px!important}
+body.hmx .tile b{color:#fff;flex:1;min-width:0;font-size:16px}body.hmx .tile small{flex-basis:100%;color:#c3d0f5;padding-left:0}
+body.hmx .tile::after{content:"\203A";position:absolute;right:10px;top:50%;transform:translateY(-50%);font-size:26px;color:#fff}
+body.hmx .tile:nth-child(1){--c:#3b82f6}body.hmx .tile:nth-child(2){--c:#a855f7}body.hmx .tile:nth-child(3){--c:#06b6d4}body.hmx .tile:nth-child(4){--c:#f97316}body.hmx .tile:nth-child(5){--c:#22c55e}body.hmx .tile:nth-child(6){--c:#eab308}body.hmx .tile:nth-child(7){--c:#ec4899}body.hmx .tile:nth-child(8){--c:#6366f1}body.hmx .tile:nth-child(9){--c:#14b8a6}body.hmx .tile:nth-child(10){--c:#ef4444}
+.lus{margin:16px 0;padding:12px;border-radius:20px;border:2px solid #2a4fc4;background:linear-gradient(135deg,#0b1a52,#050b24);box-shadow:0 0 16px rgba(42,79,196,.5)}
+.lus .lh{display:flex;justify-content:space-between;align-items:center;padding-bottom:10px;border-bottom:2px solid #2a4fc4}.lus .lh b{font-size:19px;color:#fff}
+.lus .lh button{padding:6px 12px;border-radius:99px;border:1px solid #facc15;background:transparent;color:#facc15;font-weight:700}
+.lus .lr{display:flex;align-items:center;gap:12px;padding-top:10px}.lus .lt{flex:none;width:52px;height:52px;border-radius:12px;border:1px solid #2a4fc4;background:#06124a;display:grid;place-items:center;font-size:26px}
+.lus .lx{flex:1;min-width:0;font-weight:700;font-size:14px;line-height:1.4;color:#fff}.lus .ag{flex:none;font-size:12px;color:#cfd9ff;white-space:nowrap}.lus .ag i{color:#facc15;font-style:normal}
+body.hmx .sec{color:#facc15;text-shadow:0 0 10px rgba(250,204,21,.4)}
+body.hmx .tcard{background:linear-gradient(135deg,#0b1a52,#06102e);border:1px solid #2a4fc4;box-shadow:0 0 12px rgba(42,79,196,.4)}
+body.hmx #nav{background:linear-gradient(180deg,#0a1650,#050b24)!important;border:1px solid #2a4fc4!important;border-top:3px solid #facc15!important;box-shadow:0 -4px 24px rgba(0,0,0,.5),0 0 18px rgba(42,79,196,.4)!important}
+body.hmx #nav button{background:transparent!important;color:#cbd5ff!important}
+body.hmx #nav button.on{color:#facc15!important;box-shadow:inset 0 -3px 0 #facc15}
 </style><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0c1020"></head><body><div id="app"></div><div id="nav"></div>
 <script>
 const $=s=>document.querySelector(s);
@@ -699,10 +737,15 @@ else if(AWC==='th'){h='<p class="mu">অ্যাপের রঙ বেছে �
 else if(AWC==='tc'){const x=L.concat(list.filter(z=>!z.P)).find(z=>z.p===AWP),it=x?tcItems(x):[];h=sel(AWP,'AWP')+`<div style="background:linear-gradient(#2b1a0e,#120a05);border-radius:14px;padding:12px;margin:10px 0;color:#fff"><div style="text-align:center;font-weight:800;font-size:18px">${esc(AWP)}</div><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-top:8px;text-align:center;border-bottom:6px solid #7c4a1d;padding-bottom:6px">${it.map(z=>`<div><div style="font-size:34px">${z[0]}</div><small style="font-size:10px">${esc(z[1])}</small></div>`).join('')||'<small>এখনো ট্রফি নেই</small>'}</div></div><button class="pri big" onclick="tcShare()">📸 ছবি শেয়ার</button>`}
 return`<div class="ov tl"><div class="cb sh" style="max-height:92vh;overflow:auto"><h2>🌟 অ্যাওয়ার্ড সেন্টার</h2><div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">${Object.keys(T).map(k=>`<button class="${AWC===k?'on':''}" data-ok onclick="AWC='${k}';R()">${T[k]}</button>`).join('')}</div>${h}<button class="big" style="margin-top:10px" data-ok onclick="AWC='';clearInterval(AWT);R()">বন্ধ করুন</button></div></div>`}
 
+async function hmNews(){const c=LIB.items.find(i=>i.id===LIB.act&&i.s.mode)||LIB.items.find(i=>i.s.mode);if(!c)return;await switchT(c.id);pgNav('news')}
 function homeDash(){const its=LIB.items.filter(i=>i.s.mode),live=its.filter(i=>i.s.share).length,run=its.filter(i=>i.s.divs.some(d=>d.st)).length;
 const tile=(ic,t,sub,fn)=>`<button class="tile" onclick="${fn}"><span class="ic">${ic}</span><b>${t}</b><small>${sub}</small></button>`;
-return`<div class="hero"><button class="thm" data-ok onclick="togTheme()">🌓</button><div class="hs">⚽</div><div class="hh">স্বাগতম</div><div class="hn">ADN ROBIUL</div><div class="hp">eFootball টুর্নামেন্ট ম্যানেজার</div><div class="stats"><div><b>${its.length}</b><small>টুর্নামেন্ট</small></div><div><b>${run}</b><small>চলছে</small></div><div><b>${live}</b><small>লাইভ</small></div></div></div>${hnV()}
+const cur=its.find(i=>i.id===LIB.act)||its[0],cd=cur&&cur.s.divs[cur.s.cur||0],sd=cd&&cd.sd,nw=(cd&&cd.news)||[],ln=nw[nw.length-1],
+dts=sd?new Date(sd+'T12:00:00').toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'}):'তারিখ দেওয়া হয়নি',
+ago=t=>{const m=Math.floor((Date.now()-t)/6e4);return m<1?'এইমাত্র':m<60?m+' মি. আগে':m<1440?Math.floor(m/60)+' ঘ. আগে':Math.floor(m/1440)+' দিন আগে'};
+return`<div class="hero"><div class="htb"><button class="hib" data-ok onclick="openT()">☰</button><div class="hlg"><i></i><div><b>eFOOTBALL</b><small>TOURNAMENT MANAGER</small></div></div><button class="hib" data-ok onclick="${HNL.length?`hnOpen('${HNL[0].tid}')`:'openAbout()'}">🔔${HNL.length?`<i>${HNL.length}</i>`:''}</button><button class="hib" data-ok onclick="togTheme()">⚙️</button></div><div class="hpm"><u></u>Play <s>•</s> Manage <s>•</s> Win<u></u></div><div class="hbig"><i></i><b>eFOOTBALL<sup>™</sup></b><small>TOURNAMENT MANAGER</small></div><div class="hq">Dream Big, Play Strong!</div></div><div class="nxt"><span>🏆</span><div><small>চলমান টুর্নামেন্ট</small><b>${cur?esc(cur.name):'এখনো নেই'}</b></div><div class="vl"></div><span>📅</span><div><small>শুরুর তারিখ</small><b>${dts}</b></div></div>${hnV()}
 <h2 class="sec">দ্রুত শুরু করুন</h2><div class="tiles">${tile('🏆','নতুন টুর্নামেন্ট','লিগ + নকআউট',"startNew('tour')")}${tile('🏅','ডিভিশন সিস্টেম','প্রমোশন ও রেলিগেশন',"startNew('div')")}${tile('🌍','ওয়ার্ল্ড কাপ','গ্রুপ পর্ব → নকআউট',"startNew('wc')")}${tile('⭐','চ্যাম্পিয়নস লিগ','৩-৪টি লিগ → চ্যাম্পিয়নস লিগ',"startNew('cl')")}${tile('📡','লাইভ যোগ দিন','লিংক বা কোড দিয়ে',"openJoin()")}${tile('🏆','ট্রফি ক্যাবিনেট','সব ট্রফি সাজানো + ছবি শেয়ার',"AWC='tc';R()")}${tile('🌟','অ্যাওয়ার্ড সেন্টার','অ্যাওয়ার্ড, ক্যাবিনেট, ব্যাজ…',"AWC='aw';R()")}${tile('📜','নিয়মাবলী','খেলার নিয়ম দেখুন',"openRules()")}${tile('💾','ব্যাকআপ','সব ডাটা ফাইলে সেভ',"bkUp()")}${tile('📥','রিস্টোর','ব্যাকআপ ফাইল থেকে',"document.getElementById('bkf').click()")}</div><input id="bkf" type="file" accept=".json,application/json" hidden onchange="bkIn(this)">
+<div class="lus"><div class="lh"><b>📢 লেটেস্ট আপডেট</b><button data-ok onclick="hmNews()">সব দেখুন →</button></div><div class="lr"><div class="lt">${ln?ln.i||'📰':'🏆'}</div><div class="lx">${ln?esc(String(ln.x).split('\n')[0]):'eFootball টুর্নামেন্ট ম্যানেজারে আপনাকে স্বাগতম! চলছে নতুন টুর্নামেন্ট, সবাই অংশগ্রহণ করুন!'}</div><div class="ag">${ln?ago(ln.t):''} <i>●</i></div></div></div>
 ${careerHome()}
 ${bdHome()}
 <h2 class="sec">আমার টুর্নামেন্ট</h2>${its.length?its.map(tcard).join(''):'<div class="card mu" style="margin:0">এখনো কোনো টুর্নামেন্ট নেই। উপরের বাটন থেকে শুরু করুন।</div>'}
@@ -1145,7 +1188,7 @@ g.fillStyle='#9ca3af';g.font='18px sans-serif';g.textAlign='center';g.fillText('
 XI=c.toDataURL('image/png');R()}
 async function xShare(){try{const b=await(await fetch(XI)).blob(),f=new File([b],'tournament.png',{type:'image/png'});if(navigator.canShare&&navigator.canShare({files:[f]})){await navigator.share({files:[f],title:D().name});return}}catch(e){if(e&&e.name==='AbortError')return}
 const a=document.createElement('a');a.href=XI;a.download='tournament.png';document.body.appendChild(a);a.click();a.remove()}
-function R(){if(RF){regPage();return}dirty=false;save();bdEnsure();const h=HOME||!S.mode;
+function R(){if(RF){regPage();return}dirty=false;save();bdEnsure();const h=HOME||!S.mode;document.body.classList.toggle('hmx',!!h);
 $('#app').innerHTML=(h?'':roBar())+(h?homeDash():PG?pageV():D().st?play():setup())+panelV()+regV()+tlistV()+rulesV()+joinV()+aboutV()+ppV()+nrV()+logoV()+liveV()+newsV()+rqV()+bdCerV()+awV()+awcV();
 const n=$('#nav');if(n)n.innerHTML=navV(h);if(RO()&&!h)lock();chkLive();chkNews()}
 var RG=false,RGL=[],RGM='',RGS='',RGE=false,RF=null,RFO,RFL=0,RFD='',RFE='',RFN='',RFX={};
