@@ -822,6 +822,7 @@ function adopt(x){x.divs.forEach((d,i)=>{d.cel=(S.divs[i]&&S.divs[i].cel)||'';d.
 async function pull(){const sh=S.share;if(!sh||pt||busy)return;busy=1;
 try{const r=await fetch(sh.fb+'/rooms/'+sh.room+'/pub.json');if(!r.ok)throw 0;const x=await r.json();ui('🟢 লাইভ');if(x){fixS(x);if(RO()&&x.tn){const it=LIB.items.find(i=>i.id===LIB.act);if(it&&it.name!==x.tn){it.name=x.tn;try{save()}catch(e){}if(!typing()){_np=true;R();_np=false}}}if(sn(x.mode,x.divs)!==snap()&&!typing())adopt(x)}}catch(e){ui('🔴 সংযোগ নেই')}busy=0}
 function parseJ(t){t=(t||'').trim();let k='';const m=t.match(/#j=([^&\s]+)(?:&k=([^&\s]+))?/);if(m){t=m[1];k=m[2]||''}
+const d=t.indexOf('.');if(d>0&&t.indexOf('~')<0){const room=t.slice(0,d),r=t.slice(d+1),c=r[0],p=r.slice(1);let h='';if(c==='a')h=p+'-default-rtdb.firebaseio.com';else if(c==='b')h=p+'.firebaseio.com';else if(c==='c'){const q=p.split('_');h=q[0]+'.'+q[1]+'.firebasedatabase.app'}else if(c==='d')h=p+'.firebasedatabase.app';else return null;return{room,fb:'https://'+h,k}}
 const i=t.indexOf('~');if(i<1)return null;let b=t.slice(i+1).replace(/-/g,'+').replace(/_/g,'/');while(b.length%4)b+='=';let h;try{h=atob(b)}catch(e){return null}return{room:t.slice(0,i),fb:'https://'+h,k}}
 async function joinRoom(t,k){const p=parseJ(t);if(!p){JM='কোড ঠিক নেই';return R()}k=(k||'').trim()||p.k;if(!k){const ex=LIB.items.find(i=>i.s.share&&i.s.share.room===p.room);if(ex)return switchT(ex.id)}
 try{const r=await fetch(p.fb+'/rooms/'+p.room+'/pub.json');if(!r.ok)throw 0;const x=await r.json();if(!x)throw 0;fixS(x);let role='view';
@@ -835,11 +836,11 @@ function openShare(){PN=true;PM='';R()}
 function closeShare(){PN=false;R()}
 function saveFb(){let v=$('#fbu').value.trim().replace(/\/+$/,'');if(!/^https:\/\/[\w.-]+\.(firebaseio\.com|firebasedatabase\.app)$/.test(v)){PM='লিংকটা ঠিক নয়। https://....firebaseio.com এরকম হবে।';return R()}try{localStorage.setItem('tmfb',v)}catch(e){}PM='';R()}
 function chgFb(){try{localStorage.removeItem('tmfb')}catch(e){}R()}
-async function createShare(){const fb=getFb();const room=rnd(6),key=rnd(10);
+async function createShare(){const fb=getFb();const room='Efootball-Tournament-Manager-'+rnd(3),key=rnd(10);
 try{const r=await fetch(fb+'/rooms/'+room+'.json',{method:'PUT',body:JSON.stringify({key,pub:Object.assign(JSON.parse(snap()),{tn:(LIB.items.find(i=>i.id===LIB.act)||{}).name||''})})});if(!r.ok)throw r.status;S.share={room,fb,role:'admin',key};_last=snap();PM=''}
 catch(e){PM='চালু করা যায়নি ('+e+')। Firebase লিংক আর রুলস ঠিক আছে কি দেখুন।'}R()}
 function cp(id,b){const e=document.getElementById(id);e.select();let ok=false;try{ok=document.execCommand('copy')}catch(x){}try{navigator.clipboard.writeText(e.value)}catch(x){}b.textContent='✓ কপি হয়েছে'}
-function vcode(sh){return sh.room+'~'+btoa(sh.fb.replace('https://','')).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
+function vcode(sh){const h=sh.fb.replace('https://',''),r=sh.room;let m;if(m=h.match(/^([a-z0-9-]+)-default-rtdb\.firebaseio\.com$/))return r+'.a'+m[1];if(m=h.match(/^([a-z0-9-]+)\.firebaseio\.com$/))return r+'.b'+m[1];if(m=h.match(/^([a-z0-9-]+)\.([a-z0-9-]+)\.firebasedatabase\.app$/))return r+'.c'+m[1]+'_'+m[2];if(m=h.match(/^([a-z0-9-]+)\.firebasedatabase\.app$/))return r+'.d'+m[1];return sh.room+'~'+btoa(sh.fb.replace('https://','')).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'')}
 const RULES=JSON.stringify({rules:{rooms:{$room:{'.read':false,'.write':"!data.child('key').exists() || newData.child('key').val() === data.child('key').val()",pub:{'.read':true}}},pres:{$room:{'.read':true,$id:{'.write':true}}},regs:{$room:{'.read':true,$id:{'.write':'!data.exists() || !newData.exists()','.validate':"newData.hasChildren(['n','t']) && newData.child('n').isString() && newData.child('n').val().length>0 && newData.child('n').val().length<=30 && (!newData.hasChild('c') || (newData.child('c').isString() && newData.child('c').val().length<=40))"}}}}},null,1);
 function panelV(){if(!PN)return'';const sh=S.share,fb=getFb();let b='';
 if(sh&&sh.role==='admin'){const base=location.href.split('#')[0],vc=vcode(sh);
