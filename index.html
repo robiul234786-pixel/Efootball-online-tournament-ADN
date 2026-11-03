@@ -1738,5 +1738,14 @@ kv(f,r,i,v){const m=S.gs.k[r][i];m[f]=f==='pw'?v:num(v);if(f!=='pw'&&m.x!==m.y)m
 reset(){if(!confirm('গ্রুপ স্টেজের সব মুছবে। ঠিক আছে?'))return;S.gs=null;save();XA.tab('gs')}};
 })();
 
+
+;(function(){
+const lg=()=>D().league||[];
+const emb=u=>{u=(u||'').trim();let m=u.match(/(?:youtu\.be\/|v=|\/live\/|\/embed\/|\/shorts\/)([\w-]{11})/);if(m)return'https://www.youtube.com/embed/'+m[1];if(/^[\w-]{11}$/.test(u))return'https://www.youtube.com/embed/'+u;if(/facebook\.com|fb\.watch/.test(u))return'https://www.facebook.com/plugins/video.php?show_text=false&href='+encodeURIComponent(u);return''};
+XT.live='🔴 লাইভ';
+XV.live=()=>{const L=lg().map((m,i)=>[m,i]).sort((x,y)=>(y[0].st?1:0)-(x[0].st?1:0));return`<div class="card"><h2>🔴 লাইভ স্ট্রিম</h2><p class="mu">ম্যাচের নিচে YouTube/Facebook লাইভের লিংক পেস্ট করে সেভ দিন।</p>${L.map(([m,i])=>{const e=emb(m.st);return`<div class="mm"><b>${esc(m.a)}</b> বনাম <b>${esc(m.b)}</b>${e?`<iframe src="${e}" style="width:100%;height:220px;border:0;border-radius:10px;margin-top:8px" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`:''}<div class="row" style="margin-top:6px"><input id="st${i}" type="text" placeholder="লাইভের লিংক" value="${esc(m.st||'')}"><button class="pri" onclick="XS.set(${i})">সেভ</button>${e?`<button onclick="XS.del(${i})">✕</button>`:''}</div></div>`}).join('')||'<p class="mu">কোনো ম্যাচ নেই।</p>'}</div>`};
+window.XS={set(i){const v=$('#st'+i).value.trim();if(v&&!emb(v)){alert('লিংক ঠিক নয়');return}lg()[i].st=v;save();XA.tab('live')},del(i){lg()[i].st='';save();XA.tab('live')}};
+})();
+
 if('serviceWorker' in navigator&&/^https?:/.test(location.protocol))navigator.serviceWorker.register('sw.js',{updateViaCache:'none'}).catch(()=>{});
 </script></body></html>
