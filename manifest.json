@@ -1,1 +1,20 @@
-{"name":"টুর্নামেন্ট ম্যানেজার","short_name":"টুর্নামেন্ট","start_url":"./","display":"standalone","background_color":"#0c1020","theme_color":"#0c1020","icons":[{"src":"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230c1020'/%3E%3Ctext x='50' y='68' font-size='56' text-anchor='middle'%3E%E2%9A%BD%3C/text%3E%3C/svg%3E","sizes":"any","type":"image/svg+xml","purpose":"any"}]}
+{
+  "name": "eFootball টুর্নামেন্ট ম্যানেজার",
+  "short_name": "eFootball টুর্নামেন্ট ম্যানেজার",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#0c1020",
+  "theme_color": "#0c1020",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230c1020'/%3E%3Ctext x='50' y='68' font-size='56' text-anchor='middle'%3E%E2%9A%BD%3C/text%3E%3C/svg%3E",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "id": "efootball-tournament",
+  "lang": "bn",
+  "scope": "./",
+  "orientation": "portrait"
+}
