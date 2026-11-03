@@ -570,7 +570,32 @@ body.nx .nrd{background:linear-gradient(180deg,#150c47,#060b26 60%)!important;co
 .nra .fct{list-style:none;margin:0;padding:0}.nra .fct li{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;margin-bottom:6px;border-radius:14px;background:rgba(255,255,255,.06);border-left:3px solid var(--tc)}.nra .fct li p{margin:0;font-size:14.5px;line-height:1.6}
 .nra .aq{margin:18px 0 0;padding:14px 16px;border-radius:18px;background:linear-gradient(135deg,color-mix(in srgb,var(--tc) 22%,transparent),transparent);border:1px solid color-mix(in srgb,var(--tc) 50%,transparent);font-style:italic;font-weight:700;line-height:1.7}
 .nra .rels{display:grid;gap:8px}.nra .rel{display:flex;gap:10px;align-items:center;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.06);border-left:3px solid var(--tc);cursor:pointer}.nra .rel>span{font-size:22px}.nra .rel b{font-size:14px;line-height:1.4;display:block}.nra .rel small{color:#b9b0f2}
-</style><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0c1020"></head><body><div id="app"></div><div id="nav"></div>
+</style><link rel="manifest" href="manifest.json"><meta name="theme-color" content="#0c1020"><style id="pitch-bg">
+html,body{background:#0b3d1c!important;min-height:100%}
+body{background:
+radial-gradient(circle at 50% 38%,transparent 0 70px,rgba(255,255,255,.22) 71px 74px,transparent 75px),
+linear-gradient(rgba(255,255,255,.18),rgba(255,255,255,.18)) 0 38%/100% 3px no-repeat,
+linear-gradient(rgba(0,15,10,.35),rgba(0,10,30,.55)),
+repeating-linear-gradient(0deg,#1a7a34 0 56px,#208a3b 56px 112px)!important;
+background-attachment:fixed!important}
+#app{background:transparent!important}
+</style>
+<style id="lightfix">
+html[data-theme=light] body.nx:not(.hmx) #nav button{color:#0b1550!important}
+html[data-theme=light] body.nx:not(.hmx) #nav button.on{color:#2563eb!important}
+html[data-theme=light] body.nx .ov .cb button:not(.pri):not(.on){color:#0b1550!important}
+html[data-theme=light] body.nx .ov .cb button.pri,html[data-theme=light] body.nx .ov .cb button.on{color:#111!important}
+html[data-theme=light] body.nx .ov .cb{color:#0b1550}
+html[data-theme=light] body.nx .ov .cb h2{color:#0b1550!important}
+</style>
+<style id="lightfix2">
+html[data-theme=light] body.hmx{--tx:#fff;--mu:#b9c6ee;--ac:#facc15;color:#fff}
+html[data-theme=light] body.hmx h1,html[data-theme=light] body.hmx h2,html[data-theme=light] body.hmx h3,html[data-theme=light] body.hmx b,html[data-theme=light] body.hmx .sec{color:#fff!important}
+html[data-theme=light] body.hmx h2.sec,html[data-theme=light] body.hmx .sec{color:#facc15!important;text-shadow:0 1px 4px #000}
+html[data-theme=light] body.hmx .mc b{color:#facc15!important}
+html[data-theme=light] body.nx:not(.hmx) #app>h1,html[data-theme=light] body.nx:not(.hmx) #app>h2,html[data-theme=light] body.nx:not(.hmx) #app>.sec,html[data-theme=light] body.nx:not(.hmx) #app>.lb,html[data-theme=light] body.nx:not(.hmx) #app>.agg{color:#fff!important;text-shadow:0 1px 4px #000}
+</style>
+</head><body><div id="app"></div><div id="nav"></div>
 <script>
 const $=s=>document.querySelector(s);
 const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
