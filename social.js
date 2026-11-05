@@ -6,6 +6,5 @@ function push(n,tn,art){const b=base();if(!b||!n||!n.t)return Promise.resolve(fa
 const k='k'+n.t+'_'+(hs(String(tn))%1000);
 return fetch(b+'/social/news/'+k+'.json',{method:'PUT',body:JSON.stringify({t:n.t,i:n.i||'📰',h,b:ls.slice(1).join('\n').slice(0,240),a:String(art||'').slice(0,1800),tn:String(tn).slice(0,40)})}).then(r=>r.ok||r.status===401||r.status===403?r.ok:false).catch(()=>false)}
 window.nws=function(){const r=on.apply(this,arguments);try{if(!RO()){const d=D();const x=d.news[d.news.length-1];let art='';try{art=nrBuild2(x).join('\n')}catch(e){}push(x,TNM(),art)}}catch(e){}return r};
-try{if(!localStorage.getItem('tmsocbf')&&base()){const all=[];LIB.items.forEach(it=>{const s=it.id===LIB.act?S:it.s;if(!s||(s.share&&s.share.role==='view'))return;A(s.divs).forEach(d=>A(d.news).forEach(n=>all.push([n,(s.mode==='tour'||s.mode==='wc')?it.name:it.name+' · '+d.name])))});
-all.sort((a,b)=>b[0].t-a[0].t);Promise.all(all.slice(0,40).map(([n,t])=>push(n,t))).then(a=>{if(a.some(Boolean))localStorage.setItem('tmsocbf','1')})}}catch(e){}
+try{if(!localStorage.getItem('tmsocbf2')&&base()){setTimeout(()=>{try{const all=[];S.divs.forEach((dv,ix)=>withDiv(ix,()=>{const tn=TNM();A(dv.news).slice(-40).forEach(n=>{let art='';try{art=nrBuild2(n).join('\n')}catch(e){}all.push([n,tn,art])})}));Promise.all(all.map(([n,t,a])=>push(n,t,a))).then(r=>{if(r.some(Boolean))localStorage.setItem('tmsocbf2','1')})}catch(e){}},2500)}}catch(e){}
 })();
