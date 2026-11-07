@@ -1816,4 +1816,9 @@ const hd1=window.homeDash;if(typeof hd1==='function')window.homeDash=function(){
 window._embed=embed;
 }catch(e){console.error('stream module',e)}})();
 </script>
+<script>
+;(function(){try{setTimeout(()=>{try{const P=window.Capacitor&&Capacitor.Plugins&&Capacitor.Plugins.PushNotifications;if(!P)return;const FBU='https://my-personal-efootball-default-rtdb.firebaseio.com';let id='';try{id=localStorage.getItem('tmvid')||'';if(!id){id=Math.random().toString(36).slice(2,10);localStorage.setItem('tmvid',id)}}catch(e){}
+P.addListener('registration',t=>fetch(FBU+'/social/tokens/t'+id+'.json',{method:'PUT',body:JSON.stringify({k:t.value,t:Date.now()})}).catch(()=>{}));
+P.requestPermissions().then(r=>{if(r.receive==='granted')P.register()}).catch(()=>{})}catch(e){}},2500)}catch(e){}})();
+</script>
 </body><script src="social.js?v=8"></script></html>
