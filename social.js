@@ -108,9 +108,17 @@ const on=window.nws;if(typeof on!=='function')return;
 const base=()=>'https://my-personal-efootball-default-rtdb.firebaseio.com';
 function push(n,tn,full){const b=base();if(!b||!n||!n.t)return Promise.resolve(false);const ls=String(n.x||'').split('\n'),h=String(n.h||ls[0]||'').slice(0,200);if(!h)return Promise.resolve(false);
 const k='k'+n.t+'_'+(hs(String(tn))%1000);
-return fetch(b+'/social/news/'+k+'.json',{method:'PUT',body:JSON.stringify({t:n.t,i:n.i||'📰',h,b:(()=>{if(full){try{const L=nrBuild2(n);if(L&&L.length)return L.join('\n').slice(0,6000)}catch(e){}}return((String(n.h||'')&&String(n.h)!==ls[0]?ls[0]+'\n':'')+ls.slice(1).join('\n')).slice(0,3000)})(),tn:String(tn).slice(0,40)})}).then(r=>{if(!r.ok)NS.err=r.status;return r.ok}).catch(()=>{NS.err='নেট নেই';return false})}
+return fetch(b+'/social/news/'+k+'.json',{method:'PUT',body:JSON.stringify({t:n.t,i:n.i||'📰',h,b:(()=>{if(full&&n.i!=='🧠'){try{const L=nrBuild2(n);if(L&&L.length)return L.join('\n').slice(0,6000)}catch(e){}}return((String(n.h||'')&&String(n.h)!==ls[0]?ls[0]+'\n':'')+ls.slice(1).join('\n')).slice(0,3000)})(),tn:String(tn).slice(0,40)})}).then(r=>{if(!r.ok)NS.err=r.status;return r.ok}).catch(()=>{NS.err='নেট নেই';return false})}
 const rep=ok=>{if(!ok&&!NS.w){NS.w=1;toast('⚠️ আড্ডা অ্যাপে নিউজ যায়নি (কোড '+NS.err+')। Firebase রুলসে social অংশে লেখার অনুমতি দিন।')}else if(ok&&!NS.s){NS.s=1;toast('✅ নিউজ আড্ডা অ্যাপে পাঠানো হচ্ছে')}};
 window.nws=function(){const r=on.apply(this,arguments);try{if(!RO()){const d=D();push(d.news[d.news.length-1],TNM(),1).then(rep)}}catch(e){}return r};
 try{if(!localStorage.getItem('tmsocbf3')&&base()){const all=[];LIB.items.forEach(it=>{const s=it.id===LIB.act?S:it.s;if(!s||(s.share&&s.share.role==='view'))return;A(s.divs).forEach(d=>A(d.news).forEach(n=>all.push([n,(s.mode==='tour'||s.mode==='wc')?it.name:it.name+' · '+d.name,it.id===LIB.act&&d===D()])))});
 all.sort((a,b)=>b[0].t-a[0].t);Promise.all(all.slice(0,40).map(([n,t,f])=>push(n,t,f))).then(a=>{rep(a.some(Boolean));if(a.some(Boolean))localStorage.setItem('tmsocbf3','1')})}}catch(e){}
 })();}catch(e){console.error('news-sync',e)}
+
+/* ম্যাচ তালিকা আড্ডায় পাঠানো (লাইভ রুম ও প্রেডিকশনের জন্য) */
+try{(function(){let last='';const base='https://my-personal-efootball-default-rtdb.firebaseio.com';
+const pm=()=>{try{if(typeof RO==='function'&&RO())return;if(!S||!S.mode||!Array.isArray(S.divs))return;const tn=String((()=>{try{return TNM()}catch(e){return''}})()).slice(0,40),up=[],fin=[];
+S.divs.forEach((dv,ix)=>{if(!dv||!dv.st)return;withDiv(ix,()=>{const d=D(),L=d.live;mList().forEach(m=>{if(!m.a||!m.b||m.a==='BYE'||m.b==='BYE')return;const id='m'+ix+'_'+String(m.k).replace(/\W/g,'_'),o={id,a:m.a,b:m.b,sa:m.st==='f'?+m.sa:null,sb:m.st==='f'?+m.sb:null,st:m.st,dt:m.dt||'',tm:m.tm||'',lab:m.lab||'',tn};(m.st==='f'?fin:up).push(o)});
+if(L&&L.a&&L.b){const rf=L.ref,lk=rf?(rf.t==='L'?'L'+rf.i:'K'+rf.r+'-'+rf.i+'-'+rf.l):'live';up.unshift({id:'m'+ix+'_'+String(lk).replace(/\W/g,'_'),a:L.a,b:L.b,sa:+gc(L,'a'),sb:+gc(L,'b'),st:'l',dt:'',tm:'',lab:'🔴 লাইভ',tn})}})});
+const out={};fin.slice(-60).concat(up.slice(0,80)).forEach(o=>{const id=o.id;delete o.id;out[id]=o});const j=JSON.stringify(out);if(j===last)return;last=j;fetch(base+'/social/mx/m.json',{method:'PUT',body:j}).catch(()=>{})}catch(e){}};
+setInterval(pm,45000);setTimeout(pm,9000)})()}catch(e){console.error('match-sync',e)}
