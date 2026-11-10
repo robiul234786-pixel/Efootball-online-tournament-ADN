@@ -2197,9 +2197,9 @@ if(!window.RF&&!sessionStorage.dpi){sessionStorage.dpi=1;const s=document.create
 /* skeleton + transition around R() */
 const app=$('#app');let busy=0;
 const post=()=>{icons();form();swipe()};
-new MutationObserver(()=>{if(busy)return;busy=1;app.classList.add('pgi');setTimeout(()=>{app.classList.remove('pgi');busy=0},320);post()}).observe(app,{childList:true});
+let q=0;new MutationObserver(()=>{if(q)return;q=1;requestAnimationFrame(()=>{q=0;post()})}).observe(app,{childList:true});
 new MutationObserver(icons).observe($('#nav'),{childList:true});
-['goPg','setTab'].forEach(n=>{try{const f=eval(n);if(typeof f==='function')window[n]=function(){const r=f.apply(this,arguments);app.classList.add('sking');setTimeout(()=>app.classList.remove('sking'),180);return r}}catch(e){}});
+['goPg','setTab'].forEach(n=>{try{const f=eval(n);if(typeof f==='function')window[n]=function(){const r=f.apply(this,arguments);app.classList.add('sking');setTimeout(()=>{app.classList.remove('sking');app.classList.add('pgi');setTimeout(()=>app.classList.remove('pgi'),320)},180);return r}}catch(e){}});
 post();
 }catch(e){console.warn('design pack',e)}})();
 </script><script>/* DESIGN PACK 2 JS */
