@@ -688,7 +688,7 @@ function rsV(){const l=rsList();if(!l.length)return'';return`<p class="mu"><b>�
 function save(){try{rsSync()}catch(e){}try{careerSync()}catch(e){}try{const it=LIB.items.find(x=>x.id===LIB.act);if(it)it.s=S;localStorage.setItem('tm6',JSON.stringify(LIB))}catch(e){}if(S.share&&S.share.role==='admin'&&!_np)sched()}
 function shuffle(a){a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]]}return a}
 function add(){const el=$('#nm'),v=el.value.trim(),P=D().players;if(!v||S.divs.some(d=>d.players.concat(d.inc).some(p=>p.toLowerCase()===v.toLowerCase()))){el.focus();return}P.push(v);if(PPH){const dd=D();dd.ph=dd.ph||{};dd.ph[v]=PPH;PPH=''}if(tkSet(1).has(PLG))PLG=rl();addLg(D(),v,PLG);PLG=rl();R();$('#nm').focus()}
-function del(i){const d=D(),n=d.players[i];if(d.ph)delete d.ph[n];d.players.splice(i,1);d.lg=A(d.lg).filter(x=>x.n!==n);R()}
+function del(i){const d=D(),n=d.players[i];if(S.info&&!S.divs.some(x=>x!==d&&x.players.includes(n)))delete S.info[n];if(d.ph)delete d.ph[n];d.players.splice(i,1);d.lg=A(d.lg).filter(x=>x.n!==n);R()}
 function setFmt(f){D().fmt=f;R()}
 function setName(v){D().name=v.trim()||D().name;R()}
 function setZ(f,v){D()[f]=Math.max(0,parseInt(v)||0);R()}
@@ -1497,7 +1497,8 @@ function chkSoon(){clearTimeout(window._cs);window._cs=setTimeout(()=>{if(RO())r
 var NV=false,NK='',NN=0;function openNews(){pgNav('news')}function closeNews(){NV=false;R()}
 function newsCard(){const d=D(),n=A(d.news);if(!n.length&&!d.st)return'';const l=n[n.length-1];return`<button class="nfc" data-ok onclick="openNews()"><b>📰 নিউজ ফিড (${n.length})</b><span>${l?esc(HL(l)):'এখনো কোনো খবর নেই'}</span></button>`}
 function newsV(){return''}
-function showBanner(x){const o=document.getElementById('nto');if(o)o.remove();const w=document.createElement('div');w.id='nto';const c={'⚽':'g','🟥':'r','🟨':'y','🏆':'t','🔥':'o','🏁':'b','⚔️':'o','⏱':'b'}[x.i]||'b',ls=x.x.split('\n'),rest=ls.slice(1).join('\n');w.className='nbn nb'+(c==='r'?'x':c);w.innerHTML=`<div class="nbi">${x.i}</div><div class="nbh">${esc(HL(x))}</div>${x.v?`<div class="nbv">${cr(x.v[0],1)}<b>VS</b>${cr(x.v[1],1)}</div>`:''}${rest?`<div class="nbr">${esc(rest)}</div>`:''}<small>ট্যাপ করে বন্ধ করুন</small>`;const done=()=>{if(w.parentNode){w.classList.add('out');setTimeout(()=>w.remove(),400)}};w.onclick=done;document.body.appendChild(w);setTimeout(done,rest?10000:7000)}
+function bph(n){const p=(D().ph||{})[n];return p?`<span class="cw big"><img class="cim" src="${p}" alt="" style="border-radius:50%;object-fit:cover"></span>`:cr(n,1)}
+function showBanner(x){const o=document.getElementById('nto');if(o)o.remove();const w=document.createElement('div');w.id='nto';const c={'⚽':'g','🟥':'r','🟨':'y','🏆':'t','🔥':'o','🏁':'b','⚔️':'o','⏱':'b'}[x.i]||'b',ls=x.x.split('\n'),rest=ls.slice(1).join('\n');w.className='nbn nb'+(c==='r'?'x':c);w.innerHTML=`<div class="nbi">${x.i}</div><div class="nbh">${esc(HL(x))}</div>${x.v?`<div class="nbv">${bph(x.v[0])}<b>VS</b>${bph(x.v[1])}</div>`:''}${rest?`<div class="nbr">${esc(rest)}</div>`:''}<small>ট্যাপ করে বন্ধ করুন</small>`;const done=()=>{if(w.parentNode){w.classList.add('out');setTimeout(()=>w.remove(),400)}};w.onclick=done;document.body.appendChild(w);setTimeout(done,rest?10000:7000)}
 function chkNews(){const t=document.getElementById('tkr');if(t)t.remove()}
 
 var PG='',NF='all',MF='all',ND=0,NSEEN={};
@@ -1633,7 +1634,7 @@ else{h+=`<p class="mu"><b>🌐 অনলাইন ফর্ম</b> · ${sh.ro?'�
 if(sh.ro)h+=`<p class="mu">ফর্মের লিংক (প্লেয়ারদের দিন):</p><textarea id="l3" class="ta" rows="3" readonly>${esc(regLink(sh))}</textarea><button onclick="cp('l3',this)">কপি</button>`;
 if(RGE)h+=`<p class="mu" style="color:#ef4444">ফর্ম চালাতে Firebase রুলস একবার আপডেট করতে হবে। Firebase → Realtime Database → Rules-এ সব মুছে নিচেরটা বসিয়ে Publish করুন:</p><textarea id="rl2" class="ta" rows="8" readonly>${esc(RULES)}</textarea><button onclick="cp('rl2',this)">রুলস কপি</button>`;
 else{h+=`<p class="mu"><b>অপেক্ষায় আছে (${RGL.length} জন)</b></p>`+(RGL.length?RGL.map(x=>`<div class="row" style="align-items:center;margin:6px 0"><div style="flex:1;min-width:0">${x.ph?`<img src="${x.ph}" alt="" style="width:40px;height:40px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:6px">`:(x.l?crestL(x.l)+' ':'')}<b>${esc(x.n)}</b>${dtl(x)}</div><button class="pri" onclick="regOk('${x.id}')">✅</button><button onclick="regNo('${x.id}')">✕</button></div>`).join('')+(RGL.length>1?'<button class="big" onclick="regAll()">সবাইকে যোগ করুন</button>':''):'<p class="mu" style="margin-top:0">এখনো কেউ ফর্ম জমা দেয়নি।</p>')}}
-const ik=Object.keys(S.info||{});if(ik.length)h+='<p class="mu"><b>📋 প্লেয়ারদের তথ্য</b></p>'+ik.map(n=>`<div class="rest"><b>${esc(n)}</b>${dtl(S.info[n])}</div>`).join('');
+const ik=Object.keys(S.info||{}).filter(n=>S.divs.some(x=>x.players.includes(n)));if(ik.length)h+='<p class="mu"><b>📋 প্লেয়ারদের তথ্য</b></p>'+ik.map(n=>`<div class="rest"><b>${esc(n)}</b>${dtl(S.info[n])}</div>`).join('');
 return`<div class="ov"><div class="cb sh">${h}${RGM?`<p class="mu">${esc(RGM)}</p>`:''}<button class="big" onclick="closeReg()">বন্ধ করুন</button></div></div>`}
 const ff=(id,ph,v,m,ex)=>`<input id="${id}" type="text" ${ex||''} maxlength="${m}" placeholder="${ph}" value="${esc(v||'')}" style="width:100%;margin-bottom:8px">`;
 var RFI=0,RFTK=null,RFK=0,RFLG='',RFLO=0,RFPG=0,RFOWN='';
@@ -1645,14 +1646,14 @@ function rfPickV(){let fr=rfFree();if(RFLG){fr=[RFLG].concat(fr.filter(l=>l!==RF
 function rfPick(){rfSave();RFLO=1;RFPG=0;R()}
 function rfSet(l){RFLG=l;RFLO=0;R()}
 function rfPg(d){RFPG=Math.max(0,RFPG+d);R()}
-function regPage(){const n=$('#nav');if(n)n.innerHTML='';if(!RFI){RFI=1;try{const m=JSON.parse(localStorage.getItem('tmme'));if(m){RFN=m.n||'';RFX={g:m.g||'',p:m.p||'',a:m.a||'',tm:m.tm||''};RFOWN=m.l||'';RFLG=m.l||'';RFPH=m.ph||''}}catch(e){}}
+function regPage(){const n=$('#nav');if(n)n.innerHTML='';if(!RFI){RFI=1;try{const m=JSON.parse(localStorage.getItem('tmme'));if(m){RFN=m.n||'';RFX={g:m.g||'',p:m.p||'',a:m.a||'',tm:m.tm||''};}}catch(e){}}
 if(RFO===undefined&&!RFL){RFL=1;fetch(RF.fb+'/rooms/'+RF.room+'/pub/ro.json').then(r=>r.json()).then(v=>{RFO=v===true;R()}).catch(()=>{RFO=null;R()})}
 let b;
 if(RFO===true&&RFTK===null&&!RFK){RFK=1;rfTaken().then(t=>{RFTK=t;if(!RFLG||(t.has(RFLG)&&RFLG!==RFOWN))RFLG=rfRand();R()}).catch(()=>{RFTK=new Set();RFLG=RFLG||rfRand();R()})}
 if(RFO===undefined||(RFO===true&&RFTK===null))b='<p class="mu" style="text-align:center">লোড হচ্ছে…</p>';
 else if(RFO===null)b='<p class="mu" style="text-align:center;color:#ef4444">সংযোগ করা যায়নি। ইন্টারনেট দেখে আবার খুলুন।</p>';
 else if(!RFO)b='<div style="text-align:center"><div style="font-size:56px">🔒</div><h2>রেজিস্ট্রেশন এখন বন্ধ</h2><p class="mu">অ্যাডমিনের সাথে যোগাযোগ করুন।</p></div>';
-else if(RFD)b=`<div style="text-align:center"><div style="font-size:56px">✅</div><h2>জমা হয়েছে!</h2><p class="mu"><b>${esc(RFD)}</b> নামে আপনার রেজিস্ট্রেশন অ্যাডমিনের কাছে পৌঁছেছে। অনুমোদন পেলে প্লেয়ার তালিকায় আসবেন।</p><button class="big" onclick="RFD='';RFN='';RFX={};RFOWN='';RFTK=null;RFK=0;RFLG='';R()">আরেকজনের জন্য পূরণ করুন</button></div>`;
+else if(RFD)b=`<div style="text-align:center"><div style="font-size:56px">✅</div><h2>জমা হয়েছে!</h2><p class="mu"><b>${esc(RFD)}</b> নামে আপনার রেজিস্ট্রেশন অ্যাডমিনের কাছে পৌঁছেছে। অনুমোদন পেলে প্লেয়ার তালিকায় আসবেন।</p><button class="big" onclick="RFD='';RFN='';RFX={};RFOWN='';RFTK=null;RFK=0;RFLG='';RFPH='';try{localStorage.removeItem('tmme')}catch(e){}R()">আরেকজনের জন্য পূরণ করুন</button></div>`;
 else if(RFLO)b=rfPickV();
 else b=`<h2>আপনার তথ্য দিন</h2>${RFN?'<p class="mu">✅ আগের তথ্য বসানো আছে, শুধু জমা দিন</p>':''}<div class="row" style="align-items:center;margin-bottom:8px"><button class="crb" onclick="rfPick()">${crestL(RFLG,1)}</button><span class="mu" style="flex:1">আপনার টিমের লোগো · বদলাতে চাপুন<br>একজনের নেওয়া লোগো আর কেউ নিতে পারবে না</span></div><div class="row" style="align-items:center;margin-bottom:8px">${RFPH?`<img class="mph" src="${RFPH}" alt="" style="width:56px;height:56px">`:''}<label class="lgu" style="flex:1">${RFPH?'✅ ছবি দেওয়া হয়েছে · বদলাতে চাপুন':'📸 আপনার ছবি আপলোড করুন'}<input type="file" accept="image/*" onchange="rfUp(this)" hidden></label></div>${ff('fn','আপনার নাম * (তালিকায় যা দেখা যাবে)',RFN,20)}${ff('fg','eFootball আইডি / ইউজারনেম',RFX.g,30)}${ff('fp','ফোন / WhatsApp নম্বর',RFX.p,20,'inputmode="tel"')}${ff('fa','এলাকা / জেলা',RFX.a,30)}${ff('ft','প্রিয় টিম বা ক্লাব',RFX.tm,30)}<button class="pri big" style="margin-top:6px" onclick="regSend(this)">জমা দিন</button>${RFE?`<p class="mu" style="color:#ef4444">${esc(RFE)}</p>`:''}`;
 $('#app').innerHTML=`<div class="hero"><span class="hs">📝</span><div class="hh">eFootball টুর্নামেন্ট</div><div class="hn">রেজিস্ট্রেশন ফর্ম</div><div class="hp">অংশ নিতে নিচের ফর্মটি পূরণ করুন</div></div><div class="card">${b}</div>`}
