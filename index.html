@@ -658,6 +658,11 @@ tbody tr.t1 td.n{font-weight:800}
 #app .top h1{position:relative;z-index:1;margin:0;font:600 26px/1.15 var(--fd);letter-spacing:.6px;color:#fff;word-break:break-word}
 #app .top>span{position:relative;z-index:1;display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
 #app .top button{background:rgba(255,255,255,.14);color:#fff;border:1px solid rgba(255,255,255,.22);border-radius:14px;padding:8px 12px;font-size:13px;box-shadow:none}
+</style><style>#cdn{display:flex;align-items:center;gap:10px;margin:-4px 0 14px;padding:10px 14px;border-radius:18px;background:linear-gradient(90deg,rgba(245,158,11,.16),rgba(239,68,68,.12));border:1px solid rgba(245,158,11,.4);font-size:14px}
+#cdn span{font-weight:700;color:#f59e0b;white-space:nowrap}#cdn b{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+#cdn em{font:600 22px var(--fd);font-style:normal;color:#ef4444;white-space:nowrap}
+#upb{position:fixed;right:14px;bottom:calc(92px + env(safe-area-inset-bottom,0px));z-index:30;width:42px;height:42px;padding:0;border-radius:50%;font-size:20px;opacity:0;pointer-events:none;transform:translateY(10px);transition:.25s}
+#upb.on{opacity:.92;pointer-events:auto;transform:none}
 </style></head><body><div id="app"></div><div id="nav"></div>
 <script>
 const $=s=>document.querySelector(s);
@@ -2201,7 +2206,7 @@ post();
 (()=>{try{
 const strip=()=>document.querySelectorAll('#app .top h1').forEach(e=>{const t=e.textContent.replace(/^[^\p{L}\p{N}]+/u,'');if(t&&t!==e.textContent)e.textContent=t});
 new MutationObserver(strip).observe(document.getElementById('app'),{childList:true});strip();
-const T=[{n:'নিয়ন',b:['#050816','#0b2a5b','#2e1065'],a:'#22d3ee',c:'#a855f7',g:'#fde047'},{n:'গোল্ড',b:['#120c02','#3b2a06','#0a0a0a'],a:'#fbbf24',c:'#f59e0b',g:'#fff7cc'},{n:'ফায়ার',b:['#140303','#7f1d1d','#1c0a02'],a:'#fb923c',c:'#ef4444',g:'#fde68a'},{n:'পিচ',b:['#022c22','#14532d','#052e16'],a:'#86efac',c:'#22c55e',g:'#fef08a'}];
+const T=[{n:'নিয়ন',b:['#050816','#0b2a5b','#2e1065'],a:'#22d3ee',c:'#a855f7',g:'#fde047'},{n:'গোল্ড',b:['#120c02','#3b2a06','#0a0a0a'],a:'#fbbf24',c:'#f59e0b',g:'#fff7cc'},{n:'ফায়ার',b:['#140303','#7f1d1d','#1c0a02'],a:'#fb923c',c:'#ef4444',g:'#fde68a'},{n:'পিচ',b:['#022c22','#14532d','#052e16'],a:'#86efac',c:'#22c55e',g:'#fef08a'},{n:'আইস',b:['#031525','#0c4a6e','#082f49'],a:'#7dd3fc',c:'#38bdf8',g:'#e0f2fe'},{n:'রয়্যাল',b:['#1e0836','#4c1d95','#150428'],a:'#c4b5fd',c:'#e879f9',g:'#fde68a'},{n:'সানসেট',b:['#2a0a1e','#be185d','#7c2d12'],a:'#fda4af',c:'#fb923c',g:'#fef3c7'},{n:'মনো',b:['#050505','#27272a','#09090b'],a:'#e4e4e7',c:'#a1a1aa',g:'#ffffff'}];
 const H2=(a,b)=>{let w=0,d=0,l=0;(D().league||[]).forEach(m=>{if(m.sa===''||m.sb==='')return;let x=null;if(m.a===a&&m.b===b)x=m.sa-m.sb;else if(m.a===b&&m.b===a)x=m.sb-m.sa;if(x===null)return;x>0?w++:x<0?l++:d++});return[w,d,l]};
 const FM=n=>(D().league||[]).filter(m=>m.sa!==''&&m.sb!==''&&(m.a===n||m.b===n)).slice(-5).map(m=>{const x=m.a===n?m.sa-m.sb:m.sb-m.sa;return x>0?'W':x<0?'L':'D'});
 window.posterOpen=async function(i,mi){const x=MPL[i];if(!x)return;mi=mi||0;const K=T[mi],W=720,H=960,c=document.createElement('canvas');c.width=W;c.height=H;const g=c.getContext('2d');
@@ -2227,4 +2232,18 @@ g.font='20px sans-serif';g.fillStyle='#64748b';g.fillText('eFootball ডিজ�
 PI=c.toDataURL('image/png');const old=document.getElementById('pst');if(old)old.remove();const o=document.createElement('div');o.id='pst';o.className='ov tl';
 o.innerHTML=`<div class="cb sh"><h2>🖼️ ম্যাচ পোস্টার</h2><div id="pmd">${T.map((t,k)=>`<button data-ok class="${k===mi?'on':''}" onclick="posterOpen(${i},${k})">${t.n}</button>`).join('')}</div><img src="${PI}" style="width:100%;border-radius:12px"><button class="pri big" data-ok onclick="posShare()">📤 শেয়ার / সেভ</button><button class="big" data-ok onclick="document.getElementById('pst').remove()">বন্ধ করুন</button></div>`;document.body.appendChild(o)};
 }catch(e){console.warn('dp2',e)}})();
+</script><script>/* DESIGN PACK 4 */
+(()=>{try{
+const app=document.getElementById('app');
+const fmt=ms=>{const m=Math.floor(ms/6e4),d=Math.floor(m/1440),h=Math.floor(m%1440/60);return d?d+'দিন '+h+'ঘ':h?h+'ঘ '+m%60+'মি':m+'মি'};
+const nxt=()=>{let b=null;try{(MPL||[]).forEach(m=>{if(!m||m.st==='f'||!m.dt)return;const t=new Date(m.dt+'T'+(m.tm||'00:00'));if(isNaN(t)||t<Date.now())return;if(!b||t<b.t)b={t,m}})}catch(e){}return b};
+const cd=()=>{const t=app.querySelector('.top');if(!t)return;let e=document.getElementById('cdn');const n=nxt();if(!n){if(e)e.remove();return}
+if(!e){e=document.createElement('div');e.id='cdn';t.after(e)}e.innerHTML=`<span>⏳ পরবর্তী ম্যাচ</span><b>${n.m.a} vs ${n.m.b}</b><em>${fmt(n.t-Date.now())}</em>`};
+new MutationObserver(cd).observe(app,{childList:true});setInterval(cd,30000);cd();
+/* scroll top */
+const u=document.createElement('button');u.id='upb';u.dataset.ok=1;u.textContent='↑';u.onclick=()=>scrollTo({top:0,behavior:'smooth'});document.body.appendChild(u);
+addEventListener('scroll',()=>u.classList.toggle('on',scrollY>400),{passive:true});
+/* haptic */
+document.addEventListener('click',e=>{if(e.target.closest('button,.tile,.mc')&&navigator.vibrate)navigator.vibrate(12)},true);
+}catch(e){console.warn('dp4',e)}})();
 </script></body><script src="social.js?v=8"></script></html>
