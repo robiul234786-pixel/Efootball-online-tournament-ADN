@@ -38,6 +38,8 @@ jobs:
         run: |
           npx cap add android
           npx cap sync android
+          M=android/app/src/main/AndroidManifest.xml
+          sed -i 's#</manifest>#<uses-permission android:name="android.permission.POST_NOTIFICATIONS"/><uses-permission android:name="android.permission.SCHEDULE_EXACT_ALARM"/></manifest>#' $M
           for d in mdpi:48 hdpi:72 xhdpi:96 xxhdpi:144 xxxhdpi:192; do
             n=${d%%:*}; s=${d##*:}
             dir=android/app/src/main/res/mipmap-$n
