@@ -2662,7 +2662,7 @@ else if(F[n]){im.style.visibility='hidden'}else if(0){var sp=document.createElem
 var e=null;if(nat){NATS.forEach(function(x){if(x[0]===n)e=x});try{sp.textContent=e?flagE(e[1]):n.slice(0,3)}catch(x){sp.textContent=n.slice(0,3)}sp.style.fontSize='22px'}else{CLUBS.forEach(function(x){if(x[0]===n)e=x});sp.textContent=e?e[1]:n.slice(0,3)}
 if(im.parentNode)im.parentNode.replaceChild(sp,im)}else if(!im.getAttribute('src'))get(n,nat)})}
 new MutationObserver(function(){clearTimeout(window.__lf);window.__lf=setTimeout(fill,80)}).observe(document.documentElement,{childList:true,subtree:true});
-setTimeout(function(){try{R()}catch(e){}},400)})();</script><style id="spl-gold">
+window.__lg={C:C,AL:AL,wiki:wiki};setTimeout(function(){try{R()}catch(e){}},400)})();</script><style id="spl-gold">
 @keyframes spUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}@keyframes spShine{0%{background-position:-200% 0}100%{background-position:200% 0}}@keyframes spGlow{0%,100%{box-shadow:0 0 12px rgba(251,191,36,.25)}50%{box-shadow:0 0 24px rgba(251,191,36,.55)}}
 #app>*{animation:spUp .45s ease both}
 .card,.tcard,.mc,.nrw,.nhero{backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);background-color:rgba(20,16,6,.55);border:1px solid rgba(251,191,36,.28);box-shadow:0 8px 28px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.08);transition:transform .2s,box-shadow .2s}
@@ -2718,4 +2718,16 @@ var ks=Object.keys(M).sort().reverse();h+='<div class="card"><h2>📅 মাস�
 var SUB=['নকআউট','নকআউট','২ জনের ফাইনাল','লিগ + নকআউট','লিগ + নকআউট','লিগ + নকআউট','লিগ + নকআউট','শুধু লিগ','নকআউট','রাউন্ড অনুযায়ী জোড়া','২ হারে বাদ','র‍্যাঙ্ক ওঠানামা','মাসের সেরা'];
 window.startPreset=async function(i){await startNew('tour');splPreset(i)};
 var h1=window.homeDash;window.homeDash=function(){var h=h1.apply(this,arguments);try{var q=h.indexOf("startNew('cl')");if(q>=0){var k=h.indexOf('</button>',q)+9;var t=PR.map(function(x,i){return '<button class="tile" onclick="startPreset('+i+')"><span class="ic">'+x[0]+'</span><b>'+x[1]+'</b><small>'+SUB[i]+'</small></button>'}).join('');h=h.slice(0,k)+t+h.slice(k)}}catch(e){}return h};
+})();</script><script id="spl-av">(function(){
+var a0=window.avImg;
+function tryImg(u,cors){return new Promise(function(r){var im=new Image();if(cors)im.crossOrigin='anonymous';im.onload=function(){r(im)};im.onerror=function(){r(null)};im.src=u})}
+function badge(n,nat){var L=window.__lg||{C:{}};if(L.C[n])return Promise.resolve(L.C[n]);var q=(L.AL&&L.AL[n])||n;
+return fetch('https://www.thesportsdb.com/api/v1/json/3/searchteams.php?t='+encodeURIComponent(q)).then(function(r){return r.json()}).then(function(j){var t=(j.teams||[]).filter(function(x){return x.strSport==='Soccer'}),m=t.find(function(x){return(x.strTeam||'').toLowerCase()===q.toLowerCase()})||t[0],u=m&&(m.strBadge||m.strTeamBadge);if(u)return u+'/tiny';throw 0}).catch(function(){return new Promise(function(r){L.wiki?L.wiki(n,nat,r):r(null)})})}
+window.avImg=function(n){var d=D(),ph=(d.ph||{})[n]||((function(){try{var c=((CAR().p||{})[n]||{}).ph;if(c)return c;for(var i=0;i<LIB.items.length;i++){var it=LIB.items[i];var dv=A(it.s&&it.s.divs);for(var j=0;j<dv.length;j++){var q=(dv[j].ph||{})[n];if(q)return q}}}catch(e){}return''})());
+if(ph){return tryImg(ph,/^https?:/.test(ph)).then(function(im){return im?{im:im,p:true}:null})}
+var h='';try{h=crestL(logoOf(n),0)}catch(e){return Promise.resolve(null)}
+var m=h.match(/<img[^>]*src="([^"]+)"/),tn=(h.match(/data-tn="([^"]+)"/)||[])[1],nat=(h.match(/data-k="([^"]+)"/)||[])[1]==='n';
+if(!m&&!tn)return a0.apply(this,arguments);
+var p=m?tryImg(m[1],true):Promise.resolve(null);
+return p.then(function(im){if(im)return {im:im,p:false};if(!tn)return null;return badge(tn,nat).then(function(u){return u?tryImg(u,true):null}).then(function(i2){return i2?{im:i2,p:false}:null})})};
 })();</script></body><script src="social.js?v=8"></script></html>
