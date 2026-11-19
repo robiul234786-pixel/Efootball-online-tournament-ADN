@@ -2730,4 +2730,64 @@ var m=h.match(/<img[^>]*src="([^"]+)"/),tn=(h.match(/data-tn="([^"]+)"/)||[])[1]
 if(!m&&!tn)return a0.apply(this,arguments);
 var p=m?tryImg(m[1],true):Promise.resolve(null);
 return p.then(function(im){if(im)return {im:im,p:false};if(!tn)return null;return badge(tn,nat).then(function(u){return u?tryImg(u,true):null}).then(function(i2){return i2?{im:i2,p:false}:null})})};
-})();</script></body><script src="social.js?v=8"></script></html>
+})();</script><script id="xup">(function(){
+var K={pwr:'⚡ পাওয়ার র‍্যাংকিং',bdg:'🏅 ব্যাজ ও অ্যাচিভমেন্ট',cmp:'📊 প্লেয়ার কম্পেয়ার',prd:'🔮 ম্যাচ প্রেডিক্টর',pen:'🎯 পেনাল্টি শুটআউট গেম',rpt:'📋 রিপোর্ট কপি'};
+var X={a:'',b:'',pn:null,cp:''};
+function pl(){return careerStats().list.filter(function(x){return x.P})}
+function pw(x){var gd=Math.max(-3,Math.min(3,(x.GF-x.GA)/x.P)),f=x.F.slice(-5).reduce(function(a,z){return a+(z==='W'?3:z==='D'?1:0)},0);return Math.round((x.W*3+x.D)/(x.P*3)*60+gd*5+f+Math.min(x.tr.length,5)*2)}
+function sel(k,v){return '<select onchange="XU.'+k+'=this.value;R()" style="width:100%;margin:4px 0"><option value="">— প্লেয়ার —</option>'+pl().map(function(x){return '<option '+(x.p===v?'selected':'')+'>'+esc(x.p)+'</option>'}).join('')+'</select>'}
+function bar(l,a,b){var t=(a+b)||1;return '<div style="margin:8px 0"><div style="display:flex;justify-content:space-between;font-size:13px"><b>'+a+'</b><span class="mu">'+l+'</span><b>'+b+'</b></div><div style="display:flex;height:8px;border-radius:9px;overflow:hidden;background:var(--bd)"><i style="width:'+a*100/t+'%;background:#22c55e"></i><i style="width:'+b*100/t+'%;background:#3b82f6"></i></div></div>'}
+function two(){var L=pl(),A=L.find(function(x){return x.p===X.a}),B=L.find(function(x){return x.p===X.b});return sel('a',X.a)+'<div style="text-align:center;font-weight:800">VS</div>'+sel('b',X.b)+(A&&B&&A!==B?'':'<p class="mu">দুইজন প্লেয়ার বাছুন।</p>')}
+function pair(){var L=pl(),A=L.find(function(x){return x.p===X.a}),B=L.find(function(x){return x.p===X.b});return A&&B&&A!==B?[A,B]:null}
+function maxStreak(F){var m=0,c=0;F.forEach(function(z){c=z==='W'?c+1:0;m=Math.max(m,c)});return m}
+function badges(x){var b=[];if(maxStreak(x.F)>=3)b.push('🔥 টানা '+maxStreak(x.F)+' জয়');if(x.CS>=3)b.push('🧤 ক্লিন শিট মাস্টার');if(x.GF>=20)b.push('🎯 গোল মেশিন');if(x.tr.length>=1)b.push('🏆 চ্যাম্পিয়ন');if(x.tr.length>=3)b.push('👑 লিজেন্ড');if(x.P>=25)b.push('🎖 ভেটারান');if(x.P>=5&&x.F.slice(-5).indexOf('L')<0)b.push('🛡 অপরাজিত ফর্ম');if(x.P>=5&&x.W/x.P>=.7)b.push('💎 ৭০%+ জয়');return b}
+function pen(){var g=X.pn||(X.pn={u:0,c:0,n:0,t:'s',log:[],end:false}),D=['⬅️ বাঁ','⬆️ মাঝ','➡️ ডান'];if(g.end)return '<div class="champ">'+(g.u>g.c?'🏆 আপনি জিতেছেন!':g.u<g.c?'😅 কম্পিউটার জিতেছে':'🤝 ড্র')+'</div><div class="agg"><b>'+g.u+' – '+g.c+'</b></div><button class="big" onclick="XU.pn=null;R()">🔄 আবার খেলুন</button>';return '<div class="agg"><b>আপনি '+g.u+' – '+g.c+' কম্পিউটার</b> · শট '+(g.n+1)+'/১০</div><p class="mu" style="text-align:center">'+(g.t==='s'?'⚽ কোন দিকে শট মারবেন?':'🧤 কোন দিকে ঝাঁপ দেবেন?')+'</p><div class="row">'+D.map(function(d,i){return '<button style="flex:1;padding:14px" onclick="XU.go('+i+')">'+d+'</button>'}).join('')+'</div><div class="lve">'+g.log.slice().reverse().map(function(l){return '<div class="lvr">'+l+'</div>'}).join('')+'</div>'}
+var XU=window.XU={a:'',b:'',pn:null,
+go:function(i){var g=X.pn,r=Math.random()*3|0,ok;if(g.t==='s'){ok=r!==i;if(ok)g.u++;g.log.push(ok?'⚽ গোল!':'🧤 সেভ!');g.t='d'}else{ok=r!==i;if(ok)g.c++;g.log.push(ok?'😬 কম্পিউটার গোল করল':'🧤 দারুণ সেভ!');g.t='s';g.n++;if(g.n>=5&&g.u!==g.c||g.n>=10)g.end=true}R()},
+cp:function(){var t='⚡ পাওয়ার র‍্যাংকিং\n'+pl().map(function(x){return{x:x,s:pw(x)}}).sort(function(a,b){return b.s-a.s}).map(function(o,i){return(i+1)+'. '+o.x.p+' — '+o.s+' (ম্যাচ '+o.x.P+', জয় '+o.x.W+')'}).join('\n');try{navigator.clipboard.writeText(t)}catch(e){var a=document.createElement('textarea');a.value=t;document.body.appendChild(a);a.select();try{document.execCommand('copy')}catch(z){}a.remove()}X.cp='✅ কপি হয়েছে';R();setTimeout(function(){X.cp='';R()},1800);if(navigator.share)try{navigator.share({text:t})}catch(e){}}};
+Object.defineProperty(XU,'a',{get:function(){return X.a},set:function(v){X.a=v}});Object.defineProperty(XU,'b',{get:function(){return X.b},set:function(v){X.b=v}});Object.defineProperty(XU,'pn',{get:function(){return X.pn},set:function(v){X.pn=v}});
+function body(k){var L=pl(),e='<p class="mu">এখনো কোনো ম্যাচ নেই।</p>',p;
+if(k==='pwr')return L.length?L.map(function(x){return{x:x,s:pw(x)}}).sort(function(a,b){return b.s-a.s}).map(function(o,i){return '<div class="agg" style="text-align:left;display:flex;gap:8px;align-items:center"><b>'+(['🥇','🥈','🥉'][i]||(i+1)+'.')+'</b><b style="flex:1">'+esc(o.x.p)+'</b><span style="background:var(--ac);color:var(--act);border-radius:8px;padding:2px 9px;font-weight:800">'+o.s+'</span></div>'}).join(''):e;
+if(k==='bdg')return L.length?L.map(function(x){var b=badges(x);return '<div style="padding:8px 0;border-bottom:1px solid var(--bd)"><b>'+esc(x.p)+'</b><div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px">'+(b.length?b.map(function(z){return '<span style="background:var(--soft);border-radius:99px;padding:3px 10px;font-size:13px">'+z+'</span>'}).join(''):'<small class="mu">এখনো কোনো ব্যাজ নেই</small>')+'</div></div>'}).join(''):e;
+if(k==='cmp'){p=pair();return two()+(p?bar('ম্যাচ',p[0].P,p[1].P)+bar('জয়',p[0].W,p[1].W)+bar('গোল',p[0].GF,p[1].GF)+bar('হজম গোল',p[0].GA,p[1].GA)+bar('ক্লিন শিট',p[0].CS,p[1].CS)+bar('ট্রফি',p[0].tr.length,p[1].tr.length)+bar('পাওয়ার',pw(p[0]),pw(p[1])):'')}
+if(k==='prd'){p=pair();if(!p)return two();var a=pw(p[0]),b=pw(p[1]),pa=Math.round(100/(1+Math.pow(10,(b-a)/25)));return two()+'<div class="agg" style="margin-top:10px">জয়ের সম্ভাবনা</div>'+bar('%',pa,100-pa)+'<p class="mu" style="text-align:center"><b>'+esc(pa>=50?p[0].p:p[1].p)+'</b> এগিয়ে (পাওয়ার '+a+' বনাম '+b+')</p>'}
+if(k==='pen')return pen();
+if(k==='rpt')return '<button class="big" onclick="XU.cp()">'+(X.cp||'📋 পাওয়ার র‍্যাংক কপি/শেয়ার')+'</button>'}
+var mv=window.menuV,tv=window.tlsV;
+window.menuV=function(){var h=mv.apply(this,arguments);if(!h)return h;var ex=Object.keys(K).map(function(k){return '<button data-ok style="display:flex;align-items:center;gap:8px;text-align:left;padding:12px" onclick="MN=false;mnOpen(\''+k+'\')"><span style="font-size:22px">'+K[k].split(' ')[0]+'</span><b>'+K[k].split(' ').slice(1).join(' ')+'</b></button>'}).join(''),i=h.lastIndexOf('</div><button class="big"');return i<0?h:h.slice(0,i)+ex+h.slice(i)};
+window.tlsV=function(){if(K[TLS])return '<div class="ov tl" onclick="if(event.target===this)tlsClose()"><div class="cb sh" style="max-height:88vh;overflow:auto"><h2>'+K[TLS]+'</h2>'+body(TLS)+'<button class="big" onclick="tlsClose()">বন্ধ করুন</button></div></div>';return tv.apply(this,arguments)};
+})();
+</script><style id="xmod">html{scroll-behavior:smooth}body{-webkit-font-smoothing:antialiased;-webkit-tap-highlight-color:transparent}
+.card,.tcard,.cb{border-radius:22px!important;border:1px solid color-mix(in srgb,var(--ac) 14%,var(--bd))!important;background-image:linear-gradient(160deg,color-mix(in srgb,var(--ac) 7%,transparent),transparent 55%);box-shadow:0 10px 30px -16px rgba(0,0,0,.45)}
+button{transition:transform .15s,box-shadow .25s,filter .2s;position:relative;overflow:hidden}button:active{transform:scale(.95)}
+button.pri,button.big{background:linear-gradient(135deg,var(--ac),color-mix(in srgb,var(--ac) 55%,#000))!important;color:var(--act)!important;border:0!important;box-shadow:0 10px 24px -10px var(--ac)}
+#nav{backdrop-filter:blur(20px) saturate(1.5)!important;border:1px solid color-mix(in srgb,var(--ac) 18%,transparent)!important}
+#nav button.on{background:color-mix(in srgb,var(--ac) 18%,transparent)!important;box-shadow:0 0 0 1px var(--ac) inset,0 8px 20px -8px var(--ac)}
+tr:nth-child(even) td{background:color-mix(in srgb,var(--ac) 5%,transparent)}
+th{letter-spacing:.4px;font-size:11px;text-transform:uppercase;color:var(--mu)}
+.ov .cb{animation:xpop .32s cubic-bezier(.2,.9,.3,1.15)}@keyframes xpop{from{opacity:0;transform:translateY(26px) scale(.95)}}
+#app.xpg{animation:xin .38s cubic-bezier(.2,.8,.2,1)}@keyframes xin{from{opacity:0;transform:translateY(14px)}}
+::-webkit-scrollbar{width:0;height:0}
+.rip{position:absolute;border-radius:50%;background:rgba(255,255,255,.35);transform:scale(0);animation:xr .55s ease-out;pointer-events:none}@keyframes xr{to{transform:scale(4);opacity:0}}
+#xprog{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--ac),#facc15);z-index:10000;transition:width .1s}
+#xtoast{position:fixed;left:50%;top:calc(14px + env(safe-area-inset-top,0px));transform:translate(-50%,-160%);background:rgba(15,23,42,.94);color:#fff;padding:10px 18px;border-radius:99px;z-index:10001;transition:transform .35s cubic-bezier(.2,.9,.3,1.2);font-size:14px;font-weight:600;box-shadow:0 12px 30px rgba(0,0,0,.4);max-width:90vw;text-align:center}#xtoast.on{transform:translate(-50%,0)}
+#xfab{position:fixed;right:16px;bottom:calc(96px + env(safe-area-inset-bottom,0px));width:54px;height:54px;border-radius:50%;border:0;font-size:23px;background:linear-gradient(135deg,var(--ac),color-mix(in srgb,var(--ac) 50%,#000));color:var(--act);box-shadow:0 12px 28px -6px var(--ac);z-index:40;padding:0}
+#xinst{position:fixed;left:12px;right:12px;bottom:calc(96px + env(safe-area-inset-bottom,0px));display:none;align-items:center;gap:10px;padding:12px 14px;border-radius:20px;background:linear-gradient(135deg,#111827,#1f2937);color:#fff;z-index:41;box-shadow:0 14px 34px rgba(0,0,0,.45)}#xinst.on{display:flex}#xinst b{flex:1;font-size:14px}#xinst button{border-radius:99px;padding:8px 14px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style><script id="xmod-js">(function(){
+var d=document,T,dp;
+var t=d.createElement('div');t.id='xtoast';d.body.appendChild(t);
+window.toast=function(m){t.textContent=m;t.classList.add('on');clearTimeout(T);T=setTimeout(function(){t.classList.remove('on')},2400)};
+var p=d.createElement('div');p.id='xprog';d.body.appendChild(p);
+addEventListener('scroll',function(){var h=d.documentElement.scrollHeight-innerHeight;p.style.width=(h>0?scrollY*100/h:0)+'%'},{passive:true});
+d.addEventListener('pointerdown',function(e){var b=e.target.closest&&e.target.closest('button');if(!b)return;var r=b.getBoundingClientRect(),s=Math.max(r.width,r.height),i=d.createElement('i');i.className='rip';i.style.cssText='width:'+s+'px;height:'+s+'px;left:'+(e.clientX-r.left-s/2)+'px;top:'+(e.clientY-r.top-s/2)+'px';b.appendChild(i);setTimeout(function(){i.remove()},600)},{passive:true});
+var f=d.createElement('button');f.id='xfab';f.textContent='☰';f.onclick=function(){try{openMenu()}catch(e){}};d.body.appendChild(f);
+new MutationObserver(function(){f.style.display=d.querySelector('.ov,#wl,#arsp')?'none':''}).observe(d.body,{childList:true});
+var last='';new MutationObserver(function(){var g=d.body.dataset.pg;if(g!==last){last=g;var a=d.getElementById('app');if(a){a.classList.remove('xpg');void a.offsetWidth;a.classList.add('xpg')}}}).observe(d.body,{attributes:true,attributeFilter:['data-pg']});
+addEventListener('offline',function(){toast('📴 অফলাইন — সেভ করা ডেটা চলবে')});addEventListener('online',function(){toast('🟢 অনলাইনে ফিরেছেন')});
+var b=d.createElement('div');b.id='xinst';b.innerHTML='<span style="font-size:24px">📲</span><b>অ্যাপ হিসেবে ইনস্টল করুন</b><button class="pri">ইনস্টল</button><button onclick="this.parentNode.classList.remove(\'on\')" style="background:transparent;color:#fff">✕</button>';d.body.appendChild(b);
+addEventListener('beforeinstallprompt',function(e){e.preventDefault();dp=e;setTimeout(function(){b.classList.add('on')},4000)});
+b.querySelector('.pri').onclick=function(){if(dp){dp.prompt();dp=null}b.classList.remove('on')};
+addEventListener('appinstalled',function(){b.classList.remove('on');toast('✅ ইনস্টল সম্পন্ন')});
+})();
+</script></body><script src="social.js?v=8"></script></html>
